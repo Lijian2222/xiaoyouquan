@@ -1,0 +1,63 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页" //导航栏的标题文字
+			}
+		},{
+			"path" : "pages/job/job",
+			"style" : 
+			{
+				"navigationBarTitleText" : "岗位"
+			}
+		},{
+			"path" : "pages/message/message",
+			"style" : 
+			{
+				"navigationBarTitleText" : "消息"
+			}
+		},{
+			"path" : "pages/my/my",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的"
+			}
+		},
+		
+		
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",//导航栏文字颜色
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#27BA9B",//导航栏文字背景颜色
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#bfbfbf", //文字颜色
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/home.png",
+				"selectedIconPath": "static/home_selected.png"
+			},{
+				"pagePath": "pages/job/job",
+				"text": "岗位",
+				"iconPath": "static/tie.png",
+				"selectedIconPath": "static/tie_selected.png"
+			},{
+				"pagePath": "pages/message/message",
+				"text": "消息",
+				"iconPath": "static/message.png",
+				"selectedIconPath": "static/message_selected.png"
+			},{
+				"pagePath": "pages/my/my",
+				"text": "我的",
+				"iconPath": "static/user.png",
+				"selectedIconPath": "static/user_selected.png"
+			}
+		]
+	},
+	"uniIdRouter": {}
+}

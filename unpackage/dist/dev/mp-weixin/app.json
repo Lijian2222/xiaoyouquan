@@ -1,0 +1,44 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/job/job",
+    "pages/message/message",
+    "pages/my/my"
+  ],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#27BA9B",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/home.png",
+        "selectedIconPath": "static/home_selected.png"
+      },
+      {
+        "pagePath": "pages/job/job",
+        "text": "岗位",
+        "iconPath": "static/tie.png",
+        "selectedIconPath": "static/tie_selected.png"
+      },
+      {
+        "pagePath": "pages/message/message",
+        "text": "消息",
+        "iconPath": "static/message.png",
+        "selectedIconPath": "static/message_selected.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/user.png",
+        "selectedIconPath": "static/user_selected.png"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
