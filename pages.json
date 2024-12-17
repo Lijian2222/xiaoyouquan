@@ -3,37 +3,34 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "首页" //导航栏的标题文字
+				"navigationBarTitleText": "" //导航栏的标题文字
 			}
 		},{
-			"path" : "pages/job/job",
-			"style" : 
-			{
+			"path": "pages/job/job",
+			"style": {
 				"navigationBarTitleText" : "岗位"
-			}
+				}
 		},{
 			"path" : "pages/message/message",
-			"style" : 
-			{
+			"style": {
 				"navigationBarTitleText" : "消息"
 			}
 		},{
-			"path" : "pages/my/my",
-			"style" : 
-			{
+			"path": "pages/my/my",
+			"style": {
 				"navigationBarTitleText" : "我的"
 			}
-		},
+		}
 		
 		
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",//导航栏文字颜色
+		"navigationBarTextStyle": "black",//导航栏文字颜色
 		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#27BA9B",//导航栏文字背景颜色
-		"backgroundColor": "#F8F8F8"
+		"navigationBarBackgroundColor": "#F8F8F8",//导航栏背景颜色
+		"backgroundColor": "#F8F8F8"//
 	},
-	"tabBar": {
+	"tabBar": {//底栏
 		"color": "#bfbfbf", //文字颜色
 		"list": [
 			{
