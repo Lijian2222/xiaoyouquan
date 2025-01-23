@@ -1,0 +1,98 @@
+
+.userHeader.data-v-ea039cdc{
+		width: 80px;
+		height: 80px;
+		margin: 10px;
+		border-radius: 50%;
+}
+.head.data-v-ea039cdc{
+		display: flex;
+		background-color: #f8f8f8;
+}
+.headRight.data-v-ea039cdc{
+		width: 200px;
+		height: 100px;
+}
+.username.data-v-ea039cdc{
+}
+.concern.data-v-ea039cdc{
+		padding: 0px;
+		padding-top: 3px;
+		width: 40px;
+		height: 20px;
+		color: white;
+		font-size: 12px;
+		background-color: #0d99ff;
+		line-height: 12px;
+		display: inline-block;
+		margin-left: 10px;
+		margin-top: 15px;
+		vertical-align: bottom;
+}
+.signature.data-v-ea039cdc{
+		font-size: 12px
+}
+.signaturePicture.data-v-ea039cdc{
+		width: 14px;
+		height: 14px;
+		vertical-align: middle;
+}
+.body.data-v-ea039cdc{
+		background-color: #f8f8f8;
+		height: 700px;
+}
+.content.data-v-ea039cdc{
+		background-color: #fff;
+		width: 350px;
+		height: 150px;
+		margin: 0 auto;
+		border: 1px solid #000;
+		border-radius: 10px;
+}
+.line.data-v-ea039cdc{
+		width: 20px;
+		height: 20px;
+		transform: rotate(90deg);
+		vertical-align: bottom;
+}
+.commentBox.data-v-ea039cdc{
+		margin: 0 auto;
+		background-color: #fff;
+		width: 350px;
+		height: 200px;
+}
+.foot.data-v-ea039cdc{
+		background-color: #fff;
+		width: 100%;
+		height: 50px;
+		padding:10px;
+		display: flex;
+		position: absolute;
+		bottom: 0%;
+		left: 0%;
+}
+.input.data-v-ea039cdc{
+		background-color: #f8f8f8;
+		width: 150px;
+		height: 35px;
+		border-radius: 10px;
+		margin-top: 10px;
+}
+.share.data-v-ea039cdc{
+		width: 25px;
+		height: 25px;
+		margin-top: 17px;
+		margin-left: 10px;
+}
+.good.data-v-ea039cdc{
+		width: 25px;
+		height: 25px;
+		margin-top: 15px;
+		margin-left: 10px;
+}
+.pageView.data-v-ea039cdc{
+		width: 30px;
+		height: 30px;
+		margin-top: 13px;
+		margin-left: 10px;
+}

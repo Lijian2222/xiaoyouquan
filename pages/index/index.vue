@@ -1,10 +1,46 @@
+<script setup>
+	import { onMounted, ref } from 'vue'
+import { postStore } from '../../store/post';
+	const headTabNum = ref(1)
+	
+	
+	const getList1 = postStore().getList1
+	getList1()
+	const getList2 = postStore().getList2
+	getList2()
+	const getList3 = postStore().getList3
+	getList3()
+	// onMounted(()=>{
+	// 	getList1()
+	// })
+	
+	
+</script>
+
 <template>
+	<!-- 首页 -->
 	<view class="home">
-		<view class="head">
-			<homeTab :headTabNum="headTabNum" @newNum="headTabNum=$event"></homeTab>
+		<!-- 首页上面的推荐、校友圈、关注 -->
+		<view class="homeHead">
+			<view @touchend="headTabNum=1">
+				<span>推荐</span>
+				<image src="../../static/line.png" v-show="headTabNum==1"></image>
+			</view>
+			<view @touchend="headTabNum=2">
+				<span>校友圈</span>
+				<image src="../../static/line.png" v-show="headTabNum==2"></image>
+			</view>
+			<view @touchend="headTabNum=3">
+				<span>关注</span>
+				<image src="../../static/line.png" v-show="headTabNum==3"></image>
+			</view>	
 		</view>
-		<view class="body">
-			<homePost  v-for="(item,index) in list" :key="item.id" 
+		<!-- 首页里面的帖子 -->
+		<view class="homeBody">
+		
+			<homePost 
+			v-for="(item,index) in postStore().list1" :key="item.id"
+			v-show="headTabNum==1"
 			:id="item.id"
 			:username="item.nickname"
 			:content="item.content"
@@ -12,83 +48,117 @@
 			:commentNums="item.commentNums"
 			:viewNums="item.viewNums"
 			:time="item.publishTime"
-			@notInteresting="handleNotInteresting"
 			></homePost>
-		</view> 
+			
+			<homePost
+			v-for="(item,index) in postStore().list2" :key="item.id"
+			v-show="headTabNum==2"
+			:id="item.id"
+			:username="item.nickname"
+			:content="item.content"
+			:goodNums="item.goodNums"
+			:commentNums="item.commentNums"
+			:viewNums="item.viewNums"
+			:time="item.publishTime"
+			></homePost>
+			
+			<homePost
+			v-for="(item,index) in postStore().list3" :key="item.id"
+			v-show="headTabNum==3"
+			:id="item.id"
+			:username="item.nickname"
+			:content="item.content"
+			:goodNums="item.goodNums"
+			:commentNums="item.commentNums"
+			:viewNums="item.viewNums"
+			:time="item.publishTime"
+			></homePost>
+			
+		</view>
+		<!-- 蓝色的加号 -->
+		<view class="publish">
+			<image src="../../static/add.png"></image>
+		</view>
 	</view>
-	
 </template>
 
-<script>
-	import axios from 'axios'
-	// const service = axios.create({
-	//   baseURL: 'http://localhost:8080/post/query', // API base URL
-	//   timeout: 5000, // 请求超时时间
-	// });
-	export default {
-		data() {
-			return {
-				list:[],
-				headTabNum:1,
-				queryPost:{
-					"isDeleted":0
+<style scoped lang="less">
+	
+	// 主题背景色：灰色
+	@themeColor: #f8f8f8;
+	
+	// *{
+	// 	box-sizing: border-box;
+	// }
+	
+	.home{
+		// 首页
+		width: 100%;
+		height: 100%;
+		background-color: @themeColor;
+		
+		.homeHead{
+			//首页头部 包含推荐、校友圈、关注
+			display: flex;
+			width: 100vw;
+			height: 10vw;
+
+			view{
+				//推荐或校友圈或关注
+				display: flex;
+				flex-direction: column;
+				width: 15vw;
+				height: 10vw;
+				margin: 0 5vw;
+				text-align: center; 
+				//应用于块级元素而不是行内元素，span是行内元素，
+				//写在span里面在chrome里面有效，在微信开发者工具中无效
+				
+				span{
+					width: 15vw;
+					height: 5vw;
+					line-height: 5vw;
+				}
+				
+				image{
+					//推荐或校友圈或关注里面的下划线
+					width: 5vw;
+					height: 5vw;
+					margin: 0 auto;
 				}
 			}
-		},
-		created(){
-			axios.post('http://localhost:8080/post/query', this.queryPost)
-			        .then(response => {
-			          // 处理响应数据
-			          console.log(response.data);
-					  response.data.forEach(function(element) {
-					  	// 创建一个新的 Date 对象
-						const date=new Date(element.publishTime)
-						// 获取月份（加1因为 getMonth() 返回的月份是从0开始的）
-						const month = (date.getMonth()+1).toString().padStart(2,0);
-						// 获取日期
-						const day = date.getDate().toString().padStart(2, '0');
-						// 获取小时
-						const hours = date.getHours().toString().padStart(2, '0');
-						// 获取分钟
-						const minutes = date.getMinutes().toString().padStart(2, '0');
-						// 获取秒
-						const seconds = date.getSeconds().toString().padStart(2, '0');
-						// 拼接成所需的格式
-						const formattedTime = `${month}-${day} ${hours}:${minutes}:${seconds}`;
-						//重新赋值
-						element.publishTime=formattedTime;
-					  });
-					  this.list=response.data;
-			        })
-			        .catch(error => {
-			          // 处理错误情况
-			          console.error(error);
-			        });
-		},
-		onLoad() {
-
-		},
-		methods: {
-			handleNotInteresting(id){
-				 this.list = this.list.filter(item => item.id!=id);
-			}
-		},
-		// mounted() {
-		//     // 监听点击事件
-		//     document.body.addEventListener('touchend', this.handleBodyTap);
-		// },
-		// beforeDestroy() {
-		//     // 组件销毁前移除事件监听
-		//     document.body.removeEventListener('touchend', this.handleBodyTap);
-		// }
-	}
-</script>
-
-<style scoped>
-	.home{
-		background-color: #f8f8f8;
-	}
+			
+		}
 	
+		.homeBody{
+			display: flex;
+			flex-direction: column;
+			width: 90vw;
+			margin: 0 auto;
+		}
+		
+		.publish{
+			position: fixed;
+			z-index: 9999;
+			width: 12vw;
+			height: 12vw;
+			left: 44%;
+			/* #ifdef H5 */
+			bottom: 4%;
+			/* #endif */
+			/* #ifdef MP-WEIXIN */
+			bottom: -2%;
+			// bottom: calc(4% + var(--window-bottom, 0));
+			/* #endif */
+			
+			
+			image{
+				width: 12vw;
+				height: 12vw;
+				border-radius: 50%;
+			}
+		}
+	}
 	
 	
 </style>

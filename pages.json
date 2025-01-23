@@ -20,6 +20,13 @@
 			"style": {
 				"navigationBarTitleText" : "我的"
 			}
+		},
+		{
+			"path" : "pages/postContent/postContent",
+			"style" : 
+			{
+				"navigationBarTitleText" : "帖子详情页"
+			}
 		}
 		
 		
@@ -54,7 +61,10 @@
 				"iconPath": "static/user.png",
 				"selectedIconPath": "static/user_selected.png"
 			}
-		]
+		],
+		"style":{
+			"z-index":100//自己写的，想让蓝色加号在最上层
+		}
 	},
 	"uniIdRouter": {}
 }

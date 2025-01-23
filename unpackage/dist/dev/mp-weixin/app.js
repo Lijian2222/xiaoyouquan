@@ -6,6 +6,7 @@ if (!Math) {
   "./pages/job/job.js";
   "./pages/message/message.js";
   "./pages/my/my.js";
+  "./pages/postContent/postContent.js";
 }
 const _sfc_main = {
   onLaunch: function() {
@@ -18,8 +19,10 @@ const _sfc_main = {
     console.log("App Hide");
   }
 };
+const pinia = common_vendor.createPinia();
 function createApp() {
   const app = common_vendor.createSSRApp(_sfc_main);
+  app.use(pinia);
   return {
     app
   };

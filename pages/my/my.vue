@@ -1,22 +1,11 @@
-<template>
-	<view>
-		
-	</view>
-</template>
-
-<script>
-	export default {
-		data() {
-			return {
-				
-			}
-		},
-		methods: {
-			
-		}
-	}
+<script setup>
+	
 </script>
 
-<style>
+<template>
+	<view></view>
+</template>
 
+<style>
+	
 </style>
