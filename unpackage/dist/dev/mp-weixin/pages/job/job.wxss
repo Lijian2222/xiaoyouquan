@@ -1,0 +1,68 @@
+.jobFistPage.data-v-824eb1e6 {
+  width: 100vw;
+  height: 120vh;
+  background-color: #f8f8f8;
+}
+.jobFistPage .jobFistPageHead.data-v-824eb1e6 {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 20vw;
+  text-align: center;
+}
+.jobFistPage .jobFistPageHead .compusSelect.data-v-824eb1e6 {
+  width: 100vw;
+  height: 10vw;
+}
+.jobFistPage .jobFistPageHead .compusSelect uni-data-select.data-v-824eb1e6 {
+  width: 30vw;
+  height: 10vw;
+  margin: 0 auto;
+  padding: 0;
+  border: none !important;
+}
+.jobFistPage .jobFistPageHead .otherSelect.data-v-824eb1e6 {
+  display: flex;
+  width: 100vw;
+  height: 10vw;
+}
+.jobFistPage .jobFistPageHead .otherSelect .industrySelect.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+}
+.jobFistPage .jobFistPageHead .otherSelect .industrySelect uni-data-select.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+  margin: 0;
+  padding: 0;
+}
+.jobFistPage .jobFistPageHead .otherSelect .roleSelect.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+}
+.jobFistPage .jobFistPageHead .otherSelect .roleSelect uni-data-select.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+  margin: 0;
+  padding: 0;
+}
+.jobFistPage .jobFistPageHead .otherSelect .salarySelect.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+}
+.jobFistPage .jobFistPageHead .otherSelect .salarySelect uni-data-select.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+  margin: 0;
+  padding: 0;
+}
+.jobFistPage .jobFistPageHead .otherSelect .experienceSelect.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+}
+.jobFistPage .jobFistPageHead .otherSelect .experienceSelect uni-data-select.data-v-824eb1e6 {
+  width: 25vw;
+  height: 10vw;
+  margin: 0;
+  padding: 0;
+}

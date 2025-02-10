@@ -13,27 +13,17 @@ const _sfc_main = {
     content: String,
     goodNums: Number,
     commentNums: Number,
-    viewNums: Number
+    viewNums: Number,
+    retweet: Number,
+    signature: String
   },
   setup(__props) {
     const moreVisbility = common_vendor.ref(true);
     const props = __props;
     let imageSrc = common_vendor.ref("../../static/good.png");
-    common_vendor.index.request({
-      //请求该用户是否点赞过这个帖子，每个帖子都会请求一次后端
-      url: "http://localhost:8080/postGood/query",
-      method: "POST",
-      data: {
-        "postId": props.id,
-        "isDeleted": 0,
-        //如果点赞过且isDeleted=0
-        "userId": 1
-        //暂时写死
-      },
-      success: (res) => {
-        if (res.data.data == 1) {
-          imageSrc.value = alternateImage;
-        }
+    store_post.postStore().requestGood(props.id).then((result) => {
+      if (result) {
+        imageSrc.value = alternateImage;
       }
     });
     function addGood() {
@@ -65,26 +55,38 @@ const _sfc_main = {
         store_post.postStore().subGoodNums(props.id);
       }
     }
+    common_vendor.onMounted(() => {
+      common_vendor.index.$on("goodImageSrc", (goodImageSrc, postId) => {
+        if (props.id == postId) {
+          imageSrc.value = goodImageSrc;
+        }
+      });
+    });
+    const urlParameter = common_vendor.computed(() => {
+      return `id=${props.id}&username=${props.username}&time=${props.time}&content=${props.content}&goodNums=${props.goodNums}&commentNums=${props.commentNums}&viewNums=${props.viewNums}&retweet=${props.retweet}&signature=${props.signature}&imageSrc=${imageSrc.value}`;
+    });
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0$1,
+        a: common_assets._imports_1$1,
         b: common_vendor.t(__props.username),
         c: common_vendor.t(__props.time),
-        d: common_assets._imports_1$1,
+        d: common_assets._imports_1$3,
         e: moreVisbility.value,
         f: common_vendor.o(($event) => moreVisbility.value = false),
-        g: common_assets._imports_2,
-        h: common_assets._imports_3,
-        i: common_vendor.o(($event) => moreVisbility.value = true),
-        j: !moreVisbility.value,
-        k: common_vendor.t(__props.content),
-        l: common_vendor.unref(imageSrc),
-        m: common_vendor.o(addGood),
-        n: common_vendor.t(__props.goodNums),
-        o: common_assets._imports_4,
-        p: common_vendor.t(__props.commentNums),
-        q: common_assets._imports_5,
-        r: common_vendor.t(__props.viewNums)
+        g: common_assets._imports_2$1,
+        h: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().notInteresting(props.id)),
+        i: common_assets._imports_3$1,
+        j: common_vendor.o(($event) => moreVisbility.value = true),
+        k: !moreVisbility.value,
+        l: common_vendor.t(__props.content),
+        m: "/pages/postContent/postContent?" + urlParameter.value,
+        n: common_vendor.unref(imageSrc),
+        o: common_vendor.o(addGood),
+        p: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.goodNums)),
+        q: common_assets._imports_4,
+        r: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.commentNums)),
+        s: common_assets._imports_5,
+        t: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.viewNums))
       };
     };
   }

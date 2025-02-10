@@ -1,6 +1,6 @@
 <script setup>
 	import { onMounted, ref } from 'vue'
-import { postStore } from '../../store/post';
+	import { postStore } from '../../store/post';
 	const headTabNum = ref(1)
 	
 	
@@ -10,9 +10,7 @@ import { postStore } from '../../store/post';
 	getList2()
 	const getList3 = postStore().getList3
 	getList3()
-	// onMounted(()=>{
-	// 	getList1()
-	// })
+	
 	
 	
 </script>
@@ -48,6 +46,8 @@ import { postStore } from '../../store/post';
 			:commentNums="item.commentNums"
 			:viewNums="item.viewNums"
 			:time="item.publishTime"
+			:retweet="item.retweet"
+			:signature="item.signature"
 			></homePost>
 			
 			<homePost
@@ -60,6 +60,8 @@ import { postStore } from '../../store/post';
 			:commentNums="item.commentNums"
 			:viewNums="item.viewNums"
 			:time="item.publishTime"
+			:retweet="item.retweet"
+			:signature="item.signature"
 			></homePost>
 			
 			<homePost
@@ -72,6 +74,8 @@ import { postStore } from '../../store/post';
 			:commentNums="item.commentNums"
 			:viewNums="item.viewNums"
 			:time="item.publishTime"
+			:retweet="item.retweet"
+			:signature="item.signature"
 			></homePost>
 			
 		</view>

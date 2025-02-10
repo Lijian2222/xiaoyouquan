@@ -1,170 +1,332 @@
 <script setup>
-	import { ref } from 'vue'
+	import { onMounted, ref } from 'vue'
+	import { postStore } from '../../store/post'
+	const options = ref({})
+	//新页面接收后：
+	onMounted(()=>{
+		const pages = getCurrentPages()
+		const currentPage = pages[pages.length - 1]
+		options.value = currentPage.options
+		// console.log(options.value.imageSrc)
+		
+	})
+	
+	//点赞图片相关 每个帖子都有一个独立的imageSrc 只要涉及到imageSrc就不能写到post.js仓库里面
+	let imageSrc = ref('../../static/good.png')
+	const defaultImage = '../../static/good.png'//未点赞图片
+	const alternateImage = '../../static/good2.png'//已点赞图片
+	
+	//请求该用户是否点赞过这个帖子，每个帖子都会请求一次后端
+	postStore().requestGood(options.id).then((result)=>{
+		if(result){
+			imageSrc.value = alternateImage
+		}
+	})
+	
+	
+	function addGood(){//该用户给这个帖子点赞或取消点赞
+		// console.log(options.value.imageSrc)
+		
+		if(options.value.imageSrc == defaultImage){//如果点击的时候是未点赞图片
+			// console.log(options.value.id)
+			uni.request({
+				url:'http://localhost:8080/postGood/insert',
+				method:'POST',
+				data:{
+					"postId":options.value.id,
+					"isDeleted":0,
+					"userId":1 //暂时写死
+				}
+			})
+			//本地页面改变样式
+			options.value.imageSrc = alternateImage
+			//触发主页改变样式
+			uni.$emit("goodImageSrc",alternateImage,options.value.id)
+			//帖子点赞数量本地+1
+			postStore().addGoodNums(options.value.id)
+			//页面内容不会同步更新，手动+1
+			options.value.goodNums++
+		}else{//否则
+			uni.request({
+				url:'http://localhost:8080/postGood/delete',
+				method:'POST',
+				data:{
+					"postId":options.value.id,
+					"isDeleted":1,
+					"userId":1 //暂时写死
+				}
+			})
+			//本地页面改变样式
+			options.value.imageSrc = defaultImage
+			//触发主页改变样式
+			uni.$emit("goodImageSrc",defaultImage,options.value.id)
+			//帖子点赞数量本地-1
+			postStore().subGoodNums(options.value.id)
+			//页面内容不会同步更新，手动-1
+			options.value.goodNums--
+		}
+	}
 	
 </script>
 
 <template>
-	<!-- <view class="head">
-		<view class="headLeft">
-			<image src="@/static/userHeader1.jpg" alt="" class="userHeader"/>
+	<view class="postContent">
+		<!-- 用户头像，用户昵称，个性签名 -->
+		<view class="postContentHead">
+			<view class="userHeader">
+				<image src="@/static/userHeader1.jpg" alt="" />
+			</view>
+			<view class="usernameAndSingnature">
+				<view class="username">
+					<span>{{options.username}}</span>
+					<button>+关注</button>
+				</view>
+				<view class="signature">
+					<image src="../../static/signature.png"></image>
+					<span class="signature">{{options.signature}}</span>
+				</view>
+				
+			</view>
 		</view>
-		<view class="headRight">
-			<span class="username">我的昵称</span>
-			<button class="concern">+关注</button>
-			<br />
-			<br />
-			<image src="../../static/signature.png" mode="" class="signaturePicture"></image>
-			<span class="signature">这个人有点懒什么也没留下</span>
+		<!-- 帖子详情和评论 -->
+		<view class="postContentBody">
+			<!-- 帖子详情 -->
+			<view class="content">
+				<view class="details">{{options.content}}</view>
+				<view class="title">#校友圈创作赏金赛</view>		
+				<view class="publishTime">{{options.time}} 深圳</view>
+			</view>
+			<!-- 评论 -->
+			<view class="comment">
+				<!-- 蓝色的竖线和“全部评论”标题 -->
+				<view class="commentTitle">
+					<image src="../../static/line.png"></image>
+					<span>全部评论</span>
+				</view>
+				<view class="commentDetails">
+					
+				</view>
+				
+			</view>
+		</view>
+		<!-- 参与评论和点赞收藏情况 -->
+		<view class="postContentBodyFoot">
+			<input type="text" placeholder="      参与一下~"/>
+			<view class="share">
+				<image src="../../static/share.png"></image>
+				<span>{{ postStore().formatNumber(options.retweet) }}</span>
+			</view>
+			<view class="good" @touchend="addGood">
+				<image :src="options.imageSrc"></image>
+				<span>{{ postStore().formatNumber(options.goodNums) }}</span>
+			</view>
+			<view class="pageView">
+				<image src="../../static/pageView.png"></image>
+				<span>{{ postStore().formatNumber(options.viewNums) }}</span>
+			</view>
 		</view>
 	</view>
-	<view class="body"> -->
-		<!-- 帖子详情 -->
-		<!-- <view class="content">
-			有了大模型......似乎好像没他也行
-			#校友圈创作赏金赛
-			11-09 16：55 深圳
-		</view> -->
-		<!-- 评论 -->
-		<!-- <br />
-		<br />
-		<image src="../../static/line.png" mode="" class="line"></image>
-		<span>全部评论</span>
-		<br />
-		<br />
-		<view class="commentBox">
-			
-		</view>
-		<br />
-		<br />
-	</view>
-	<view class="foot">
-		<br />
-		<br />
-		<input type="text" placeholder="      参与一下~" class="input"/>
-		<image src="../../static/share.png" mode="" class="share"></image>
-		<span>1231</span>
-		<image src="../../static/good4.png" mode="" class="good"></image>
-		<span>122</span>
-		<image src="../../static/pageView2.png" mode="" class="pageView"></image>
-		<span>1223</span>
-	</view> -->
+	
 </template>
 
 
 
-<style scoped>
+<style scoped lang="less">
 	
-	.userHeader{
-		width: 80px;
-		height: 80px;
-		margin: 10px;
-		border-radius: 50%;
-	}
-	.head{
+	// 主题背景色：灰色
+	@themeColor: #f8f8f8;
+	
+	//发布时间，点赞数量，评论数量，浏览量的文字颜色：灰色
+	@fontColor1:#848484;
+	
+	// 整个帖子详情页
+	.postContent{
 		display: flex;
-		background-color: #f8f8f8;
-	}
-	.headRight{
-		width: 200px;
-		height: 100px;
+		flex-direction: column;
+		width: 100vw;
+		height: 100vh;
+		background-color: @themeColor;
 		
-	}
+		// 用户头像，昵称，个性签名
+		.postContentHead{
+			display: flex;
+			width: 90vw;
+			height: 20vw;
+			margin: 2vw auto;
+			// background-color: pink;
+			
+			.userHeader{
+				width: 20vw;
+				height: 20vw;
+				image{
+					width: 20vw;
+					height: 20vw;
+					border-radius: 50%;
+				}
+			}
+			
+			.usernameAndSingnature{
+				display: flex;
+				flex-direction: column;
+				width:70vw;
+				height: 20vw;
+				padding: 0 3vw;
+				
+				
+				.username{
+					display: flex;
+					width: 70vw;
+					height: 10vw;
+					font-size: 4vw;
+					line-height: 10vw;
+					button{
+						display: inline-block;
+						width: 13vw;
+						height: 6vw;
+						padding: 0;
+						margin: 2vw;
+						font-size: 3.5vw;
+						line-height: 6vw;
+						color: #fff;
+						background-color: #0d99ff;
+					}
+				}
+				
+				.signature{
+					display: flex;
+					width: 70vw;
+					height: 10vw;
+					color: @fontColor1;
+					image{
+						width: 5vw;
+						height: 5vw;
+					}
+				}
+			}
+		}
 	
-	.username{
+		//帖子详情和评论区
+		.postContentBody{
+			
+			display: flex;
+			flex-direction: column;
+			width: 90vw;
+			height: 100vh;
+			margin: 2vw auto;
+			
+			
+			//帖子详情
+			.content{
+				box-sizing: border-box;
+				width: 90vw;
+				padding: 3vw;
+				border-radius: 3vw;
+				background-color: #fff;
+				
+				.details{
+					margin: 2vw 0;
+					font-size: 4.5vw;
+				}
+				
+				.title{
+					margin: 2vw 0;
+					font-size: 4vw;
+					color: #0d99ff;
+				}
+				
+				.publishTime{
+					font-size: 3vw;
+					color: @fontColor1;
+				}
+				
+			}
 		
-	}
-	
-	.concern{
-		padding: 0px;
-		padding-top: 3px;
-		width: 40px;
-		height: 20px;
-		color: white;
-		font-size: 12px;
-		background-color: #0d99ff;
-		line-height: 12px;
-		display: inline-block;
-		margin-left: 10px;
-		margin-top: 15px;
-		vertical-align: bottom;
+			//评论区
+			.comment{
+				
+				
+				width: 90vw;
+				
+				// 蓝色竖线和“全部评论”标题
+				.commentTitle{
+					display: flex;
+					width: 90vw;
+					height: 10vw;
+					margin: 3vw auto;
+					line-height: 10vw;
+					image{
+						width: 6vw;
+						height: 6vw;
+						margin-top: 2vw;
+						transform: rotate(90deg);
+					}
+				}
+				
+				.commentDetails{
+					width: 90vw;
+					height: 90vw;
+					margin: 0 auto;
+					border-radius: 3vw;
+					background-color: #fff;
+				}
+				
+			}
 		
-	}
-	
-	.signature{
-		font-size: 12px
-	}
-	.signaturePicture{
-		width: 14px;
-		height: 14px;
-		vertical-align: middle;
 		
+		}
+	
+		//底部参与评论，点赞
+		.postContentBodyFoot{
+			position: fixed;
+			bottom: 0%;
+			display: flex;
+			width: 100vw;
+			height: 15vw;
+			border-radius: 0 0 5vw 5vw;
+			color: @fontColor1;
+			background-color: #fff;
+			
+			
+			input{
+				width: 50vw;
+				height: 10vw;
+				margin: 3vw;
+				border-radius: 5vw;
+				background-color: @themeColor;
+			}
+			
+			image{
+				width: 7vw;
+				height: 7vw;
+				margin-top: 4vw;
+			}
+			
+			.share{
+				display: flex;
+				width: 15vw;
+				height: 15vw;
+				image{
+					width: 6vw;
+					height: 6vw;
+					margin-top: 5vw;
+				}
+				
+			}
+			
+			.good{
+				display: flex;
+				width: 15vw;
+				height: 15vw;
+			}
+			
+			.pageView{
+				display: flex;
+				width: 15vw;
+				height: 15vw;
+			}
+		}
+	
 	}
 	
-	.body{
-		background-color: #f8f8f8;
-		height: 700px;
-	}
-	.content{
-		background-color: #fff;
-		width: 350px;
-		height: 150px;
-		margin: 0 auto;
-		border: 1px solid #000;
-		border-radius: 10px;
-		
-	}
 	
-	.line{
-		width: 20px;
-		height: 20px;
-		transform: rotate(90deg);
-		vertical-align: bottom;
-	}
-	
-	.commentBox{
-		margin: 0 auto;
-		background-color: #fff;
-		width: 350px;
-		height: 200px;
-	}
-	
-	.foot{
-		background-color: #fff;
-		width: 100%;
-		height: 50px;
-		padding:10px;
-		display: flex;
-		position: absolute;
-		bottom: 0%;
-		left: 0%;
-	}
-	
-	.input{
-		background-color: #f8f8f8;
-		width: 150px;
-		height: 35px;
-		border-radius: 10px;
-		margin-top: 10px;
-	}
-	
-	.share{
-		width: 25px;
-		height: 25px;
-		margin-top: 17px;
-		margin-left: 10px;
-	}
-	
-	.good{
-		width: 25px;
-		height: 25px;
-		margin-top: 15px;
-		margin-left: 10px;
-	}
-	
-	.pageView{
-		width: 30px;
-		height: 30px;
-		margin-top: 13px;
-		margin-left: 10px;
-	}
 </style>

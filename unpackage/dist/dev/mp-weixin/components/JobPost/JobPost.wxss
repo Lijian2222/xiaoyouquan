@@ -1,0 +1,95 @@
+/* 岗位的盒子模型 */
+.jobPost.data-v-1a3dc4be {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 32vw;
+  margin: 2vw auto;
+  padding: 3vw 3vw 2vw 3vw;
+  background-color: #fff;
+}
+.jobPost .jobPostHead.data-v-1a3dc4be {
+  display: flex;
+  justify-content: space-between;
+  width: 94vw;
+  height: 7vw;
+}
+.jobPost .jobPostHead .jobName.data-v-1a3dc4be {
+  width: 50vw;
+  height: 7vw;
+  font-size: 5vw;
+  line-height: 7vw;
+}
+.jobPost .jobPostHead .salaryAndStar.data-v-1a3dc4be {
+  display: flex;
+  justify-content: flex-end;
+  width: 44vw;
+  height: 7vw;
+  font-size: 5vw;
+  font-weight: 900;
+  line-height: 7vw;
+  color: #0d99ff;
+}
+.jobPost .jobPostHead .salaryAndStar image.data-v-1a3dc4be {
+  width: 7vw;
+  height: 7vw;
+  margin-top: -3vw;
+}
+.jobPost .jobPostBody.data-v-1a3dc4be {
+  width: 94vw;
+  height: 10vw;
+  margin-top: 3vw;
+}
+.jobPost .jobPostBody view.data-v-1a3dc4be {
+  display: inline-block;
+  padding: 1.5vw;
+  margin-right: 1.5vw;
+  border-radius: 1vw;
+  font-size: 3vw;
+  color: #848484;
+  background-color: #ededed;
+}
+.jobPost .jobPostFoot.data-v-1a3dc4be {
+  display: flex;
+  justify-content: space-between;
+  width: 94vw;
+  height: 7vw;
+}
+.jobPost .jobPostFoot .jobPostFootLeft.data-v-1a3dc4be {
+  display: flex;
+}
+.jobPost .jobPostFoot .jobPostFootLeft .userHead.data-v-1a3dc4be {
+  height: 7vw;
+  margin: auto 0;
+}
+.jobPost .jobPostFoot .jobPostFootLeft .userHead image.data-v-1a3dc4be {
+  width: 7vw;
+  height: 7vw;
+  border-radius: 50%;
+}
+.jobPost .jobPostFoot .jobPostFootLeft .username.data-v-1a3dc4be {
+  margin-left: 2vw;
+  color: #848484;
+  font-size: 3vw;
+  line-height: 7vw;
+}
+.jobPost .jobPostFoot .jobPostFootLeft .academicPicture.data-v-1a3dc4be {
+  height: 7vw;
+  margin: auto 0;
+  margin-left: 3vw;
+}
+.jobPost .jobPostFoot .jobPostFootLeft .academicPicture image.data-v-1a3dc4be {
+  width: 7vw;
+  height: 7vw;
+}
+.jobPost .jobPostFoot .jobPostFootLeft .academicInfo.data-v-1a3dc4be {
+  color: #848484;
+  font-size: 3vw;
+  line-height: 7vw;
+}
+.jobPost .jobPostFoot .jobPostFootRight .publishTime.data-v-1a3dc4be {
+  margin-left: 3vw;
+  height: 10vw;
+  color: #848484;
+  font-size: 3vw;
+  line-height: 7vw;
+}

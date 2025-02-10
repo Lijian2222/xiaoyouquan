@@ -1,7 +1,7 @@
 <script setup>
 	
-	import { onMounted, ref } from 'vue'
-	import { postStore } from '../../store/post';
+	import { onMounted, ref, computed } from 'vue'
+	import { postStore } from '../../store/post'
 	
 	
 	const moreVisbility = ref(true)
@@ -16,29 +16,25 @@
 		content:String,
 		goodNums:Number,
 		commentNums:Number,
-		viewNums:Number
+		viewNums:Number,
+		retweet:Number,
+		signature:String
 	})
 	
-	//点赞图片相关
+	//点赞图片相关 每个帖子都有一个独立的imageSrc 只要涉及到imageSrc就不能写到post.js仓库里面
 	let imageSrc = ref('../../static/good.png')
 	const defaultImage = '../../static/good.png'//未点赞图片
 	const alternateImage = '../../static/good2.png'//已点赞图片
-	uni.request({//请求该用户是否点赞过这个帖子，每个帖子都会请求一次后端
-		url:'http://localhost:8080/postGood/query',
-		method:'POST',
-		data:{
-			"postId":props.id,
-			"isDeleted":0,//如果点赞过且isDeleted=0
-			"userId":1 //暂时写死
-		},
-		success:res=>{
-			// console.log(res)
-			if(res.data.data==1){
-				imageSrc.value = alternateImage
-			}
+
+	//请求该用户是否点赞过这个帖子，每个帖子都会请求一次后端
+	postStore().requestGood(props.id).then((result)=>{
+		if(result){
+			imageSrc.value = alternateImage
 		}
 	})
-	function addGood(){//该用户给这个帖子点赞
+	
+	
+	function addGood(){//该用户给这个帖子点赞或取消点赞
 		if(imageSrc.value == defaultImage){//如果点击的时候是未点赞图片
 			uni.request({
 				url:'http://localhost:8080/postGood/insert',
@@ -49,8 +45,9 @@
 					"userId":1 //暂时写死
 				}
 			})
-			imageSrc.value = alternateImage//改变样式
-			//帖子点赞数量+1
+			//改变样式
+			imageSrc.value = alternateImage
+			//帖子点赞数量本地+1
 			postStore().addGoodNums(props.id)
 		}else{//否则
 			uni.request({
@@ -64,11 +61,26 @@
 			})
 			
 			imageSrc.value = defaultImage
-			//帖子点赞数量-1
+			//帖子点赞数量本地-1
 			postStore().subGoodNums(props.id)
 		}
-		
 	}
+	
+	onMounted(()=>{
+		uni.$on('goodImageSrc',(goodImageSrc,postId)=>{
+			if(props.id==postId){
+				imageSrc.value=goodImageSrc
+			}
+		})
+	})
+	
+	
+	// 动态计算 当imageSrc.value,props.goodNums发生变化，重新计算urlParameter
+	// 因为url是静态解析的，一开始imageSrc=${imageSrc.value}}的值已经写死了,相当于imageSrc=xxx字符串
+	// 但是在页面内部修改这些来自仓库的数据，页面内部并不会实时更新，因为url传递数据是一次性的，没有绑定关系
+	const urlParameter = computed(()=>{
+		return `id=${props.id}&username=${props.username}&time=${props.time}&content=${props.content}&goodNums=${props.goodNums}&commentNums=${props.commentNums}&viewNums=${props.viewNums}&retweet=${props.retweet}&signature=${props.signature}&imageSrc=${imageSrc.value}` 
+	})
 
 </script>
 
@@ -92,7 +104,7 @@
 				<!-- 不感兴趣和举报 -->
 				<view v-show="!moreVisbility" class="moreView">
 					<!-- 不感兴趣 -->
-					<view class="notInteresting">
+					<view class="notInteresting" @touchend="postStore().notInteresting(props.id)">
 						<image src="../../static/notInteresting.png"></image>
 						<view>不感兴趣</view>
 					</view>
@@ -106,27 +118,27 @@
 		</view>
 		<!-- 存帖子的内容 -->
 		<view class="homePostBody">
-			<!-- <navigator url="/pages/postContent/postContent"> -->
-				<!-- 存帖子的主要内容,点击跳转到详情页 -->
+			<!-- 存帖子的主要内容,点击跳转到详情页 -->
+			<navigator :url="'/pages/postContent/postContent?'+urlParameter">
 				<span>{{content}}</span>
-			<!-- </navigator> -->
+			</navigator>
 		</view>
 		<!-- 存帖子的底部，包括点赞，评论，浏览量 -->
 		<view class="homePostFoot">	
 			<!-- 点赞图片和数量 -->
 			<view class="addGood">
-				<image :src='imageSrc' alt='addGood' @touchend="addGood"></image>
-				<view>{{ goodNums }}</view>
+				<image :src='imageSrc' @touchend="addGood"></image> 
+				<view>{{ postStore().formatNumber(goodNums) }}</view>
 			</view>
 			<!-- 评论图片和数量 -->
 			<view class='comment'>
 				<image src="../../static/message_selected.png"></image>
-				<view>{{ commentNums }}</view>
+				<view>{{ postStore().formatNumber(commentNums) }}</view>
 			</view>
 			<!-- 浏览量图片和数量 -->
 			<view class='pageView'>
 				<image src="../../static/pageView.png"></image>
-				<view>{{ viewNums }}</view>
+				<view>{{ postStore().formatNumber(viewNums) }}</view>
 			</view>	
 		</view>
 	</view>

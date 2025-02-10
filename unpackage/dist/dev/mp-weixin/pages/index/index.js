@@ -22,13 +22,13 @@ const _sfc_main = {
     getList3();
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0,
+        a: common_assets._imports_2,
         b: headTabNum.value == 1,
         c: common_vendor.o(($event) => headTabNum.value = 1),
-        d: common_assets._imports_0,
+        d: common_assets._imports_2,
         e: headTabNum.value == 2,
         f: common_vendor.o(($event) => headTabNum.value = 2),
-        g: common_assets._imports_0,
+        g: common_assets._imports_2,
         h: headTabNum.value == 3,
         i: common_vendor.o(($event) => headTabNum.value = 3),
         j: common_vendor.f(common_vendor.unref(store_post.postStore)().list1, (item, index, i0) => {
@@ -43,7 +43,9 @@ const _sfc_main = {
               goodNums: item.goodNums,
               commentNums: item.commentNums,
               viewNums: item.viewNums,
-              time: item.publishTime
+              time: item.publishTime,
+              retweet: item.retweet,
+              signature: item.signature
             })
           };
         }),
@@ -60,7 +62,9 @@ const _sfc_main = {
               goodNums: item.goodNums,
               commentNums: item.commentNums,
               viewNums: item.viewNums,
-              time: item.publishTime
+              time: item.publishTime,
+              retweet: item.retweet,
+              signature: item.signature
             })
           };
         }),
@@ -77,7 +81,9 @@ const _sfc_main = {
               goodNums: item.goodNums,
               commentNums: item.commentNums,
               viewNums: item.viewNums,
-              time: item.publishTime
+              time: item.publishTime,
+              retweet: item.retweet,
+              signature: item.signature
             })
           };
         }),

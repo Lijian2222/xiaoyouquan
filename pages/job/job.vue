@@ -1,11 +1,187 @@
 <script setup>
+
+	import { onMounted, ref, watch } from 'vue'
+	import { jobStore } from '../../store/job';
+	const campusValue = ref('')
+	const campusList = ref([])
+	// function onValueChange(selectValue){
+	// 	console.log(selectValue)
+	// }
+	// watch(campusValue,(newValue,oldValue)=>{
+	// 	console.log(newValue)
+	// })
 	
+	const jobList = ref([])
+	
+		
+	const list = ref([1,2,3])
+	
+	onMounted(async ()=>{
+		jobList.value = await jobStore().getJob()
+		// console.log(jobList.value)
+		campusList.value = await jobStore().queryCampus()
+		// console.log(campusList.value)
+		
+		
+	})
+	
+	function selectCampus(){
+		// console.log(campusValue.value)
+		uni.request({
+			url:"http://localhost:8080/job/query",
+			method:"post",
+			data:{
+				id:'4',
+				campus:campusValue.value
+			},
+			success:(res)=>{
+				// console.log(res)
+				jobList.value=res.data.data
+				// resolve(campus)
+			},
+			fail:(err)=>{
+				reject(err)
+			}
+		})
+	}
 </script>
 
 <template>
-	<view></view>
+	<view class="jobFistPage">
+		<!-- 选择学校，行业，职位，薪资，经验 -->
+		<view class="jobFistPageHead">
+			<view class="campusSelect">
+				<uni-data-select v-model="campusValue" :localdata='campusList' placeholder="请选择您的学校" @change="selectCampus"></uni-data-select>
+			</view>
+			<view class="otherSelect">
+				<view class="industrySelect">
+					<uni-data-select v-model="campusValue" :localdata='list' text-key='text' value-key='value' placeholder="行业筛选"></uni-data-select>
+				</view>
+				<view class="roleSelect">
+					<uni-data-select v-model="campusValue" :localdata='list' text-key='text' value-key='value' placeholder="职位筛选"></uni-data-select>
+				</view>
+				<view class="salarySelect">
+					<uni-data-select v-model="campusValue" :localdata='list' text-key='text' value-key='value' placeholder="薪资范围"></uni-data-select>
+				</view>
+				<view class="experienceSelect">
+					<uni-data-select v-model="campusValue" :localdata='list' text-key='text' value-key='value' placeholder="经验要求"></uni-data-select>
+				</view>
+			</view>
+		</view>
+		<!-- 岗位的帖子 -->
+		<view class="jobFistPageBody">
+			<JobPost 
+			v-for="(item,index) in jobList" :key="item"
+			:id="item.id"
+			:userId="item.userId"
+			:jobName="item.jobName"
+			:jobDetail="item.jobDetail"
+			:position1="item.position1"
+			:position2="item.position2"
+			:position3="item.position3"
+			:academicAcquired="item.academicAcquired"
+			:experienceAcquired="item.experienceAcquired"
+			:jobBelonging="item.jobBelonging"
+			:nature="item.nature"
+			:nickname="item.nickname"
+			:publishTime="item.publishTime"
+			:salaryStart="item.salaryStart"
+			:salaryEnd="item.salaryEnd"
+			:salaryNums="item.salaryNums"
+			></JobPost>
+		</view>
+	</view>
 </template>
 
-<style>
+<style scoped lang="less">
+	
+	// 主题背景色：灰色
+	@themeColor: #f8f8f8;
+	
+	// 整个岗位页面
+	.jobFistPage{
+		width: 100vw;
+		height: 120vh;
+		background-color: @themeColor;
+	
+		//上面的选择栏
+		.jobFistPageHead{
+			display: flex;
+			flex-direction: column;
+			width: 100vw;
+			height: 20vw;
+			text-align: center;
+			
+			
+			.campusSelect{
+				width: 100vw;
+				height: 10vw;
+				
+				uni-data-select{
+					width: 30vw;
+					height: 10vw;
+					margin: 0 auto;
+					padding: 0;
+					border: none !important;
+				}
+				
+				
+			}
+			
+			.otherSelect{
+				display: flex;
+				width: 100vw;
+				height: 10vw;
+				
+				.industrySelect{
+					width: 25vw;
+					height: 10vw;
+					uni-data-select{
+						width: 25vw;
+						height: 10vw;
+						margin: 0;
+						padding: 0;
+					}
+				}
+				
+				.roleSelect{
+					
+					width: 25vw;
+					height: 10vw;
+					uni-data-select{
+						width: 25vw;
+						height: 10vw;
+						margin: 0;
+						padding: 0;
+					}
+				}
+				
+				.salarySelect{
+					width: 25vw;
+					height: 10vw;
+					uni-data-select{
+						width: 25vw;
+						height: 10vw;
+						margin: 0;
+						padding: 0;
+					}
+				}
+				
+				.experienceSelect{
+					width: 25vw;
+					height: 10vw;
+					uni-data-select{
+						width: 25vw;
+						height: 10vw;
+						margin: 0;
+						padding: 0;
+					}
+				}
+			}
+			
+			
+		}
+	}
+	
 	
 </style>

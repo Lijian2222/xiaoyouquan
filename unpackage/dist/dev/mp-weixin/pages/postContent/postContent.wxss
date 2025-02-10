@@ -1,98 +1,149 @@
-
-.userHeader.data-v-ea039cdc{
-		width: 80px;
-		height: 80px;
-		margin: 10px;
-		border-radius: 50%;
+.postContent.data-v-ea039cdc {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f8f8;
 }
-.head.data-v-ea039cdc{
-		display: flex;
-		background-color: #f8f8f8;
+.postContent .postContentHead.data-v-ea039cdc {
+  display: flex;
+  width: 90vw;
+  height: 20vw;
+  margin: 2vw auto;
 }
-.headRight.data-v-ea039cdc{
-		width: 200px;
-		height: 100px;
+.postContent .postContentHead .userHeader.data-v-ea039cdc {
+  width: 20vw;
+  height: 20vw;
 }
-.username.data-v-ea039cdc{
+.postContent .postContentHead .userHeader image.data-v-ea039cdc {
+  width: 20vw;
+  height: 20vw;
+  border-radius: 50%;
 }
-.concern.data-v-ea039cdc{
-		padding: 0px;
-		padding-top: 3px;
-		width: 40px;
-		height: 20px;
-		color: white;
-		font-size: 12px;
-		background-color: #0d99ff;
-		line-height: 12px;
-		display: inline-block;
-		margin-left: 10px;
-		margin-top: 15px;
-		vertical-align: bottom;
+.postContent .postContentHead .usernameAndSingnature.data-v-ea039cdc {
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  height: 20vw;
+  padding: 0 3vw;
 }
-.signature.data-v-ea039cdc{
-		font-size: 12px
+.postContent .postContentHead .usernameAndSingnature .username.data-v-ea039cdc {
+  display: flex;
+  width: 70vw;
+  height: 10vw;
+  font-size: 4vw;
+  line-height: 10vw;
 }
-.signaturePicture.data-v-ea039cdc{
-		width: 14px;
-		height: 14px;
-		vertical-align: middle;
+.postContent .postContentHead .usernameAndSingnature .username button.data-v-ea039cdc {
+  display: inline-block;
+  width: 13vw;
+  height: 6vw;
+  padding: 0;
+  margin: 2vw;
+  font-size: 3.5vw;
+  line-height: 6vw;
+  color: #fff;
+  background-color: #0d99ff;
 }
-.body.data-v-ea039cdc{
-		background-color: #f8f8f8;
-		height: 700px;
+.postContent .postContentHead .usernameAndSingnature .signature.data-v-ea039cdc {
+  display: flex;
+  width: 70vw;
+  height: 10vw;
+  color: #848484;
 }
-.content.data-v-ea039cdc{
-		background-color: #fff;
-		width: 350px;
-		height: 150px;
-		margin: 0 auto;
-		border: 1px solid #000;
-		border-radius: 10px;
+.postContent .postContentHead .usernameAndSingnature .signature image.data-v-ea039cdc {
+  width: 5vw;
+  height: 5vw;
 }
-.line.data-v-ea039cdc{
-		width: 20px;
-		height: 20px;
-		transform: rotate(90deg);
-		vertical-align: bottom;
+.postContent .postContentBody.data-v-ea039cdc {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  height: 100vh;
+  margin: 2vw auto;
 }
-.commentBox.data-v-ea039cdc{
-		margin: 0 auto;
-		background-color: #fff;
-		width: 350px;
-		height: 200px;
+.postContent .postContentBody .content.data-v-ea039cdc {
+  box-sizing: border-box;
+  width: 90vw;
+  padding: 3vw;
+  border-radius: 3vw;
+  background-color: #fff;
 }
-.foot.data-v-ea039cdc{
-		background-color: #fff;
-		width: 100%;
-		height: 50px;
-		padding:10px;
-		display: flex;
-		position: absolute;
-		bottom: 0%;
-		left: 0%;
+.postContent .postContentBody .content .details.data-v-ea039cdc {
+  margin: 2vw 0;
+  font-size: 4.5vw;
 }
-.input.data-v-ea039cdc{
-		background-color: #f8f8f8;
-		width: 150px;
-		height: 35px;
-		border-radius: 10px;
-		margin-top: 10px;
+.postContent .postContentBody .content .title.data-v-ea039cdc {
+  margin: 2vw 0;
+  font-size: 4vw;
+  color: #0d99ff;
 }
-.share.data-v-ea039cdc{
-		width: 25px;
-		height: 25px;
-		margin-top: 17px;
-		margin-left: 10px;
+.postContent .postContentBody .content .publishTime.data-v-ea039cdc {
+  font-size: 3vw;
+  color: #848484;
 }
-.good.data-v-ea039cdc{
-		width: 25px;
-		height: 25px;
-		margin-top: 15px;
-		margin-left: 10px;
+.postContent .postContentBody .comment.data-v-ea039cdc {
+  width: 90vw;
 }
-.pageView.data-v-ea039cdc{
-		width: 30px;
-		height: 30px;
-		margin-top: 13px;
-		margin-left: 10px;
+.postContent .postContentBody .comment .commentTitle.data-v-ea039cdc {
+  display: flex;
+  width: 90vw;
+  height: 10vw;
+  margin: 3vw auto;
+  line-height: 10vw;
+}
+.postContent .postContentBody .comment .commentTitle image.data-v-ea039cdc {
+  width: 6vw;
+  height: 6vw;
+  margin-top: 2vw;
+  transform: rotate(90deg);
+}
+.postContent .postContentBody .comment .commentDetails.data-v-ea039cdc {
+  width: 90vw;
+  height: 90vw;
+  margin: 0 auto;
+  border-radius: 3vw;
+  background-color: #fff;
+}
+.postContent .postContentBodyFoot.data-v-ea039cdc {
+  position: fixed;
+  bottom: 0%;
+  display: flex;
+  width: 100vw;
+  height: 15vw;
+  border-radius: 0 0 5vw 5vw;
+  color: #848484;
+  background-color: #fff;
+}
+.postContent .postContentBodyFoot input.data-v-ea039cdc {
+  width: 50vw;
+  height: 10vw;
+  margin: 3vw;
+  border-radius: 5vw;
+  background-color: #f8f8f8;
+}
+.postContent .postContentBodyFoot image.data-v-ea039cdc {
+  width: 7vw;
+  height: 7vw;
+  margin-top: 4vw;
+}
+.postContent .postContentBodyFoot .share.data-v-ea039cdc {
+  display: flex;
+  width: 15vw;
+  height: 15vw;
+}
+.postContent .postContentBodyFoot .share image.data-v-ea039cdc {
+  width: 6vw;
+  height: 6vw;
+  margin-top: 5vw;
+}
+.postContent .postContentBodyFoot .good.data-v-ea039cdc {
+  display: flex;
+  width: 15vw;
+  height: 15vw;
+}
+.postContent .postContentBodyFoot .pageView.data-v-ea039cdc {
+  display: flex;
+  width: 15vw;
+  height: 15vw;
 }
