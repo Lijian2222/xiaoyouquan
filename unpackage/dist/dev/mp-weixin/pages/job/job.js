@@ -1,5 +1,6 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const store_job = require("../../store/job.js");
 if (!Array) {
   const _easycom_uni_data_select2 = common_vendor.resolveComponent("uni-data-select");
   const _easycom_JobPost2 = common_vendor.resolveComponent("JobPost");
@@ -13,61 +14,93 @@ if (!Math) {
 const _sfc_main = {
   __name: "job",
   setup(__props) {
-    const compusValue = common_vendor.ref("");
-    const list = common_vendor.ref([
-      { value: 1, text: "哈尔滨工业大学" },
-      { value: 2, text: "郑州大学" }
-    ]);
-    common_vendor.watch(compusValue, (newValue, oldValue) => {
-      console.log(newValue);
+    const campusValue = common_vendor.ref("");
+    const campusList = common_vendor.ref([]);
+    const jobList = common_vendor.ref([]);
+    const list = common_vendor.ref([1, 2, 3]);
+    common_vendor.onMounted(async () => {
+      campusList.value = await store_job.jobStore().queryCampus();
+      console.log(campusList.value);
     });
-    const jobList = common_vendor.ref([1, 2, 3, 4, 5, 6, 7]);
+    function selectCampus() {
+      common_vendor.index.request({
+        url: "http://localhost:8080/job/query",
+        method: "post",
+        data: {
+          id: "4",
+          campus: campusValue.value
+        },
+        success: (res) => {
+          jobList.value = res.data.data;
+        },
+        fail: (err) => {
+          reject(err);
+        }
+      });
+    }
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(($event) => compusValue.value = $event),
-        b: common_vendor.p({
-          localdata: list.value,
-          ["text-key"]: "text",
-          ["value-key"]: "value",
-          placeholder: "暂无学校相关资料",
-          modelValue: compusValue.value
+        a: common_vendor.o(selectCampus),
+        b: common_vendor.o(($event) => campusValue.value = $event),
+        c: common_vendor.p({
+          localdata: campusList.value,
+          placeholder: "请选择您的学校",
+          modelValue: campusValue.value
         }),
-        c: common_vendor.o(($event) => compusValue.value = $event),
-        d: common_vendor.p({
+        d: common_vendor.o(($event) => campusValue.value = $event),
+        e: common_vendor.p({
           localdata: list.value,
           ["text-key"]: "text",
           ["value-key"]: "value",
           placeholder: "行业筛选",
-          modelValue: compusValue.value
+          modelValue: campusValue.value
         }),
-        e: common_vendor.o(($event) => compusValue.value = $event),
-        f: common_vendor.p({
+        f: common_vendor.o(($event) => campusValue.value = $event),
+        g: common_vendor.p({
           localdata: list.value,
           ["text-key"]: "text",
           ["value-key"]: "value",
           placeholder: "职位筛选",
-          modelValue: compusValue.value
+          modelValue: campusValue.value
         }),
-        g: common_vendor.o(($event) => compusValue.value = $event),
-        h: common_vendor.p({
+        h: common_vendor.o(($event) => campusValue.value = $event),
+        i: common_vendor.p({
           localdata: list.value,
           ["text-key"]: "text",
           ["value-key"]: "value",
           placeholder: "薪资范围",
-          modelValue: compusValue.value
+          modelValue: campusValue.value
         }),
-        i: common_vendor.o(($event) => compusValue.value = $event),
-        j: common_vendor.p({
+        j: common_vendor.o(($event) => campusValue.value = $event),
+        k: common_vendor.p({
           localdata: list.value,
           ["text-key"]: "text",
           ["value-key"]: "value",
           placeholder: "经验要求",
-          modelValue: compusValue.value
+          modelValue: campusValue.value
         }),
-        k: common_vendor.f(jobList.value, (item, index, i0) => {
+        l: common_vendor.f(jobList.value, (item, index, i0) => {
           return {
-            a: item,
-            b: "824eb1e6-5-" + i0
+            a: item.id,
+            b: item.id,
+            c: "824eb1e6-5-" + i0,
+            d: common_vendor.p({
+              id: item.id,
+              userId: item.userId,
+              jobName: item.jobName,
+              jobDetail: item.jobDetail,
+              position: item.position,
+              academicAcquired: item.academicAcquired,
+              experienceAcquired: item.experienceAcquired,
+              jobBelonging: item.jobBelonging,
+              nature: item.nature,
+              nickname: item.nickname,
+              publishTime: item.publishTime,
+              salaryStart: item.salaryStart,
+              salaryEnd: item.salaryEnd,
+              salaryNums: item.salaryNums,
+              campus: item.campus
+            })
           };
         })
       };

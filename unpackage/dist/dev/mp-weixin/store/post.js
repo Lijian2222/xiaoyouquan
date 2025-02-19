@@ -1,6 +1,6 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
-const postStore = common_vendor.defineStore("counter", () => {
+const postStore = common_vendor.defineStore("post", () => {
   const list1 = common_vendor.ref([]);
   const list2 = common_vendor.ref([]);
   const list3 = common_vendor.ref([]);
@@ -30,7 +30,7 @@ const postStore = common_vendor.defineStore("counter", () => {
       url: "http://localhost:8080/post/query",
       method: "post",
       data: {
-        "isDitemted": 0
+        "isDeleted": 0
       }
     });
     res.data.data.forEach(
@@ -43,7 +43,7 @@ const postStore = common_vendor.defineStore("counter", () => {
       url: "http://localhost:8080/post/query",
       method: "post",
       data: {
-        "isDitemted": 0,
+        "isDeleted": 0,
         "campus": "哈尔滨工业大学"
         //暂时写死
       }
@@ -58,7 +58,7 @@ const postStore = common_vendor.defineStore("counter", () => {
       url: "http://localhost:8080/post/query",
       method: "post",
       data: {
-        "isDitemted": 0,
+        "isDeleted": 0,
         "currentUserId": 1
         //暂时写死
       }

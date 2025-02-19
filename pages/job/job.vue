@@ -1,7 +1,7 @@
 <script setup>
 
 	import { onMounted, ref, watch } from 'vue'
-	import { jobStore } from '../../store/job';
+	import { jobStore } from '../../store/job'
 	const campusValue = ref('')
 	const campusList = ref([])
 	// function onValueChange(selectValue){
@@ -17,12 +17,11 @@
 	const list = ref([1,2,3])
 	
 	onMounted(async ()=>{
-		jobList.value = await jobStore().getJob()
 		// console.log(jobList.value)
+		//初始化用户的学校资料
 		campusList.value = await jobStore().queryCampus()
-		// console.log(campusList.value)
-		
-		
+		console.log(campusList.value)
+
 	})
 	
 	function selectCampus(){
@@ -35,7 +34,7 @@
 				campus:campusValue.value
 			},
 			success:(res)=>{
-				// console.log(res)
+				// console.log(res,"xx")
 				jobList.value=res.data.data
 				// resolve(campus)
 			},
@@ -68,17 +67,21 @@
 				</view>
 			</view>
 		</view>
+		
+		<!-- 岗位首页刚进来的时候提示 -->
+		<view class="jobFistPageInit">
+			
+		</view>
+		
 		<!-- 岗位的帖子 -->
 		<view class="jobFistPageBody">
 			<JobPost 
-			v-for="(item,index) in jobList" :key="item"
+			v-for="(item,index) in jobList" :key="item.id"
 			:id="item.id"
 			:userId="item.userId"
 			:jobName="item.jobName"
 			:jobDetail="item.jobDetail"
-			:position1="item.position1"
-			:position2="item.position2"
-			:position3="item.position3"
+			:position="item.position"
 			:academicAcquired="item.academicAcquired"
 			:experienceAcquired="item.experienceAcquired"
 			:jobBelonging="item.jobBelonging"
@@ -88,6 +91,7 @@
 			:salaryStart="item.salaryStart"
 			:salaryEnd="item.salaryEnd"
 			:salaryNums="item.salaryNums"
+			:campus="item.campus"
 			></JobPost>
 		</view>
 	</view>

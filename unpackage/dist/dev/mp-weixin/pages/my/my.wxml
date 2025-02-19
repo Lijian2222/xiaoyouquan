@@ -1,1 +1,1 @@
-<view></view>
+<view class="my data-v-2f1ef635"><view class="myHead data-v-2f1ef635"><view class="userHeadPicture data-v-2f1ef635"><image class="data-v-2f1ef635" src="{{a}}"></image></view><view class="usernameAndSingnature data-v-2f1ef635"><view class="usernameAndEdit data-v-2f1ef635"><view class="username data-v-2f1ef635"> 邪恶栀子花 </view><view class="edit data-v-2f1ef635"> 编辑资料 </view></view><view class="signature data-v-2f1ef635"><image class="data-v-2f1ef635" src="{{b}}"></image><label class="data-v-2f1ef635">这个人有点懒，什么也没有留下</label></view></view></view></view>

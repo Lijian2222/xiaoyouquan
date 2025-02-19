@@ -8344,6 +8344,12 @@ const pages = [
     style: {
       navigationBarTitleText: "帖子详情页"
     }
+  },
+  {
+    path: "pages/jobContent/jobContent",
+    style: {
+      navigationBarTitleText: "岗位详情页"
+    }
   }
 ];
 const globalStyle = {
@@ -8379,10 +8385,7 @@ const tabBar = {
       iconPath: "static/user.png",
       selectedIconPath: "static/user_selected.png"
     }
-  ],
-  style: {
-    "z-index": 100
-  }
+  ]
 };
 const uniIdRouter = {};
 const e = {
@@ -11167,4 +11170,3 @@ exports.resolveComponent = resolveComponent;
 exports.s = s$1;
 exports.t = t$1;
 exports.unref = unref;
-exports.watch = watch;

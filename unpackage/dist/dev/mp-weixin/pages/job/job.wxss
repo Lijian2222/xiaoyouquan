@@ -10,11 +10,11 @@
   height: 20vw;
   text-align: center;
 }
-.jobFistPage .jobFistPageHead .compusSelect.data-v-824eb1e6 {
+.jobFistPage .jobFistPageHead .campusSelect.data-v-824eb1e6 {
   width: 100vw;
   height: 10vw;
 }
-.jobFistPage .jobFistPageHead .compusSelect uni-data-select.data-v-824eb1e6 {
+.jobFistPage .jobFistPageHead .campusSelect uni-data-select.data-v-824eb1e6 {
   width: 30vw;
   height: 10vw;
   margin: 0 auto;

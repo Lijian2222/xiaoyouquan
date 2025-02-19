@@ -1,14 +1,12 @@
 <script setup>
-	import { ref } from 'vue'
+	import { ref, computed } from 'vue'
 	import { jobStore } from '../../store/job'
 	const props = defineProps({
 		id:Number,
 		userId:Number,
 		jobName:String,
 		jobDetail:String,
-		position1:String,
-		position2:String,
-		position3:String,
+		position:String,
 		academicAcquired:String,
 		experienceAcquired:String,
 		jobBelonging:String,
@@ -17,19 +15,18 @@
 		publishTime:String,
 		salaryStart:Number,
 		salaryEnd:Number,
-		salaryNums:Number
+		salaryNums:Number,
+		campus:String
 	})
-	const positionList = ref([])
-	if (props.position1!=null){
-		positionList.value.push(props.position1)
-	}
-	if (props.position2!=null){
-		positionList.value.push(props.position2)
-	}
-	if (props.position3!=null){
-		positionList.value.push(props.position3)
-	}
-	// console.log(positionList)
+
+	// console.log(props.campus)
+	
+	// 动态计算 当imageSrc.value,props.goodNums发生变化，重新计算urlParameter
+	// 因为url是静态解析的，一开始imageSrc=${imageSrc.value}}的值已经写死了,相当于imageSrc=xxx字符串
+	// 但是在页面内部修改这些来自仓库的数据，页面内部并不会实时更新，因为url传递数据是一次性的，没有绑定关系
+	const urlParameter = computed(()=>{
+		return `id=${props.id}&userId=${props.userId}&jobName=${props.jobName}&jobDetail=${props.jobDetail}&position=${props.position}&academicAcquired=${props.academicAcquired}&experienceAcquired=${props.experienceAcquired}&jobBelonging=${props.jobBelonging}&nature=${props.nature}&nickname=${props.nickname}&publishTime=${props.publishTime}&salaryStart=${props.salaryStart}&salaryEnd=${props.salaryEnd}&salaryNums=${props.salaryNums}&campus=${props.campus}` 
+	})
 </script>
 
 
@@ -37,23 +34,25 @@
 <template>
 	<!-- 岗位的盒子模型 -->
 	<view class="jobPost">
-		<!-- 头部，包括岗位名称，薪资 -->
-		<view class="jobPostHead">
-			<view class="jobName">量化金融开发工程师</view>
-			<view class="salaryAndStar">
-				{{ jobStore().formatSalary(props.salaryStart) }}-{{ jobStore().formatSalary(props.salaryEnd) }}*{{props.salaryNums}}
-				<image src="../../static/star.png"></image>
+		<navigator :url="'/pages/jobContent/jobContent?'+urlParameter">
+			<!-- 头部，包括岗位名称，薪资 -->
+			<view class="jobPostHead">
+				<view class="jobName">{{props.jobName}}</view>
+				<view class="salaryAndStar">
+					{{ jobStore().formatSalary(props.salaryStart) }}-{{ jobStore().formatSalary(props.salaryEnd) }}*{{props.salaryNums}}
+					<image src="../../static/star.png"></image>
+				</view>
 			</view>
-		</view>
-		<!-- 标签 -->
-		<view class="jobPostBody">
-			<view v-for="(item,index) in positionList" :key="item">{{item}}</view>
-			<view>{{props.nature}}</view>
-			<view>{{props.academicAcquired}}</view>
-			<view>{{props.experienceAcquired}}</view>
-			<view>{{props.jobBelonging}}</view>
-			<!-- <view>架构师</view> -->
-		</view>
+			<!-- 标签 -->
+			<view class="jobPostBody">
+				<view>{{props.position}}</view>
+				<view>{{props.nature}}</view>
+				<view>{{props.academicAcquired}}</view>
+				<view>{{props.experienceAcquired}}</view>
+				<view>{{props.jobBelonging}}</view>
+				<!-- <view>架构师</view> -->
+			</view>
+		</navigator>
 		<!-- 底部，包括头像，名称，发布时间 -->
 		<view class="jobPostFoot">
 			<!-- 为了布局包装了一层left和right -->

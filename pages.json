@@ -26,7 +26,13 @@
 			"style" : 
 			{
 				"navigationBarTitleText" : "帖子详情页"
-				
+			}
+		},
+		{
+			"path" : "pages/jobContent/jobContent",
+			"style" : 
+			{
+				"navigationBarTitleText" : "岗位详情页"
 			}
 		}
 		
@@ -62,10 +68,10 @@
 				"iconPath": "static/user.png",
 				"selectedIconPath": "static/user_selected.png"
 			}
-		],
-		"style":{
-			"z-index":100//自己写的，想让蓝色加号在最上层
-		}
+		]
+		// "style":{
+		// 	"z-index":100//自己写的，想让蓝色加号在最上层
+		// }
 	},
 	"uniIdRouter": {}
 }

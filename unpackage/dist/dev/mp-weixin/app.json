@@ -4,7 +4,8 @@
     "pages/job/job",
     "pages/message/message",
     "pages/my/my",
-    "pages/postContent/postContent"
+    "pages/postContent/postContent",
+    "pages/jobContent/jobContent"
   ],
   "window": {
     "navigationBarTextStyle": "black",
@@ -39,10 +40,7 @@
         "iconPath": "static/user.png",
         "selectedIconPath": "static/user_selected.png"
       }
-    ],
-    "style": {
-      "z-index": 100
-    }
+    ]
   },
   "usingComponents": {}
 }
