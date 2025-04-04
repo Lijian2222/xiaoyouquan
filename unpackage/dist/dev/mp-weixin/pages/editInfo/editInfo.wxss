@@ -1,0 +1,72 @@
+.editInfo.data-v-4130e2dc {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+.editInfo .userHeadPicture.data-v-4130e2dc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 20vw;
+  padding: 3vw;
+  border-bottom: 2px solid #f8f8f8;
+  background-color: #fff;
+  font-size: 5vw;
+}
+.editInfo .userHeadPicture .picture.data-v-4130e2dc {
+  width: 15vw;
+  height: 15vw;
+}
+.editInfo .userHeadPicture .picture image.data-v-4130e2dc {
+  width: 15vw;
+  height: 15vw;
+}
+.editInfo .username.data-v-4130e2dc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 15vw;
+  padding: 3vw;
+  border-bottom: 2px solid #f8f8f8;
+  background-color: #fff;
+  font-size: 5vw;
+}
+.editInfo .username .createUsername.data-v-4130e2dc {
+  color: #848484;
+}
+.editInfo .gender.data-v-4130e2dc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 15vw;
+  padding: 3vw;
+  border-bottom: 2px solid #f8f8f8;
+  background-color: #fff;
+  font-size: 5vw;
+}
+.editInfo .gender .selectGender.data-v-4130e2dc {
+  color: #848484;
+}
+.editInfo .born.data-v-4130e2dc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 15vw;
+  padding: 3vw;
+  border-bottom: 2px solid #f8f8f8;
+  background-color: #fff;
+  font-size: 5vw;
+}
+.editInfo .born .selectBorn.data-v-4130e2dc {
+  color: #848484;
+}

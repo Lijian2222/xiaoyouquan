@@ -34,6 +34,20 @@
 			{
 				"navigationBarTitleText" : "岗位详情页"
 			}
+		},
+		{
+			"path" : "pages/editInfo/editInfo",
+			"style" : 
+			{
+				"navigationBarTitleText" : "编辑资料"
+			}
+		},
+		{
+			"path" : "pages/register/register",
+			"style" : 
+			{
+				"navigationBarTitleText" : "登录"
+			}
 		}
 		
 		
@@ -45,7 +59,8 @@
 		"backgroundColor": "#F8F8F8"//
 	},
 	"tabBar": {//底栏
-		"color": "#bfbfbf", //文字颜色
+		"color": "#bfbfbf", //未选中文字颜色
+		"selectedColor": "#0d99ff",//选中字体颜色
 		"list": [
 			{
 				"pagePath": "pages/index/index",
@@ -69,9 +84,6 @@
 				"selectedIconPath": "static/user_selected.png"
 			}
 		]
-		// "style":{
-		// 	"z-index":100//自己写的，想让蓝色加号在最上层
-		// }
 	},
 	"uniIdRouter": {}
 }

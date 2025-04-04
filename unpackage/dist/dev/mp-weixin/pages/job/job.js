@@ -1,6 +1,8 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
-const store_job = require("../../store/job.js");
+require("../../store/job.js");
+const store_user = require("../../store/user.js");
+const store_environment = require("../../store/environment.js");
 if (!Array) {
   const _easycom_uni_data_select2 = common_vendor.resolveComponent("uni-data-select");
   const _easycom_JobPost2 = common_vendor.resolveComponent("JobPost");
@@ -14,17 +16,17 @@ if (!Math) {
 const _sfc_main = {
   __name: "job",
   setup(__props) {
+    const currentUrl = store_environment.environmentStore().currentUrl;
     const campusValue = common_vendor.ref("");
     const campusList = common_vendor.ref([]);
     const jobList = common_vendor.ref([]);
     const list = common_vendor.ref([1, 2, 3]);
-    common_vendor.onMounted(async () => {
-      campusList.value = await store_job.jobStore().queryCampus();
-      console.log(campusList.value);
-    });
+    campusList.value = store_user.userStore().campus;
     function selectCampus() {
       common_vendor.index.request({
-        url: "http://localhost:8080/job/query",
+        // url:"http://localhost:8080/job/query",
+        url: currentUrl + "/job/query",
+        //生产环境
         method: "post",
         data: {
           id: "4",
@@ -79,7 +81,8 @@ const _sfc_main = {
           placeholder: "经验要求",
           modelValue: campusValue.value
         }),
-        l: common_vendor.f(jobList.value, (item, index, i0) => {
+        l: !common_vendor.unref(store_user.userStore)().logInFlag,
+        m: common_vendor.f(jobList.value, (item, index, i0) => {
           return {
             a: item.id,
             b: item.id,

@@ -1,0 +1,48 @@
+.message.data-v-4c1b26cf {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f8f8;
+}
+.message .messageInit.data-v-4c1b26cf {
+  width: 100vw;
+  height: 100vh;
+}
+.message .messageInit .logIn.data-v-4c1b26cf {
+  width: 30vw;
+  height: 10vw;
+  margin: 40vw auto;
+  padding-left: 5vw;
+  border-radius: 5vw;
+  background-color: #0d99ff;
+  color: #fff;
+  line-height: 10vw;
+}
+.message .messageComponent.data-v-4c1b26cf {
+  display: flex;
+  align-items: center;
+  width: 100vw;
+  height: 20vw;
+  border-bottom: 2px solid #ededed;
+}
+.message .messageComponent .messagePicture.data-v-4c1b26cf {
+  width: 15vw;
+  height: 15vw;
+  margin-left: 3vw;
+}
+.message .messageComponent .messagePicture image.data-v-4c1b26cf {
+  width: 15vw;
+  height: 15vw;
+  border-radius: 50%;
+}
+.message .messageComponent .messageContent.data-v-4c1b26cf {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3vw;
+}
+.message .messageComponent .messageContent .username.data-v-4c1b26cf {
+  font-size: 5vw;
+  font-weight: bold;
+}
+.message .messageComponent .messageContent .messageDetail.data-v-4c1b26cf {
+  font-size: 4vw;
+}

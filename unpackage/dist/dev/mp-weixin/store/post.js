@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
+const store_environment = require("./environment.js");
+const currentUrl = store_environment.environmentStore().currentUrl;
 const postStore = common_vendor.defineStore("post", () => {
   const list1 = common_vendor.ref([]);
   const list2 = common_vendor.ref([]);
@@ -27,7 +29,8 @@ const postStore = common_vendor.defineStore("post", () => {
   }
   async function getList1() {
     let res = await common_vendor.index.request({
-      url: "http://localhost:8080/post/query",
+      // url:'http://localhost:8080/post/query',
+      url: currentUrl + "/post/query",
       method: "post",
       data: {
         "isDeleted": 0
@@ -40,7 +43,9 @@ const postStore = common_vendor.defineStore("post", () => {
   }
   async function getList2() {
     let res = await common_vendor.index.request({
-      url: "http://localhost:8080/post/query",
+      // url:'http://localhost:8080/post/query', //测试环境
+      url: currentUrl + "/post/query",
+      //生产环境
       method: "post",
       data: {
         "isDeleted": 0,
@@ -55,7 +60,9 @@ const postStore = common_vendor.defineStore("post", () => {
   }
   async function getList3() {
     let res = await common_vendor.index.request({
-      url: "http://localhost:8080/post/query",
+      // url:'http://localhost:8080/post/query', 
+      url: currentUrl + "/post/query",
+      //生产环境
       method: "post",
       data: {
         "isDeleted": 0,
@@ -76,7 +83,9 @@ const postStore = common_vendor.defineStore("post", () => {
   function requestGood(postId) {
     return new Promise((resolve, reject) => {
       common_vendor.index.request({
-        url: "http://localhost:8080/postGood/query",
+        // url:'http://localhost:8080/postGood/query', 
+        url: currentUrl + "/postGood/query",
+        //生产环境
         method: "POST",
         data: {
           "postId": postId,
@@ -138,6 +147,26 @@ const postStore = common_vendor.defineStore("post", () => {
       return item;
     });
   }
+  function addView(postId) {
+    list1.value.map((item, index) => {
+      if (item.id == postId) {
+        item.viewNums++;
+      }
+      return item;
+    });
+    list2.value.map((item, index) => {
+      if (item.id == postId) {
+        item.viewNums++;
+      }
+      return item;
+    });
+    list3.value.map((item, index) => {
+      if (item.id == postId) {
+        item.viewNums++;
+      }
+      return item;
+    });
+  }
   return {
     list1,
     list2,
@@ -149,7 +178,8 @@ const postStore = common_vendor.defineStore("post", () => {
     formatNumber,
     requestGood,
     addGoodNums,
-    subGoodNums
+    subGoodNums,
+    addView
   };
 });
 exports.postStore = postStore;

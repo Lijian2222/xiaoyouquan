@@ -1,7 +1,8 @@
 //帖子仓库
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import axios from 'axios'
+import { environmentStore } from "./environment"
+const currentUrl = environmentStore().currentUrl
 //job是仓库的唯一标识
 export const jobStore = defineStore('job',()=>{
 	
@@ -31,7 +32,8 @@ export const jobStore = defineStore('job',()=>{
 	function queryCampus(){
 		return new Promise((resolve,reject)=>{
 			uni.request({
-				url:'http://localhost:8080/user/query',
+				// url:'http://localhost:8080/user/query',
+				url:currentUrl+'/user/query', //生产环境
 				method:'post',
 				data:{
 					"id":4//暂时写死

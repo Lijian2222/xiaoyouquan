@@ -1,7 +1,10 @@
-//帖子仓库
+// 帖子仓库
 import { defineStore } from "pinia"
 import { ref } from "vue"
-import axios from 'axios'
+
+import { environmentStore } from "./environment"
+const currentUrl = environmentStore().currentUrl
+
 //post是仓库的唯一标识
 export const postStore = defineStore('post',()=>{
 	const list1 = ref([]) //首页帖子 推荐
@@ -41,7 +44,8 @@ export const postStore = defineStore('post',()=>{
 	
 	async function getList1(){
 		let res = await uni.request({
-			url:'http://localhost:8080/post/query',
+			// url:'http://localhost:8080/post/query',
+			url:currentUrl+'/post/query',
 			method:'post',
 			data:{
 				"isDeleted":0,
@@ -57,7 +61,8 @@ export const postStore = defineStore('post',()=>{
 	
 	async function getList2(){
 		let res = await uni.request({
-			url:'http://localhost:8080/post/query',
+			// url:'http://localhost:8080/post/query', //测试环境
+			url:currentUrl+'/post/query', //生产环境
 			method:'post',
 			data:{
 				"isDeleted":0,
@@ -72,7 +77,8 @@ export const postStore = defineStore('post',()=>{
 
 	async function getList3(){
 		let res = await uni.request({
-			url:'http://localhost:8080/post/query',
+			// url:'http://localhost:8080/post/query', 
+			url:currentUrl+'/post/query', //生产环境
 			method:'post',
 			data:{
 				"isDeleted":0,
@@ -98,7 +104,8 @@ export const postStore = defineStore('post',()=>{
 	function requestGood(postId){//请求该用户是否点赞过这个帖子，每个帖子都会请求一次后端
 		return new Promise((resolve,reject)=>{
 			uni.request({
-				url:'http://localhost:8080/postGood/query',
+				// url:'http://localhost:8080/postGood/query', 
+				url:currentUrl+'/postGood/query', //生产环境
 				method:'POST',
 				data:{
 					"postId":postId,
@@ -163,6 +170,29 @@ export const postStore = defineStore('post',()=>{
 		})
 	}	
 	
+	//用户点击内容，不仅发生跳转，还会增加浏览量,本地增加,不用重新请求后端
+	function addView(postId){
+		list1.value.map((item,index)=>{
+			if(item.id==postId){
+				item.viewNums++
+			}
+			return item
+		})
+		list2.value.map((item,index)=>{
+			if(item.id==postId){
+				item.viewNums++
+			}
+			return item
+		})
+		list3.value.map((item,index)=>{
+			if(item.id==postId){
+				item.viewNums++
+			}
+			return item
+		})
+	}
+	
+	
 	return {
 		list1,
 		list2,
@@ -174,6 +204,7 @@ export const postStore = defineStore('post',()=>{
 		formatNumber,
 		requestGood,
 		addGoodNums,
-		subGoodNums
+		subGoodNums,
+		addView
 	}
 })

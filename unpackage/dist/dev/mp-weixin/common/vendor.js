@@ -1292,8 +1292,8 @@ function populateParameters(fromRes, toRes) {
   let _SDKVersion = SDKVersion;
   const hostLanguage = language.replace(/_/g, "-");
   const parameters = {
-    appId: "",
-    appName: "xiaoyouquan",
+    appId: "__UNI__52F52FC",
+    appName: "职引派",
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
@@ -1436,8 +1436,8 @@ const getAppBaseInfo = {
       hostName: _hostName,
       hostSDKVersion: SDKVersion,
       hostTheme: theme,
-      appId: "",
-      appName: "xiaoyouquan",
+      appId: "__UNI__52F52FC",
+      appName: "职引派",
       appVersion: "1.0.0",
       appVersionCode: "100",
       appLanguage: getAppLanguage(hostLanguage)
@@ -8350,6 +8350,18 @@ const pages = [
     style: {
       navigationBarTitleText: "岗位详情页"
     }
+  },
+  {
+    path: "pages/editInfo/editInfo",
+    style: {
+      navigationBarTitleText: "编辑资料"
+    }
+  },
+  {
+    path: "pages/register/register",
+    style: {
+      navigationBarTitleText: "登录"
+    }
   }
 ];
 const globalStyle = {
@@ -8360,6 +8372,7 @@ const globalStyle = {
 };
 const tabBar = {
   color: "#bfbfbf",
+  selectedColor: "#0d99ff",
   list: [
     {
       pagePath: "pages/index/index",
@@ -8686,7 +8699,7 @@ function I(e2) {
 const S = true, b = "mp-weixin", A = I(define_process_env_UNI_SECURE_NETWORK_CONFIG_default), C = b, P = I(""), T = I("[]") || [];
 let O = "";
 try {
-  O = "";
+  O = "__UNI__52F52FC";
 } catch (e2) {
 }
 let E = {};

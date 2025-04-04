@@ -58,7 +58,7 @@
 			<!-- 为了布局包装了一层left和right -->
 			<view class="jobPostFootLeft">
 				<view class="userHead">
-					<image src="../../static/userHeader1.jpg"></image>
+					<image src="../../static/userHeader1.png"></image>
 				</view>
 				<view class="username">{{props.nickname}}</view>
 				<view class="academicPicture">

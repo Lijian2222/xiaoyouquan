@@ -1,5 +1,7 @@
 "use strict";
 const common_vendor = require("../common/vendor.js");
+const store_environment = require("./environment.js");
+const currentUrl = store_environment.environmentStore().currentUrl;
 const jobStore = common_vendor.defineStore("job", () => {
   function formatSalary(salary) {
     if (typeof salary !== "number" || isNaN(salary)) {
@@ -19,7 +21,9 @@ const jobStore = common_vendor.defineStore("job", () => {
   function queryCampus() {
     return new Promise((resolve, reject) => {
       common_vendor.index.request({
-        url: "http://localhost:8080/user/query",
+        // url:'http://localhost:8080/user/query',
+        url: currentUrl + "/user/query",
+        //生产环境
         method: "post",
         data: {
           "id": 4

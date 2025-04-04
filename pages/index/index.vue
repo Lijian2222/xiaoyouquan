@@ -1,6 +1,7 @@
 <script setup>
 	import { onMounted, ref } from 'vue'
-	import { postStore } from '../../store/post';
+	import { postStore } from '../../store/post'
+	import { userStore } from '../../store/user.js'
 	const headTabNum = ref(1)
 	
 	
@@ -33,9 +34,17 @@
 				<image src="../../static/line.png" v-show="headTabNum==3"></image>
 			</view>	
 		</view>
+		
+		
+		<!-- 首页刚进来的时候提示 -->
+		<view class="homeInit" v-show=" !userStore().logInFlag && headTabNum!==1">
+			<navigator url="/pages/register/register">
+				<view class="logIn">立即登录/注册</view>
+			</navigator>
+		</view>
+		
 		<!-- 首页里面的帖子 -->
 		<view class="homeBody">
-		
 			<homePost 
 			v-for="(item,index) in postStore().list1" :key="item.id"
 			v-show="headTabNum==1"
@@ -52,7 +61,7 @@
 			
 			<homePost
 			v-for="(item,index) in postStore().list2" :key="item.id"
-			v-show="headTabNum==2"
+			v-show="headTabNum==2 && userStore().logInFlag"
 			:id="item.id"
 			:username="item.nickname"
 			:content="item.content"
@@ -66,7 +75,7 @@
 			
 			<homePost
 			v-for="(item,index) in postStore().list3" :key="item.id"
-			v-show="headTabNum==3"
+			v-show="headTabNum==3 && userStore().logInFlag"
 			:id="item.id"
 			:username="item.nickname"
 			:content="item.content"
@@ -133,6 +142,28 @@
 			}
 			
 		}
+	
+	.homeInit{
+		width: 100vw;
+		height: 100vh;
+		
+		
+		.logIn{
+			width: 30vw;
+			height: 10vw;
+			margin: 40vw auto;
+			padding-left: 5vw;
+			border-radius: 5vw;
+			background-color: #0d99ff;
+			color: #fff;
+			line-height: 10vw;
+			
+			
+		}
+		
+	}
+	
+	
 	
 		.homeBody{
 			display: flex;

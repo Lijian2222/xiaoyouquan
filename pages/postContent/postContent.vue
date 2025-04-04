@@ -74,7 +74,7 @@
 		<!-- 用户头像，用户昵称，个性签名 -->
 		<view class="postContentHead">
 			<view class="userHeader">
-				<image src="@/static/userHeader1.jpg" alt="" />
+				<image src="@/static/userHeader1.png" alt="" />
 			</view>
 			<view class="usernameAndSingnature">
 				<view class="username">

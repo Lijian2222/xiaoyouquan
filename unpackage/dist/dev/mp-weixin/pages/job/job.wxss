@@ -66,3 +66,17 @@
   margin: 0;
   padding: 0;
 }
+.jobFistPage .jobFistPageInit.data-v-824eb1e6 {
+  width: 100vw;
+  height: 100vw;
+}
+.jobFistPage .jobFistPageInit .logIn.data-v-824eb1e6 {
+  width: 30vw;
+  height: 10vw;
+  margin: 40vw auto;
+  padding-left: 5vw;
+  border-radius: 5vw;
+  background-color: #0d99ff;
+  color: #fff;
+  line-height: 10vw;
+}

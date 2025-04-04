@@ -26,6 +26,20 @@
   height: 5vw;
   margin: 0 auto;
 }
+.home .homeInit.data-v-1cf27b2a {
+  width: 100vw;
+  height: 100vh;
+}
+.home .homeInit .logIn.data-v-1cf27b2a {
+  width: 30vw;
+  height: 10vw;
+  margin: 40vw auto;
+  padding-left: 5vw;
+  border-radius: 5vw;
+  background-color: #0d99ff;
+  color: #fff;
+  line-height: 10vw;
+}
 .home .homeBody.data-v-1cf27b2a {
   display: flex;
   flex-direction: column;

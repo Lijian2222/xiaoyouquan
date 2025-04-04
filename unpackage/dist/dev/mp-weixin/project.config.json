@@ -8,7 +8,7 @@
     "urlCheck": false,
     "es6": true,
     "postcss": false,
-    "minified": false,
+    "minified": true,
     "newFeature": true,
     "bigPackageSizeSupport": true,
     "ignoreUploadUnusedFiles": true,
@@ -21,7 +21,7 @@
   "compileType": "miniprogram",
   "libVersion": "3.7.7",
   "appid": "wx2c01e59ca9cf87b6",
-  "projectname": "xiaoyouquan",
+  "projectname": "职引派",
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",

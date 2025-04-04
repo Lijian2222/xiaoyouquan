@@ -32,16 +32,16 @@ const _sfc_main = {
         b: common_vendor.t(common_vendor.unref(store_job.jobStore)().formatSalary(props.salaryStart)),
         c: common_vendor.t(common_vendor.unref(store_job.jobStore)().formatSalary(props.salaryEnd)),
         d: common_vendor.t(props.salaryNums),
-        e: common_assets._imports_0$1,
+        e: common_assets._imports_0$2,
         f: common_vendor.t(props.position),
         g: common_vendor.t(props.nature),
         h: common_vendor.t(props.academicAcquired),
         i: common_vendor.t(props.experienceAcquired),
         j: common_vendor.t(props.jobBelonging),
         k: "/pages/jobContent/jobContent?" + urlParameter.value,
-        l: common_assets._imports_1$1,
+        l: common_assets._imports_1$3,
         m: common_vendor.t(props.nickname),
-        n: common_assets._imports_2$3
+        n: common_assets._imports_2$2
       };
     };
   }

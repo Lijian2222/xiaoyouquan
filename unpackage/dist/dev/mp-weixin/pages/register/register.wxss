@@ -1,0 +1,28 @@
+.phoneNumber.data-v-bac4a35d {
+  height: 10vw;
+  margin-top: 50vw;
+}
+.phoneNumber input.data-v-bac4a35d {
+  height: 10vw;
+  background-color: #ededed;
+  font-size: 5vw;
+}
+.password.data-v-bac4a35d {
+  height: 10vw;
+  margin-top: 5vw;
+}
+.password input.data-v-bac4a35d {
+  height: 10vw;
+  background-color: #ededed;
+  font-size: 5vw;
+}
+button.data-v-bac4a35d {
+  width: 30vw;
+  height: 10vw;
+  margin: 10vw auto;
+  padding-left: 5vw;
+  border-radius: 5vw;
+  background-color: #0d99ff;
+  color: #fff;
+  line-height: 10vw;
+}

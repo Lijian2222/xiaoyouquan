@@ -2,6 +2,7 @@
 const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_post = require("../../store/post.js");
+const store_user = require("../../store/user.js");
 if (!Array) {
   const _easycom_homePost2 = common_vendor.resolveComponent("homePost");
   _easycom_homePost2();
@@ -31,7 +32,8 @@ const _sfc_main = {
         g: common_assets._imports_2,
         h: headTabNum.value == 3,
         i: common_vendor.o(($event) => headTabNum.value = 3),
-        j: common_vendor.f(common_vendor.unref(store_post.postStore)().list1, (item, index, i0) => {
+        j: !common_vendor.unref(store_user.userStore)().logInFlag && headTabNum.value !== 1,
+        k: common_vendor.f(common_vendor.unref(store_post.postStore)().list1, (item, index, i0) => {
           return {
             a: item.id,
             b: item.id,
@@ -49,8 +51,8 @@ const _sfc_main = {
             })
           };
         }),
-        k: headTabNum.value == 1,
-        l: common_vendor.f(common_vendor.unref(store_post.postStore)().list2, (item, index, i0) => {
+        l: headTabNum.value == 1,
+        m: common_vendor.f(common_vendor.unref(store_post.postStore)().list2, (item, index, i0) => {
           return {
             a: item.id,
             b: item.id,
@@ -68,8 +70,8 @@ const _sfc_main = {
             })
           };
         }),
-        m: headTabNum.value == 2,
-        n: common_vendor.f(common_vendor.unref(store_post.postStore)().list3, (item, index, i0) => {
+        n: headTabNum.value == 2 && common_vendor.unref(store_user.userStore)().logInFlag,
+        o: common_vendor.f(common_vendor.unref(store_post.postStore)().list3, (item, index, i0) => {
           return {
             a: item.id,
             b: item.id,
@@ -87,8 +89,8 @@ const _sfc_main = {
             })
           };
         }),
-        o: headTabNum.value == 3,
-        p: common_assets._imports_1
+        p: headTabNum.value == 3 && common_vendor.unref(store_user.userStore)().logInFlag,
+        q: common_assets._imports_1
       };
     };
   }

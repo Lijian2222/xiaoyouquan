@@ -2,32 +2,31 @@
 
 	import { onMounted, ref, watch } from 'vue'
 	import { jobStore } from '../../store/job'
+	import { userStore } from '../../store/user'
+	import { environmentStore } from '../../store/environment'  
+	const currentUrl = environmentStore().currentUrl
+	
 	const campusValue = ref('')
 	const campusList = ref([])
-	// function onValueChange(selectValue){
-	// 	console.log(selectValue)
-	// }
-	// watch(campusValue,(newValue,oldValue)=>{
-	// 	console.log(newValue)
-	// })
 	
 	const jobList = ref([])
 	
 		
 	const list = ref([1,2,3])
 	
-	onMounted(async ()=>{
-		// console.log(jobList.value)
-		//初始化用户的学校资料
-		campusList.value = await jobStore().queryCampus()
-		console.log(campusList.value)
-
-	})
 	
+	campusList.value = userStore().campus
+	// console.log(campusList.value)
+	
+
+	
+	
+	// 根据学校查询岗位
 	function selectCampus(){
 		// console.log(campusValue.value)
 		uni.request({
-			url:"http://localhost:8080/job/query",
+			// url:"http://localhost:8080/job/query",
+			url:currentUrl+'/job/query', //生产环境
 			method:"post",
 			data:{
 				id:'4',
@@ -69,8 +68,10 @@
 		</view>
 		
 		<!-- 岗位首页刚进来的时候提示 -->
-		<view class="jobFistPageInit">
-			
+		<view class="jobFistPageInit" v-show=" !userStore().logInFlag ">
+			<navigator url="/pages/register/register">
+				<view class="logIn">立即登录/注册</view>
+			</navigator>
 		</view>
 		
 		<!-- 岗位的帖子 -->
@@ -149,7 +150,6 @@
 				}
 				
 				.roleSelect{
-					
 					width: 25vw;
 					height: 10vw;
 					uni-data-select{
@@ -185,6 +185,27 @@
 			
 			
 		}
+	
+		.jobFistPageInit{
+			width: 100vw;
+			height: 100vw;
+			
+			
+			.logIn{
+				width: 30vw;
+				height: 10vw;
+				margin: 40vw auto;
+				padding-left: 5vw;
+				border-radius: 5vw;
+				background-color: #0d99ff;
+				color: #fff;
+				line-height: 10vw;
+				
+				
+			}
+			
+		}
+		
 	}
 	
 	

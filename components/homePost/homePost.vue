@@ -2,7 +2,8 @@
 	
 	import { onMounted, ref, computed } from 'vue'
 	import { postStore } from '../../store/post'
-	
+	import { environmentStore } from '../../store/environment'
+	const currentUrl = environmentStore().currentUrl
 	
 	const moreVisbility = ref(true)
 	
@@ -37,7 +38,8 @@
 	function addGood(){//该用户给这个帖子点赞或取消点赞
 		if(imageSrc.value == defaultImage){//如果点击的时候是未点赞图片
 			uni.request({
-				url:'http://localhost:8080/postGood/insert',
+				// url:'http://localhost:8080/postGood/insert',
+				url:currentUrl+'/postGood/insert', //生产环境
 				method:'POST',
 				data:{
 					"postId":props.id,
@@ -51,7 +53,8 @@
 			postStore().addGoodNums(props.id)
 		}else{//否则
 			uni.request({
-				url:'http://localhost:8080/postGood/delete',
+				// url:'http://localhost:8080/postGood/delete',
+				url:currentUrl+'/postGood/delete', //生产环境
 				method:'POST',
 				data:{
 					"postId":props.id,
@@ -81,7 +84,19 @@
 	const urlParameter = computed(()=>{
 		return `id=${props.id}&username=${props.username}&time=${props.time}&content=${props.content}&goodNums=${props.goodNums}&commentNums=${props.commentNums}&viewNums=${props.viewNums}&retweet=${props.retweet}&signature=${props.signature}&imageSrc=${imageSrc.value}` 
 	})
-
+	
+	
+	function addView(){
+		uni.request({
+			// url:'http://localhost:8080/post/addViewNums',
+			url:currentUrl+'/post/addViewNums', //生产环境
+			method:'GET',
+			data:{
+				"postId":props.id,
+			}
+		})
+		postStore().addView(props.id);//本地仓库数量+1，不用请求后端
+	}
 </script>
 
 <template>
@@ -90,7 +105,7 @@
 		<view class="homePostHead">
 			<!-- 用户头像 -->
 			<view class="userHeadPicture">
-				<image src="../../static/userHeader1.jpg"></image>
+				<image src="../../static/userHeader1.png"></image>
 			</view>
 			<!-- 用户昵称和发布时间 -->
 			<view class="usernameAndPublishTime">
@@ -117,7 +132,7 @@
 			</view>
 		</view>
 		<!-- 存帖子的内容 -->
-		<view class="homePostBody">
+		<view class="homePostBody" @touchend="addView">
 			<!-- 存帖子的主要内容,点击跳转到详情页 -->
 			<navigator :url="'/pages/postContent/postContent?'+urlParameter">
 				<span>{{content}}</span>
@@ -132,7 +147,7 @@
 			</view>
 			<!-- 评论图片和数量 -->
 			<view class='comment'>
-				<image src="../../static/message_selected.png"></image>
+				<image src="../../static/comment.png"></image>
 				<view>{{ postStore().formatNumber(commentNums) }}</view>
 			</view>
 			<!-- 浏览量图片和数量 -->

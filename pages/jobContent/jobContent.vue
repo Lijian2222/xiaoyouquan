@@ -44,7 +44,7 @@
 		<!-- 用户信息 -->
 		<view class="jobContentBody1">
 			<view class="userHead">
-				<image src="../../static/userHeader1.jpg"></image>
+				<image src="../../static/userHeader1.png"></image>
 			</view>
 			<view class="usernameAndCampus">
 				<view class="username">
