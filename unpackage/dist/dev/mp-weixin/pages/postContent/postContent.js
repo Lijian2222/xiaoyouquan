@@ -8,10 +8,8 @@ const _sfc_main = {
   __name: "postContent",
   setup(__props) {
     const options = common_vendor.ref({});
-    common_vendor.onMounted(() => {
-      const pages = getCurrentPages();
-      const currentPage = pages[pages.length - 1];
-      options.value = currentPage.options;
+    common_vendor.onLoad((e) => {
+      options.value = e;
     });
     let imageSrc = common_vendor.ref("../../static/good.png");
     store_post.postStore().requestGood(options.id).then((result) => {
@@ -74,3 +72,4 @@ const _sfc_main = {
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-ea039cdc"]]);
 wx.createPage(MiniProgramPage);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/postContent/postContent.js.map

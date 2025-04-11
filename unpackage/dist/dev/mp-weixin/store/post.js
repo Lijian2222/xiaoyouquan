@@ -31,6 +31,7 @@ const postStore = common_vendor.defineStore("post", () => {
     let res = await common_vendor.index.request({
       // url:'http://localhost:8080/post/query',
       url: currentUrl + "/post/query",
+      // header: { 'content-type': 'application/x-www-form-urlencoded' },
       method: "post",
       data: {
         "isDeleted": 0
@@ -183,3 +184,4 @@ const postStore = common_vendor.defineStore("post", () => {
   };
 });
 exports.postStore = postStore;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/store/post.js.map

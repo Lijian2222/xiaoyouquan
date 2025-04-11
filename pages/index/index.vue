@@ -1,7 +1,13 @@
 <script setup>
+	
+	
 	import { onMounted, ref } from 'vue'
 	import { postStore } from '../../store/post'
 	import { userStore } from '../../store/user.js'
+	
+	import { environmentStore } from '../../store/environment'  
+	const currentUrl = environmentStore().currentUrl
+	
 	const headTabNum = ref(1)
 	
 	
@@ -12,7 +18,32 @@
 	const getList3 = postStore().getList3
 	getList3()
 	
-	
+	//临时测试，可删除
+	// function queryCampus(){
+	// 	return new Promise((resolve,reject)=>{
+	// 		uni.request({
+	// 			// url:'http://localhost:8080/user/query',
+	// 			// url:'https://www.xiaoyouquan.xyz:8443/post/test', //生产环境
+	// 			url:'https://39.107.221.247:8443/post/test', //生产环境
+	// 			method:'GET',
+	// 			header: {
+	// 			    'Content-Type': 'application/json'
+					
+	// 			},
+	// 			// data:{
+	// 			// 	"id":4//暂时写死
+	// 			// },
+	// 			success:(res)=>{
+	// 				// console.log(res)
+	// 				resolve(res)
+	// 			},
+	// 			fail:(err)=>{
+	// 				reject(err)
+	// 			}
+	// 		})
+	// 	})
+	// }
+	// queryCampus()
 	
 </script>
 

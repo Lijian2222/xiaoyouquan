@@ -64,3 +64,4 @@ const jobStore = common_vendor.defineStore("job", () => {
   };
 });
 exports.jobStore = jobStore;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/store/job.js.map

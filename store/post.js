@@ -46,6 +46,7 @@ export const postStore = defineStore('post',()=>{
 		let res = await uni.request({
 			// url:'http://localhost:8080/post/query',
 			url:currentUrl+'/post/query',
+			// header: { 'content-type': 'application/x-www-form-urlencoded' },
 			method:'post',
 			data:{
 				"isDeleted":0,

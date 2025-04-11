@@ -15,17 +15,17 @@ const userStore = common_vendor.defineStore("user", () => {
       mask: true,
       // 是否显示透明蒙层，防止触摸穿透
       success: () => {
-        console.log("Toast 显示成功");
+        common_vendor.index.__f__("log", "at store/user.js:60", "Toast 显示成功");
       }
     });
     common_vendor.index.switchTab({
       url: "/pages/index/index",
       // 替换为你的 TabBar 页面路径
       success: () => {
-        console.log("跳转成功");
+        common_vendor.index.__f__("log", "at store/user.js:75", "跳转成功");
       },
       fail: (err) => {
-        console.error("跳转失败", err);
+        common_vendor.index.__f__("error", "at store/user.js:78", "跳转失败", err);
       }
     });
   }
@@ -42,7 +42,7 @@ const userStore = common_vendor.defineStore("user", () => {
       success: (res) => {
         const user = res.data.data;
         if (user != null) {
-          console.log("登录注册成功");
+          common_vendor.index.__f__("log", "at store/user.js:99", "登录注册成功");
           setTimeout(logInSuccess, 5e3);
           if (user.campus1 != null) {
             campus.push({
@@ -70,7 +70,7 @@ const userStore = common_vendor.defineStore("user", () => {
           }
           logInFlag.value = true;
         } else {
-          console.log("密码错误");
+          common_vendor.index.__f__("log", "at store/user.js:130", "密码错误");
         }
       },
       fail: (err) => {
@@ -92,3 +92,4 @@ const userStore = common_vendor.defineStore("user", () => {
   };
 });
 exports.userStore = userStore;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/store/user.js.map

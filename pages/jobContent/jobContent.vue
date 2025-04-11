@@ -1,18 +1,17 @@
 <script setup>
 	import { onMounted, onUpdated, ref } from 'vue'
+	import {onLoad} from "@dcloudio/uni-app"
 	import { jobStore } from '../../store/job'
 	//新页面接收传过来的参数：
 	const options = ref({})
 	//解决salaryStary在onMounted前处于udnefine的报错
 	options.value.salaryStart = 0
 	options.value.salaryEnd = 0
-	onMounted(()=>{
-		const pages = getCurrentPages()
-		const currentPage = pages[pages.length - 1]
-		options.value = currentPage.options
-		// console.log(options.value.campus)
-	})
-	
+	//页面之间传参，可以再onLoad里面接受参数
+	onLoad((e)=>{
+	    // console.log(e)
+	    options.value = e
+	})//接收参数页面
 	
 </script>
 

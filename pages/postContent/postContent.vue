@@ -1,15 +1,14 @@
 <script setup>
 	import { onMounted, ref } from 'vue'
 	import { postStore } from '../../store/post'
+	import {onLoad} from "@dcloudio/uni-app"
 	const options = ref({})
-	//新页面接收后：
-	onMounted(()=>{
-		const pages = getCurrentPages()
-		const currentPage = pages[pages.length - 1]
-		options.value = currentPage.options
-		// console.log(options.value.imageSrc)
-		
-	})
+	
+	//页面之间传参，可以再onLoad里面接受参数
+	onLoad((e)=>{
+	    // console.log(e)
+	    options.value = e
+	})//接收参数页面
 	
 	//点赞图片相关 每个帖子都有一个独立的imageSrc 只要涉及到imageSrc就不能写到post.js仓库里面
 	let imageSrc = ref('../../static/good.png')

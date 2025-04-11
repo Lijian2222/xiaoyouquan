@@ -3,6 +3,7 @@ const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_post = require("../../store/post.js");
 const store_user = require("../../store/user.js");
+const store_environment = require("../../store/environment.js");
 if (!Array) {
   const _easycom_homePost2 = common_vendor.resolveComponent("homePost");
   _easycom_homePost2();
@@ -14,6 +15,7 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    store_environment.environmentStore().currentUrl;
     const headTabNum = common_vendor.ref(1);
     const getList1 = store_post.postStore().getList1;
     getList1();
@@ -97,3 +99,4 @@ const _sfc_main = {
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-1cf27b2a"]]);
 wx.createPage(MiniProgramPage);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/index/index.js.map

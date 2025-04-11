@@ -41,3 +41,4 @@ exports._imports_4 = _imports_4$1;
 exports._imports_4$1 = _imports_4;
 exports._imports_5 = _imports_5;
 exports._imports_6 = _imports_6;
+//# sourceMappingURL=../../.sourcemap/mp-weixin/common/assets.js.map

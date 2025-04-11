@@ -8,10 +8,8 @@ const _sfc_main = {
     const options = common_vendor.ref({});
     options.value.salaryStart = 0;
     options.value.salaryEnd = 0;
-    common_vendor.onMounted(() => {
-      const pages = getCurrentPages();
-      const currentPage = pages[pages.length - 1];
-      options.value = currentPage.options;
+    common_vendor.onLoad((e) => {
+      options.value = e;
     });
     return (_ctx, _cache) => {
       return {
@@ -35,3 +33,4 @@ const _sfc_main = {
 };
 const MiniProgramPage = /* @__PURE__ */ common_vendor._export_sfc(_sfc_main, [["__scopeId", "data-v-80d4a50a"]]);
 wx.createPage(MiniProgramPage);
+//# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/jobContent/jobContent.js.map
