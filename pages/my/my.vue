@@ -40,12 +40,15 @@
 				</view>
 			</view>
 			<!-- 我的发布 -->
-			<view class="myPublish">
-				<view>
-					<image src="../../static/myPublish.png"></image>
-				</view>
-				<span>我的发布</span>
-			</view>	
+			<navigator url="/pages/myPublish/myPublish">
+				<view class="myPublish">
+					<view>
+						<image src="../../static/myPublish.png"></image>
+					</view>
+					<span>我的发布</span>
+				</view>	
+			</navigator>
+			
 			<!-- 我的收藏 -->
 			<view class="myCollect">
 				<view>
@@ -72,7 +75,7 @@
 				<view>
 					<image src="../../static/academic.png"></image>
 				</view>
-				<span>我的技能</span>
+				<span>我的学校</span>
 			</view>
 			<!-- 设置 -->
 			<view class="setting">

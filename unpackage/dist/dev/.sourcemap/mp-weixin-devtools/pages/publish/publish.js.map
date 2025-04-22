@@ -1,0 +1,1 @@
+{"version":3,"names":["wx","createPage","MiniProgramPage"],"sources":["cGFnZXMvcHVibGlzaC9wdWJsaXNoLnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'D:/F/xiaoyouquan/pages/publish/publish.vue'\nwx.createPage(MiniProgramPage)"],"mappings":";;;;;;;;;;;;;;;;;;;;AACAA,EAAA,CAAGC,UAAA,CAAWC,eAAe","ignoreList":[]}

@@ -1,6 +1,17 @@
 <script setup>
-	import { ref, computed } from 'vue'
+	import { ref, computed, onMounted } from 'vue'
 	import { jobStore } from '../../store/job'
+	import { environmentStore } from '../../store/environment'
+	import { userStore } from '../../store/user'
+	const currentUrl = environmentStore().currentUrl
+	const defaultStar = '../../static/star2.png'
+	const alredyStar = "../../static/star3.png"
+	const starUrl = ref("../../static/star2.png")
+	
+	
+		
+	
+	
 	const props = defineProps({
 		id:Number,
 		userId:Number,
@@ -19,6 +30,38 @@
 		campus:String
 	})
 
+	// 异步方法想要return结果，必须使用promise或者async/await
+	// 查询用户有没有收藏过该岗位
+	function queryFavorite(){
+		return new Promise((resolve,reject)=>{
+			uni.request({ 
+				url:currentUrl+'/favorite/query', //生产环境
+				method:'POST',
+				data:{
+					"isDeleted":0,
+					"concerned":props.id,
+					"status":1, //1是收藏岗位，0是关注用户
+					"userId":userStore().userId
+				},
+				success:(res) => {
+					// console.log(res)
+					if(res.data.data.length==0){//如果没有收藏该帖子
+						starUrl.value = defaultStar
+						resolve(true)
+					}else{
+						starUrl.value = alredyStar
+						resolve(false)
+					}
+				},
+				fail:(err) => {
+					reject(err)
+				}
+			})
+		})
+	}
+	
+	queryFavorite()
+
 	// console.log(props.campus)
 	
 	// 动态计算 当imageSrc.value,props.goodNums发生变化，重新计算urlParameter
@@ -27,6 +70,41 @@
 	const urlParameter = computed(()=>{
 		return `id=${props.id}&userId=${props.userId}&jobName=${props.jobName}&jobDetail=${props.jobDetail}&position=${props.position}&academicAcquired=${props.academicAcquired}&experienceAcquired=${props.experienceAcquired}&jobBelonging=${props.jobBelonging}&nature=${props.nature}&nickname=${props.nickname}&publishTime=${props.publishTime}&salaryStart=${props.salaryStart}&salaryEnd=${props.salaryEnd}&salaryNums=${props.salaryNums}&campus=${props.campus}` 
 	})
+	
+	//用户点击收藏
+	function addStar(){
+		
+		if (starUrl.value==defaultStar){ //点击前是default表示未收藏，点击后改为已收藏
+			starUrl.value=alredyStar
+			uni.request({
+				// url:'http://localhost:8080/job/query',
+				url:currentUrl+'/favorite/insert',
+				// header: { 'content-type': 'application/x-www-form-urlencoded' },
+				method:'post',
+				data:{
+					"isDeleted":0,
+					"concerned":props.id,
+					"status":1, //1是收藏岗位，0是关注用户
+					"userId":userStore().userId
+				}
+			})
+		}else{ //点击前是already表示已收藏，点击后改为未收藏
+			console.log("update")
+			starUrl.value=defaultStar
+			uni.request({
+				// url:'http://localhost:8080/job/query',
+				url:currentUrl+'/favorite/update',
+				// header: { 'content-type': 'application/x-www-form-urlencoded' },
+				method:'post',
+				data:{
+					"isDeleted":1,
+					"concerned":props.id,
+					"status":1, //1是收藏岗位，0是关注用户
+					"userId":userStore().userId
+				}
+			})
+		}
+	}
 </script>
 
 
@@ -34,16 +112,17 @@
 <template>
 	<!-- 岗位的盒子模型 -->
 	<view class="jobPost">
-		<navigator :url="'/pages/jobContent/jobContent?'+urlParameter">
-			<!-- 头部，包括岗位名称，薪资 -->
-			<view class="jobPostHead">
-				<view class="jobName">{{props.jobName}}</view>
-				<view class="salaryAndStar">
-					{{ jobStore().formatSalary(props.salaryStart) }}-{{ jobStore().formatSalary(props.salaryEnd) }}*{{props.salaryNums}}
-					<image src="../../static/star.png"></image>
-				</view>
+		
+		<!-- 头部，包括岗位名称，薪资 -->
+		<view class="jobPostHead">
+			<view class="jobName">{{props.jobName}}</view>
+			<view class="salaryAndStar">
+				{{ jobStore().formatSalary(props.salaryStart) }}-{{ jobStore().formatSalary(props.salaryEnd) }}*{{props.salaryNums}}
+				<image :src="starUrl" @touchend="addStar"></image>
 			</view>
-			<!-- 标签 -->
+		</view>
+		<!-- 标签 -->
+		<navigator :url="'/pages/jobContent/jobContent?'+urlParameter">
 			<view class="jobPostBody">
 				<view>{{props.position}}</view>
 				<view>{{props.nature}}</view>
@@ -53,6 +132,7 @@
 				<!-- <view>架构师</view> -->
 			</view>
 		</navigator>
+		
 		<!-- 底部，包括头像，名称，发布时间 -->
 		<view class="jobPostFoot">
 			<!-- 为了布局包装了一层left和right -->

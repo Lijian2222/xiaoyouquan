@@ -48,6 +48,20 @@
 			{
 				"navigationBarTitleText" : "登录"
 			}
+		},
+		{
+			"path" : "pages/publish/publish",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/myPublish/myPublish",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 		
 		

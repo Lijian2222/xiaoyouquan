@@ -7049,9 +7049,9 @@ function initOnError() {
   };
 }
 function initRuntimeSocketService() {
-  const hosts = "192.168.32.1,192.168.78.1,172.22.111.250,127.0.0.1";
+  const hosts = "10.6.22.2,192.168.32.1,192.168.78.1,172.22.60.158,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_iyzjuY";
+  const id = "mp-weixin_Pb97sA";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8588,6 +8588,7 @@ const createHook = (lifecycle) => (hook, target = getCurrentInstance()) => {
   !isInSSRComponentSetup && injectHook(lifecycle, hook, target);
 };
 const onLoad = /* @__PURE__ */ createHook(ON_LOAD);
+const onReachBottom = /* @__PURE__ */ createHook(ON_REACH_BOTTOM);
 const pages = [
   {
     path: "pages/index/index",
@@ -8635,6 +8636,18 @@ const pages = [
     path: "pages/register/register",
     style: {
       navigationBarTitleText: "登录"
+    }
+  },
+  {
+    path: "pages/publish/publish",
+    style: {
+      navigationBarTitleText: ""
+    }
+  },
+  {
+    path: "pages/myPublish/myPublish",
+    style: {
+      navigationBarTitleText: ""
     }
   }
 ];
@@ -11533,6 +11546,7 @@ exports.nr = nr;
 exports.o = o$1;
 exports.onLoad = onLoad;
 exports.onMounted = onMounted;
+exports.onReachBottom = onReachBottom;
 exports.p = p$1;
 exports.ref = ref;
 exports.resolveComponent = resolveComponent;

@@ -4,47 +4,52 @@
 	import { onMounted, ref } from 'vue'
 	import { postStore } from '../../store/post'
 	import { userStore } from '../../store/user.js'
-	
+	import { onReachBottom } from '@dcloudio/uni-app'
 	import { environmentStore } from '../../store/environment'  
 	const currentUrl = environmentStore().currentUrl
 	
 	const headTabNum = ref(1)
 	
+	//初始请求第一页
+	let pageIndex1 = 1
+	postStore().getList1(pageIndex1)
+	let pageIndex2 = 1
+	postStore().getList2(pageIndex2)
+	let pageIndex3 = 1
+	postStore().getList3(pageIndex3)
 	
-	const getList1 = postStore().getList1
-	getList1()
-	const getList2 = postStore().getList2
-	getList2()
-	const getList3 = postStore().getList3
-	getList3()
 	
-	//临时测试，可删除
-	// function queryCampus(){
-	// 	return new Promise((resolve,reject)=>{
-	// 		uni.request({
-	// 			// url:'http://localhost:8080/user/query',
-	// 			// url:'https://www.xiaoyouquan.xyz:8443/post/test', //生产环境
-	// 			url:'https://39.107.221.247:8443/post/test', //生产环境
-	// 			method:'GET',
-	// 			header: {
-	// 			    'Content-Type': 'application/json'
-					
-	// 			},
-	// 			// data:{
-	// 			// 	"id":4//暂时写死
-	// 			// },
-	// 			success:(res)=>{
-	// 				// console.log(res)
-	// 				resolve(res)
-	// 			},
-	// 			fail:(err)=>{
-	// 				reject(err)
-	// 			}
-	// 		})
-	// 	})
-	// }
-	// queryCampus()
+	//触底加载更多
+	onReachBottom(()=>{
+		if(headTabNum.value==1){
+			pageIndex1 = pageIndex1 + 1
+			postStore().getList1(pageIndex1)
+		}else if(headTabNum.value==2){
+			pageIndex2 = pageIndex2 + 1
+			postStore().getList2(pageIndex2)
+		}else{
+			pageIndex3 = pageIndex3 + 1
+			postStore().getList3(pageIndex3)
+		}
+		
+		// console.log(pageIndex1)
+		
+	})
 	
+	
+	function checkPublish(){
+		if (userStore().logInFlag){
+			uni.navigateTo({
+				url:"/pages/publish/publish"
+			})
+		}else{
+			uni.showToast({
+				title: '请先登录', // 提示的内容，必填
+				icon:'error'
+			})
+		}
+	}
+
 </script>
 
 <template>
@@ -120,9 +125,11 @@
 			
 		</view>
 		<!-- 蓝色的加号 -->
-		<view class="publish">
-			<image src="../../static/add.png"></image>
-		</view>
+		<!-- <navigator url="/pages/publish/publish"> -->
+			<view class="publish" @touchend="checkPublish">
+				<image src="../../static/add.png"></image>
+			</view>
+		<!-- </navigator> -->
 	</view>
 </template>
 
@@ -188,8 +195,6 @@
 			background-color: #0d99ff;
 			color: #fff;
 			line-height: 10vw;
-			
-			
 		}
 		
 	}

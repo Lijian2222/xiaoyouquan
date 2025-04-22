@@ -71,34 +71,22 @@ const _sfc_main = {
     const urlParameter = common_vendor.computed(() => {
       return `id=${props.id}&username=${props.username}&time=${props.time}&content=${props.content}&goodNums=${props.goodNums}&commentNums=${props.commentNums}&viewNums=${props.viewNums}&retweet=${props.retweet}&signature=${props.signature}&imageSrc=${imageSrc.value}`;
     });
-    function addView() {
-      common_vendor.index.request({
-        // url:'http://localhost:8080/post/addViewNums',
-        url: currentUrl + "/post/addViewNums",
-        //生产环境
-        method: "GET",
-        data: {
-          "postId": props.id
-        }
-      });
-      store_post.postStore().addView(props.id);
-    }
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_1$3,
+        a: common_assets._imports_0$1,
         b: common_vendor.t(__props.username),
         c: common_vendor.t(__props.time),
         d: common_assets._imports_1$5,
         e: moreVisbility.value,
         f: common_vendor.o(($event) => moreVisbility.value = false),
-        g: common_assets._imports_2$4,
+        g: common_assets._imports_2$2,
         h: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().notInteresting(props.id)),
         i: common_assets._imports_3$2,
         j: common_vendor.o(($event) => moreVisbility.value = true),
         k: !moreVisbility.value,
         l: common_vendor.t(__props.content),
         m: "/pages/postContent/postContent?" + urlParameter.value,
-        n: common_vendor.o(addView),
+        n: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().addView(props.id)),
         o: common_vendor.unref(imageSrc),
         p: common_vendor.o(addGood),
         q: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.goodNums)),

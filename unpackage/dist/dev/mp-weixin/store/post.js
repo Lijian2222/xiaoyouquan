@@ -27,22 +27,24 @@ const postStore = common_vendor.defineStore("post", () => {
       return "Number out of range";
     }
   }
-  async function getList1() {
+  async function getList1(pageIndex) {
     let res = await common_vendor.index.request({
       // url:'http://localhost:8080/post/query',
       url: currentUrl + "/post/query",
       // header: { 'content-type': 'application/x-www-form-urlencoded' },
       method: "post",
       data: {
-        "isDeleted": 0
+        "isDeleted": 0,
+        "pageIndex": pageIndex,
+        "pageSize": 5
       }
     });
     res.data.data.forEach(
       handleTime
     );
-    list1.value = res.data.data;
+    list1.value = [...list1.value, ...res.data.data];
   }
-  async function getList2() {
+  async function getList2(pageIndex) {
     let res = await common_vendor.index.request({
       // url:'http://localhost:8080/post/query', //测试环境
       url: currentUrl + "/post/query",
@@ -50,16 +52,18 @@ const postStore = common_vendor.defineStore("post", () => {
       method: "post",
       data: {
         "isDeleted": 0,
-        "campus": "哈尔滨工业大学"
+        "campus": "哈尔滨工业大学",
         //暂时写死
+        "pageIndex": pageIndex,
+        "pageSize": 5
       }
     });
     res.data.data.forEach(
       handleTime
     );
-    list2.value = res.data.data;
+    list2.value = [...list2.value, ...res.data.data];
   }
-  async function getList3() {
+  async function getList3(pageIndex) {
     let res = await common_vendor.index.request({
       // url:'http://localhost:8080/post/query', 
       url: currentUrl + "/post/query",
@@ -67,14 +71,16 @@ const postStore = common_vendor.defineStore("post", () => {
       method: "post",
       data: {
         "isDeleted": 0,
-        "currentUserId": 1
+        "currentUserId": 1,
         //暂时写死
+        "pageIndex": pageIndex,
+        "pageSize": 5
       }
     });
     res.data.data.forEach(
       handleTime
     );
-    list3.value = res.data.data;
+    list3.value = [...list3.value, ...res.data.data];
   }
   function notInteresting(postId) {
     list1.value = list1.value.filter((item) => item.id != postId);
@@ -149,6 +155,15 @@ const postStore = common_vendor.defineStore("post", () => {
     });
   }
   function addView(postId) {
+    common_vendor.index.request({
+      // url:'http://localhost:8080/post/addViewNums',
+      url: currentUrl + "/post/addViewNums",
+      //生产环境
+      method: "GET",
+      data: {
+        "postId": postId
+      }
+    });
     list1.value.map((item, index) => {
       if (item.id == postId) {
         item.viewNums++;
@@ -180,7 +195,8 @@ const postStore = common_vendor.defineStore("post", () => {
     requestGood,
     addGoodNums,
     subGoodNums,
-    addView
+    addView,
+    handleTime
   };
 });
 exports.postStore = postStore;

@@ -1,0 +1,133 @@
+.publishPage.data-v-bfce3555 {
+  width: 100vw;
+  height: 100%;
+  background-color: #f8f8f8;
+}
+.publishPage .publishHead.data-v-bfce3555 {
+  display: flex;
+  justify-content: center;
+  width: 90vw;
+  height: 10vw;
+  margin: 0 auto;
+  border-bottom: 2px solid #eee;
+}
+.publishPage .publishHead .post.data-v-bfce3555 {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  height: 10vw;
+  margin-right: 5vw;
+}
+.publishPage .publishHead .post image.data-v-bfce3555 {
+  width: 5vw;
+  height: 5vw;
+  margin-left: 1vw;
+}
+.publishPage .publishHead .job.data-v-bfce3555 {
+  display: flex;
+  flex-direction: column;
+  width: 10vw;
+  height: 10vw;
+  margin-right: 5vw;
+}
+.publishPage .publishHead .job image.data-v-bfce3555 {
+  width: 5vw;
+  height: 5vw;
+  margin-left: 1.5vw;
+}
+.publishPage .postBody.data-v-bfce3555 {
+  width: 90vw;
+  height: 150vw;
+  margin: 0 auto;
+}
+.publishPage .postBody .postContent.data-v-bfce3555 {
+  width: 90vw;
+  height: 90vw;
+  border-bottom: 2px solid #eee;
+}
+.publishPage .postBody .postContent .postTextAreaValue.data-v-bfce3555 {
+  width: 90vw;
+  height: 90vw;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+  font-size: 5vw;
+}
+.publishPage .postBody .addTopic.data-v-bfce3555 {
+  width: 90vw;
+  margin: 0 auto;
+}
+.publishPage .postBody .addTopic .addTopicHead.data-v-bfce3555 {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3vw;
+}
+.publishPage .postBody .addTopic .addTopicHead .addTopicHeadMain.data-v-bfce3555 {
+  font-size: 5vw;
+  font-weight: bold;
+}
+.publishPage .postBody .addTopic .addTopicHead .addTopicHeadTip.data-v-bfce3555 {
+  font-size: 4vw;
+  color: #ccc;
+}
+.publishPage .postBody .addTopic .addTopicBody.data-v-bfce3555 {
+  display: flex;
+  justify-content: start;
+  margin-top: 4vw;
+  color: #0d99ff;
+}
+.publishPage .postBody .addTopic .addTopicBody view.data-v-bfce3555 {
+  margin-right: 3vw;
+}
+.publishPage .jobBody.data-v-bfce3555 {
+  width: 90vw;
+  height: 250vw;
+  margin: 0 auto;
+}
+.publishPage .jobBody .jobContentHead.data-v-bfce3555 {
+  width: 90vw;
+  height: 10vw;
+  border-bottom: 2px solid #eee;
+}
+.publishPage .jobBody .jobContentHead .jobTitle.data-v-bfce3555 {
+  width: 90vw;
+  height: 10vw;
+  line-height: 10vw;
+  font-size: 5vw;
+}
+.publishPage .jobBody .jobContent.data-v-bfce3555 {
+  width: 90vw;
+  height: 90vw;
+  border-bottom: 2px solid #eee;
+  margin-top: 3vw;
+}
+.publishPage .jobBody .jobContent .jobTextAreaValue.data-v-bfce3555 {
+  width: 90vw;
+  height: 90vw;
+  margin: 0 auto;
+  background-color: #f8f8f8;
+  font-size: 5vw;
+}
+.publishPage .jobBody .jobOptions.data-v-bfce3555 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90vw;
+  height: 150vw;
+  margin: 0 auto;
+  font-size: 5vw;
+  background-color: #f8f8f8;
+}
+.publishPage .publishFoot.data-v-bfce3555 {
+  width: 90vw;
+  height: 30vw;
+  margin: 5vw auto;
+}
+.publishPage .publishFoot button.data-v-bfce3555 {
+  width: 30vw;
+  height: 10vw;
+  margin-top: 15vw;
+  border-radius: 5vw;
+  background-color: #0d99ff;
+  color: #fff;
+  line-height: 10vw;
+}

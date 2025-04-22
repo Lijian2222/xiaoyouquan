@@ -14,10 +14,10 @@ const _sfc_main = {
         d: "/pages/editInfo/editInfo?" + urlParameter.value,
         e: common_assets._imports_1$1,
         f: common_assets._imports_1$2,
-        g: common_assets._imports_2$1,
+        g: common_assets._imports_2,
         h: common_assets._imports_3,
         i: common_assets._imports_4,
-        j: common_assets._imports_2$2,
+        j: common_assets._imports_1$3,
         k: common_assets._imports_6,
         l: common_vendor.unref(store_user.userStore)().logInFlag
       };

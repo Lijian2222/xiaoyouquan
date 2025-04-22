@@ -17,21 +17,46 @@ const _sfc_main = {
   setup(__props) {
     store_environment.environmentStore().currentUrl;
     const headTabNum = common_vendor.ref(1);
-    const getList1 = store_post.postStore().getList1;
-    getList1();
-    const getList2 = store_post.postStore().getList2;
-    getList2();
-    const getList3 = store_post.postStore().getList3;
-    getList3();
+    let pageIndex1 = 1;
+    store_post.postStore().getList1(pageIndex1);
+    let pageIndex2 = 1;
+    store_post.postStore().getList2(pageIndex2);
+    let pageIndex3 = 1;
+    store_post.postStore().getList3(pageIndex3);
+    common_vendor.onReachBottom(() => {
+      if (headTabNum.value == 1) {
+        pageIndex1 = pageIndex1 + 1;
+        store_post.postStore().getList1(pageIndex1);
+      } else if (headTabNum.value == 2) {
+        pageIndex2 = pageIndex2 + 1;
+        store_post.postStore().getList2(pageIndex2);
+      } else {
+        pageIndex3 = pageIndex3 + 1;
+        store_post.postStore().getList3(pageIndex3);
+      }
+    });
+    function checkPublish() {
+      if (store_user.userStore().logInFlag) {
+        common_vendor.index.navigateTo({
+          url: "/pages/publish/publish"
+        });
+      } else {
+        common_vendor.index.showToast({
+          title: "请先登录",
+          // 提示的内容，必填
+          icon: "error"
+        });
+      }
+    }
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_2,
+        a: common_assets._imports_0,
         b: headTabNum.value == 1,
         c: common_vendor.o(($event) => headTabNum.value = 1),
-        d: common_assets._imports_2,
+        d: common_assets._imports_0,
         e: headTabNum.value == 2,
         f: common_vendor.o(($event) => headTabNum.value = 2),
-        g: common_assets._imports_2,
+        g: common_assets._imports_0,
         h: headTabNum.value == 3,
         i: common_vendor.o(($event) => headTabNum.value = 3),
         j: !common_vendor.unref(store_user.userStore)().logInFlag && headTabNum.value !== 1,
@@ -92,7 +117,8 @@ const _sfc_main = {
           };
         }),
         p: headTabNum.value == 3 && common_vendor.unref(store_user.userStore)().logInFlag,
-        q: common_assets._imports_1
+        q: common_assets._imports_1,
+        r: common_vendor.o(checkPublish)
       };
     };
   }

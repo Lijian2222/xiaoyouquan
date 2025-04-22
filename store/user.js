@@ -8,6 +8,7 @@ const currentUrl = environmentStore().currentUrl
 //post是仓库的唯一标识
 export const userStore = defineStore('user',()=>{
 	
+	
 	//查询用户有哪些学校
 	function queryCampus(){
 		return new Promise((resolve,reject)=>{
@@ -97,6 +98,7 @@ export const userStore = defineStore('user',()=>{
 				// console.log(user)
 				if (user!=null){ //user不为空，说明登录或者注册成功，载入相关资料
 					console.log("登录注册成功")
+					userId.value = user.id //载入用户id
 					setTimeout(logInSuccess,5000) //5s后显示登录成功
 					if (user.campus1!=null){ //载入学校资料
 						campus.push({

@@ -86,17 +86,18 @@
 	})
 	
 	
-	function addView(){
-		uni.request({
-			// url:'http://localhost:8080/post/addViewNums',
-			url:currentUrl+'/post/addViewNums', //生产环境
-			method:'GET',
-			data:{
-				"postId":props.id,
-			}
-		})
-		postStore().addView(props.id);//本地仓库数量+1，不用请求后端
-	}
+	// function addView(){
+	// 	uni.request({
+	// 		// url:'http://localhost:8080/post/addViewNums',
+	// 		url:currentUrl+'/post/addViewNums', //生产环境
+	// 		method:'GET',
+	// 		data:{
+	// 			"postId":props.id,
+	// 		}
+	// 	})
+	// 	postStore().addView(props.id);//本地仓库数量+1，不用请求后端
+	// }
+	
 </script>
 
 <template>
@@ -132,10 +133,11 @@
 			</view>
 		</view>
 		<!-- 存帖子的内容 -->
-		<view class="homePostBody" @touchend="addView">
+		<view class="homePostBody" @touchend="postStore().addView(props.id)">
 			<!-- 存帖子的主要内容,点击跳转到详情页 -->
 			<navigator :url="'/pages/postContent/postContent?'+urlParameter">
-				<span>{{content}}</span>
+				<!-- <span>{{content}}</span> -->
+				<view class="content">{{content}}</view>
 			</navigator>
 		</view>
 		<!-- 存帖子的底部，包括点赞，评论，浏览量 -->
@@ -276,6 +278,12 @@
 			height: 8vw;
 			margin-top:3vw;
 			padding-left: 3vw;
+			
+			.content{
+				width: 90vw;
+				height: 5vw;
+				overflow: hidden;
+			}
 		}
 		
 		//贴子底部，包括点赞，评论数量，浏览量

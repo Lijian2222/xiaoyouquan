@@ -42,7 +42,8 @@ export const postStore = defineStore('post',()=>{
 		}
 	}
 	
-	async function getList1(){
+	async function getList1(pageIndex){
+		// console.log(pageIndex)
 		let res = await uni.request({
 			// url:'http://localhost:8080/post/query',
 			url:currentUrl+'/post/query',
@@ -50,46 +51,52 @@ export const postStore = defineStore('post',()=>{
 			method:'post',
 			data:{
 				"isDeleted":0,
+				"pageIndex":pageIndex,
+				"pageSize":5
 			}
 		})
 		// console.log(res)
 		res.data.data.forEach( 
 			handleTime
 		)
-		list1.value = res.data.data
+		list1.value = [...list1.value,...res.data.data]
 		// console.log(list1)
 	}
 	
-	async function getList2(){
+	async function getList2(pageIndex){
 		let res = await uni.request({
 			// url:'http://localhost:8080/post/query', //测试环境
 			url:currentUrl+'/post/query', //生产环境
 			method:'post',
 			data:{
 				"isDeleted":0,
-				"campus":'哈尔滨工业大学'//暂时写死
+				"campus":'哈尔滨工业大学',//暂时写死
+				"pageIndex":pageIndex,
+				"pageSize":5
 			}
 		})
 		res.data.data.forEach(
 			handleTime
 		)
-		list2.value = res.data.data
+		list2.value = [...list2.value,...res.data.data]
 	}
 
-	async function getList3(){
+	async function getList3(pageIndex){
 		let res = await uni.request({
 			// url:'http://localhost:8080/post/query', 
 			url:currentUrl+'/post/query', //生产环境
 			method:'post',
 			data:{
 				"isDeleted":0,
-				"currentUserId":1//暂时写死
+				"currentUserId":1,//暂时写死
+				"pageIndex":pageIndex,
+				"pageSize":5
 			}
 		})
 		res.data.data.forEach(
 			handleTime
 		)
-		list3.value = res.data.data
+		list3.value = [...list3.value,...res.data.data]
 	}
 	
 	
@@ -173,6 +180,14 @@ export const postStore = defineStore('post',()=>{
 	
 	//用户点击内容，不仅发生跳转，还会增加浏览量,本地增加,不用重新请求后端
 	function addView(postId){
+		uni.request({
+			// url:'http://localhost:8080/post/addViewNums',
+			url:currentUrl+'/post/addViewNums', //生产环境
+			method:'GET',
+			data:{
+				"postId":postId,
+			}
+		})
 		list1.value.map((item,index)=>{
 			if(item.id==postId){
 				item.viewNums++
@@ -206,6 +221,7 @@ export const postStore = defineStore('post',()=>{
 		requestGood,
 		addGoodNums,
 		subGoodNums,
-		addView
+		addView,
+		handleTime
 	}
 })
