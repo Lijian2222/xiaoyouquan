@@ -9,7 +9,8 @@
     "pages/editInfo/editInfo",
     "pages/register/register",
     "pages/publish/publish",
-    "pages/myPublish/myPublish"
+    "pages/myPublish/myPublish",
+    "pages/myFavorite/myFavorite"
   ],
   "window": {
     "navigationBarTextStyle": "black",

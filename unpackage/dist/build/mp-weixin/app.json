@@ -8,7 +8,9 @@
     "pages/jobContent/jobContent",
     "pages/editInfo/editInfo",
     "pages/register/register",
-    "pages/publish/publish"
+    "pages/publish/publish",
+    "pages/myPublish/myPublish",
+    "pages/myFavorite/myFavorite"
   ],
   "window": {
     "navigationBarTextStyle": "black",

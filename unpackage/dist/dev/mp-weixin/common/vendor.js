@@ -7049,9 +7049,9 @@ function initOnError() {
   };
 }
 function initRuntimeSocketService() {
-  const hosts = "10.6.22.2,192.168.32.1,192.168.78.1,172.22.60.158,127.0.0.1";
+  const hosts = "10.6.22.2,192.168.32.1,192.168.78.1,192.168.200.138,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_Pb97sA";
+  const id = "mp-weixin_0w9Dkl";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8646,6 +8646,12 @@ const pages = [
   },
   {
     path: "pages/myPublish/myPublish",
+    style: {
+      navigationBarTitleText: ""
+    }
+  },
+  {
+    path: "pages/myFavorite/myFavorite",
     style: {
       navigationBarTitleText: ""
     }
@@ -11553,4 +11559,5 @@ exports.resolveComponent = resolveComponent;
 exports.s = s$1;
 exports.t = t$1;
 exports.unref = unref;
+exports.watch = watch;
 //# sourceMappingURL=../../.sourcemap/mp-weixin/common/vendor.js.map

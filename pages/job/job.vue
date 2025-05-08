@@ -4,37 +4,43 @@
 	import { jobStore } from '../../store/job'
 	import { userStore } from '../../store/user'
 	import { environmentStore } from '../../store/environment'  
+	import { onReachBottom } from '@dcloudio/uni-app'
 	const currentUrl = environmentStore().currentUrl
 	
+	//从campusList当中选择一个出来作为查询条件
 	const campusValue = ref('')
 	const campusList = ref([])
 	
 	const jobList = ref([])
 	
-		
+	//行业筛选 职业筛选 等 暂时先随便给一个
 	const list = ref([1,2,3])
 	
+	const PageIndex = ref(1)
 	
 	campusList.value = userStore().campus
 	// console.log(campusList.value)
 	
-
 	
 	
-	// 根据学校查询岗位
-	function selectCampus(){
+	
+	// 根据选中的学校查询岗位
+	function selectCampus(pageIndex){
 		// console.log(campusValue.value)
+		
 		uni.request({
 			// url:"http://localhost:8080/job/query",
 			url:currentUrl+'/job/query', //生产环境
 			method:"post",
 			data:{
-				id:'4',
-				campus:campusValue.value
+				// id:'4',
+				"campus":campusValue.value,
+				"pageIndex":pageIndex,
+				"pageSize":10
 			},
 			success:(res)=>{
 				// console.log(res,"xx")
-				jobList.value=res.data.data
+				jobList.value= [...jobList.value,...res.data.data]
 				// resolve(campus)
 			},
 			fail:(err)=>{
@@ -42,6 +48,19 @@
 			}
 		})
 	}
+	
+	//触底加载更多
+	onReachBottom(()=>{
+		PageIndex.value = PageIndex.value + 1
+		selectCampus(PageIndex.value)	
+	})
+	
+	//每次重新选学校，PageIndex重新置为1,jobList重置为[]
+	watch(campusValue,(newValue,oldValue) => {
+		console.log("watch触发")
+		PageIndex.value = 1
+		jobList.value = []
+	})
 </script>
 
 <template>
@@ -49,7 +68,7 @@
 		<!-- 选择学校，行业，职位，薪资，经验 -->
 		<view class="jobFistPageHead">
 			<view class="campusSelect">
-				<uni-data-select v-model="campusValue" :localdata='campusList' placeholder="请选择您的学校" @change="selectCampus"></uni-data-select>
+				<uni-data-select v-model="campusValue" :localdata='campusList' placeholder="请选择您的学校" @change="selectCampus(1)"></uni-data-select>
 			</view>
 			<view class="otherSelect">
 				<view class="industrySelect">

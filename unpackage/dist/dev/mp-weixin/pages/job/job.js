@@ -21,28 +21,40 @@ const _sfc_main = {
     const campusList = common_vendor.ref([]);
     const jobList = common_vendor.ref([]);
     const list = common_vendor.ref([1, 2, 3]);
+    const PageIndex = common_vendor.ref(1);
     campusList.value = store_user.userStore().campus;
-    function selectCampus() {
+    function selectCampus(pageIndex) {
       common_vendor.index.request({
         // url:"http://localhost:8080/job/query",
         url: currentUrl + "/job/query",
         //生产环境
         method: "post",
         data: {
-          id: "4",
-          campus: campusValue.value
+          // id:'4',
+          "campus": campusValue.value,
+          "pageIndex": pageIndex,
+          "pageSize": 10
         },
         success: (res) => {
-          jobList.value = res.data.data;
+          jobList.value = [...jobList.value, ...res.data.data];
         },
         fail: (err) => {
           reject(err);
         }
       });
     }
+    common_vendor.onReachBottom(() => {
+      PageIndex.value = PageIndex.value + 1;
+      selectCampus(PageIndex.value);
+    });
+    common_vendor.watch(campusValue, (newValue, oldValue) => {
+      common_vendor.index.__f__("log", "at pages/job/job.vue:60", "watch触发");
+      PageIndex.value = 1;
+      jobList.value = [];
+    });
     return (_ctx, _cache) => {
       return {
-        a: common_vendor.o(selectCampus),
+        a: common_vendor.o(($event) => selectCampus(1)),
         b: common_vendor.o(($event) => campusValue.value = $event),
         c: common_vendor.p({
           localdata: campusList.value,

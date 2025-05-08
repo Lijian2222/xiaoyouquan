@@ -17,7 +17,7 @@ export const userStore = defineStore('user',()=>{
 				url:currentUrl+'/user/query', //生产环境
 				method:'post',
 				data:{
-					"id":4//暂时写死
+					"id":userId,
 				},
 				success:(res)=>{
 					const user = res.data.data

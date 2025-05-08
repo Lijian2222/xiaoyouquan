@@ -50,12 +50,15 @@
 			</navigator>
 			
 			<!-- 我的收藏 -->
-			<view class="myCollect">
-				<view>
-					<image src="../../static/myCollect.png"></image>
+			<navigator url="/pages/myFavorite/myFavorite">
+				<view class="myCollect">
+					<view>
+						<image src="../../static/myCollect.png"></image>
+					</view>
+					<span>我的收藏</span>
 				</view>
-				<span>我的收藏</span>
-			</view>
+			</navigator>
+			
 			<!-- 我的投递 -->
 			<view class="myDeliver">
 				<view>

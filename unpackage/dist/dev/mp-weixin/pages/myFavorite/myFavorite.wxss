@@ -1,0 +1,12 @@
+.myFavorite.data-v-aa6e481c {
+  width: 100vw;
+  height: 100vh;
+  background-color: #f8f8f8;
+}
+.myFavorite .myFavoriteHead.data-v-aa6e481c {
+  display: flex;
+  justify-content: center;
+  width: 90vw;
+  height: 10vw;
+  margin: 0 auto;
+}

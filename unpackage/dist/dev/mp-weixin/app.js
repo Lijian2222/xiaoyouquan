@@ -12,6 +12,7 @@ if (!Math) {
   "./pages/register/register.js";
   "./pages/publish/publish.js";
   "./pages/myPublish/myPublish.js";
+  "./pages/myFavorite/myFavorite.js";
 }
 const _sfc_main = {
   onLaunch: function() {
