@@ -7049,9 +7049,9 @@ function initOnError() {
   };
 }
 function initRuntimeSocketService() {
-  const hosts = "10.6.22.2,192.168.32.1,192.168.78.1,192.168.200.138,127.0.0.1";
+  const hosts = "192.168.32.1,192.168.78.1,192.168.124.138,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_0w9Dkl";
+  const id = "mp-weixin_RgFQTb";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8654,6 +8654,18 @@ const pages = [
     path: "pages/myFavorite/myFavorite",
     style: {
       navigationBarTitleText: ""
+    }
+  },
+  {
+    path: "pages/personHome/personHome",
+    style: {
+      navigationBarTitleText: ""
+    }
+  },
+  {
+    path: "pages/myDeliver/myDeliver",
+    style: {
+      navigationBarTitleText: "我的投递"
     }
   }
 ];

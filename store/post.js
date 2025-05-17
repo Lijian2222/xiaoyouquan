@@ -42,26 +42,45 @@ export const postStore = defineStore('post',()=>{
 		}
 	}
 	
-	async function getList1(pageIndex){
-		// console.log(pageIndex)
-		let res = await uni.request({
-			// url:'http://localhost:8080/post/query',
-			url:currentUrl+'/post/query',
-			// header: { 'content-type': 'application/x-www-form-urlencoded' },
-			method:'post',
-			data:{
-				"isDeleted":0,
-				"pageIndex":pageIndex,
-				"pageSize":5
-			}
-		})
-		// console.log(res)
-		res.data.data.forEach( 
-			handleTime
-		)
-		list1.value = [...list1.value,...res.data.data]
-		// console.log(list1)
+	// 修改获取列表数据的方法，更新Map
+	async function getList1(pageIndex) {
+	  let res = await uni.request({
+	    url: currentUrl + '/post/query',
+	    method: 'post',
+	    data: {
+	      "isDeleted": 0,
+	      "pageIndex": pageIndex,
+	      "pageSize": 5
+	    }
+	  })
+	  res.data.data.forEach(item => {
+	    handleTime(item)
+	    // 添加到Map
+	    postMap.value.set(item.id, item)
+	  })
+	  list1.value = [...list1.value, ...res.data.data]
 	}
+	
+	// async function getList1(pageIndex){
+	// 	// console.log(pageIndex)
+	// 	let res = await uni.request({
+	// 		// url:'http://localhost:8080/post/query',
+	// 		url:currentUrl+'/post/query',
+	// 		// header: { 'content-type': 'application/x-www-form-urlencoded' },
+	// 		method:'post',
+	// 		data:{
+	// 			"isDeleted":0,
+	// 			"pageIndex":pageIndex,
+	// 			"pageSize":5
+	// 		}
+	// 	})
+	// 	// console.log(res)
+	// 	res.data.data.forEach( 
+	// 		handleTime
+	// 	)
+	// 	list1.value = [...list1.value,...res.data.data]
+	// 	// console.log(list1)
+	// }
 	
 	async function getList2(pageIndex){
 		let res = await uni.request({
@@ -135,27 +154,59 @@ export const postStore = defineStore('post',()=>{
 		})
 	}
 	
-	
-	function addGoodNums(postId){ //点赞后本地数据+1，不用重新请求后端
-		list1.value.map((item,index)=>{
-			if(item.id==postId){
-				item.goodNums++
-			}
-			return item
-		})
-		list2.value.map((item,index)=>{
-			if(item.id==postId){
-				item.goodNums++
-			}
-			return item
-		})
-		list3.value.map((item,index)=>{
-			if(item.id==postId){
-				item.goodNums++
-			}
-			return item
-		})
+	// 添加一个Map来记录所有帖子
+	const postMap = ref(new Map())
+	// 修改获取列表数据的方法，更新Map
+	async function getList1(pageIndex) {
+	  let res = await uni.request({
+	    url: currentUrl + '/post/query',
+	    method: 'post',
+	    data: {
+	      "isDeleted": 0,
+	      "pageIndex": pageIndex,
+	      "pageSize": 5
+	    }
+	  })
+	  
+	  res.data.data.forEach(item => {
+	    handleTime(item)
+	    // 添加到Map
+	    postMap.value.set(item.id, item)
+	  })
+	  
+	  list1.value = [...list1.value, ...res.data.data]
 	}
+	
+	// 优化点赞方法
+	function addGoodNums(postId) {
+	  // 直接从Map中获取并修改
+	  if (postMap.value.has(postId)) {
+	    const post = postMap.value.get(postId)
+	    post.goodNums++
+	    postMap.value.set(postId, post)
+	  }
+	}
+	
+	// function addGoodNums(postId){ //点赞后本地数据+1，不用重新请求后端
+	// 	list1.value.map((item,index)=>{
+	// 		if(item.id==postId){
+	// 			item.goodNums++
+	// 		}
+	// 		return item
+	// 	})
+	// 	list2.value.map((item,index)=>{
+	// 		if(item.id==postId){
+	// 			item.goodNums++
+	// 		}
+	// 		return item
+	// 	})
+	// 	list3.value.map((item,index)=>{
+	// 		if(item.id==postId){
+	// 			item.goodNums++
+	// 		}
+	// 		return item
+	// 	})
+	// }
 	
 	function subGoodNums(postId){ //取消点赞后本地数据-1，不用重新请求后端
 		list1.value.map((item,index)=>{

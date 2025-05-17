@@ -29,9 +29,7 @@ const postStore = common_vendor.defineStore("post", () => {
   }
   async function getList1(pageIndex) {
     let res = await common_vendor.index.request({
-      // url:'http://localhost:8080/post/query',
       url: currentUrl + "/post/query",
-      // header: { 'content-type': 'application/x-www-form-urlencoded' },
       method: "post",
       data: {
         "isDeleted": 0,
@@ -39,9 +37,10 @@ const postStore = common_vendor.defineStore("post", () => {
         "pageSize": 5
       }
     });
-    res.data.data.forEach(
-      handleTime
-    );
+    res.data.data.forEach((item) => {
+      handleTime(item);
+      postMap.value.set(item.id, item);
+    });
     list1.value = [...list1.value, ...res.data.data];
   }
   async function getList2(pageIndex) {
@@ -114,25 +113,29 @@ const postStore = common_vendor.defineStore("post", () => {
       });
     });
   }
+  const postMap = common_vendor.ref(/* @__PURE__ */ new Map());
+  async function getList1(pageIndex) {
+    let res = await common_vendor.index.request({
+      url: currentUrl + "/post/query",
+      method: "post",
+      data: {
+        "isDeleted": 0,
+        "pageIndex": pageIndex,
+        "pageSize": 5
+      }
+    });
+    res.data.data.forEach((item) => {
+      handleTime(item);
+      postMap.value.set(item.id, item);
+    });
+    list1.value = [...list1.value, ...res.data.data];
+  }
   function addGoodNums(postId) {
-    list1.value.map((item, index) => {
-      if (item.id == postId) {
-        item.goodNums++;
-      }
-      return item;
-    });
-    list2.value.map((item, index) => {
-      if (item.id == postId) {
-        item.goodNums++;
-      }
-      return item;
-    });
-    list3.value.map((item, index) => {
-      if (item.id == postId) {
-        item.goodNums++;
-      }
-      return item;
-    });
+    if (postMap.value.has(postId)) {
+      const post = postMap.value.get(postId);
+      post.goodNums++;
+      postMap.value.set(postId, post);
+    }
   }
   function subGoodNums(postId) {
     list1.value.map((item, index) => {

@@ -3,6 +3,7 @@
 	import { onMounted, ref, computed } from 'vue'
 	import { postStore } from '../../store/post'
 	import { environmentStore } from '../../store/environment'
+	import { throttle } from '../../utils/throttle'
 	const currentUrl = environmentStore().currentUrl
 	
 	const moreVisbility = ref(true)
@@ -23,7 +24,7 @@
 	})
 	
 	//点赞图片相关 每个帖子都有一个独立的imageSrc 只要涉及到imageSrc就不能写到post.js仓库里面
-	let imageSrc = ref('../../static/good.png')
+	const imageSrc = ref('../../static/good.png')
 	const defaultImage = '../../static/good.png'//未点赞图片
 	const alternateImage = '../../static/good2.png'//已点赞图片
 
@@ -34,6 +35,8 @@
 		}
 	})
 	
+	//防抖优化
+	const throttledAddGood = throttle(addGood, 300)
 	
 	function addGood(){//该用户给这个帖子点赞或取消点赞
 		if(imageSrc.value == defaultImage){//如果点击的时候是未点赞图片
@@ -104,10 +107,13 @@
 	<view class="homePost">
 		<!-- 存帖子的头部，包括头像，昵称，发布时间，更多 -->
 		<view class="homePostHead">
-			<!-- 用户头像 -->
-			<view class="userHeadPicture">
-				<image src="../../static/userHeader1.png"></image>
-			</view>
+			<!-- 用户头像，点击头像进主页 -->
+			<navigator :url="`/pages/personHome/personHome?username=${props.username}`">
+				<view class="userHeadPicture">
+					<image lazy-load src="../../static/userHeader1.png"></image>
+				</view>
+			</navigator>
+			
 			<!-- 用户昵称和发布时间 -->
 			<view class="usernameAndPublishTime">
 				<view class="username">{{username}}</view>
@@ -144,7 +150,7 @@
 		<view class="homePostFoot">	
 			<!-- 点赞图片和数量 -->
 			<view class="addGood">
-				<image :src='imageSrc' @touchend="addGood"></image> 
+				<image :src='imageSrc' @touchend="throttledAddGood"></image> 
 				<view>{{ postStore().formatNumber(goodNums) }}</view>
 			</view>
 			<!-- 评论图片和数量 -->

@@ -3,6 +3,7 @@ const common_vendor = require("../../common/vendor.js");
 const common_assets = require("../../common/assets.js");
 const store_post = require("../../store/post.js");
 const store_environment = require("../../store/environment.js");
+const utils_throttle = require("../../utils/throttle.js");
 const defaultImage = "../../static/good.png";
 const alternateImage = "../../static/good2.png";
 const _sfc_main = {
@@ -22,12 +23,13 @@ const _sfc_main = {
     const currentUrl = store_environment.environmentStore().currentUrl;
     const moreVisbility = common_vendor.ref(true);
     const props = __props;
-    let imageSrc = common_vendor.ref("../../static/good.png");
+    const imageSrc = common_vendor.ref("../../static/good.png");
     store_post.postStore().requestGood(props.id).then((result) => {
       if (result) {
         imageSrc.value = alternateImage;
       }
     });
+    const throttledAddGood = utils_throttle.throttle(addGood, 300);
     function addGood() {
       if (imageSrc.value == defaultImage) {
         common_vendor.index.request({
@@ -74,26 +76,27 @@ const _sfc_main = {
     return (_ctx, _cache) => {
       return {
         a: common_assets._imports_0$1,
-        b: common_vendor.t(__props.username),
-        c: common_vendor.t(__props.time),
-        d: common_assets._imports_1$5,
-        e: moreVisbility.value,
-        f: common_vendor.o(($event) => moreVisbility.value = false),
-        g: common_assets._imports_2$2,
-        h: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().notInteresting(props.id)),
-        i: common_assets._imports_3$2,
-        j: common_vendor.o(($event) => moreVisbility.value = true),
-        k: !moreVisbility.value,
-        l: common_vendor.t(__props.content),
-        m: "/pages/postContent/postContent?" + urlParameter.value,
-        n: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().addView(props.id)),
-        o: common_vendor.unref(imageSrc),
-        p: common_vendor.o(addGood),
-        q: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.goodNums)),
-        r: common_assets._imports_4$1,
-        s: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.commentNums)),
-        t: common_assets._imports_5,
-        v: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.viewNums))
+        b: `/pages/personHome/personHome?username=${props.username}`,
+        c: common_vendor.t(__props.username),
+        d: common_vendor.t(__props.time),
+        e: common_assets._imports_1$5,
+        f: moreVisbility.value,
+        g: common_vendor.o(($event) => moreVisbility.value = false),
+        h: common_assets._imports_2$2,
+        i: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().notInteresting(props.id)),
+        j: common_assets._imports_3$2,
+        k: common_vendor.o(($event) => moreVisbility.value = true),
+        l: !moreVisbility.value,
+        m: common_vendor.t(__props.content),
+        n: "/pages/postContent/postContent?" + urlParameter.value,
+        o: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().addView(props.id)),
+        p: imageSrc.value,
+        q: common_vendor.o((...args) => common_vendor.unref(throttledAddGood) && common_vendor.unref(throttledAddGood)(...args)),
+        r: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.goodNums)),
+        s: common_assets._imports_4$1,
+        t: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.commentNums)),
+        v: common_assets._imports_5,
+        w: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(__props.viewNums))
       };
     };
   }

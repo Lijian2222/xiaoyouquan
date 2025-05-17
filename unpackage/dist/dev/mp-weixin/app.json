@@ -10,7 +10,9 @@
     "pages/register/register",
     "pages/publish/publish",
     "pages/myPublish/myPublish",
-    "pages/myFavorite/myFavorite"
+    "pages/myFavorite/myFavorite",
+    "pages/personHome/personHome",
+    "pages/myDeliver/myDeliver"
   ],
   "window": {
     "navigationBarTextStyle": "black",

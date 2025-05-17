@@ -69,7 +69,22 @@
 			{
 				"navigationBarTitleText" : ""
 			}
+		},
+		{
+			"path" : "pages/personHome/personHome",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/myDeliver/myDeliver",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的投递"
+			}
 		}
+		
 		
 		
 	],

@@ -60,12 +60,15 @@
 			</navigator>
 			
 			<!-- 我的投递 -->
-			<view class="myDeliver">
-				<view>
-					<image src="../../static/myDeliver.png"></image>
+			<navigator url="/pages/myDeliver/myDeliver">
+				<view class="myDeliver">
+					<view>
+						<image src="../../static/myDeliver.png"></image>
+					</view>
+					<span>我的投递</span>
 				</view>
-				<span>我的投递</span>
-			</view>
+			</navigator>
+			
 			<!-- 我的技能 -->
 			<view class="mySkill">
 				<view>
@@ -81,12 +84,14 @@
 				<span>我的学校</span>
 			</view>
 			<!-- 设置 -->
-			<view class="setting">
-				<view>
-					<image src="../../static/setting.png"></image>
+			<navigator url="/pages/personHome/personHome">
+				<view class="setting">
+					<view>
+						<image src="../../static/setting.png"></image>
+					</view>
+					<span>设置</span>
 				</view>
-				<span>设置</span>
-			</view>
+			</navigator>
 		</view>
 		
 	</view>

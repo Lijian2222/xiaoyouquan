@@ -25,7 +25,7 @@
 				"isDeleted":0
 			}
 		})
-		console.log(res)
+		// console.log(res)
 		res.data.data.forEach( 
 			postStore().handleTime
 		)

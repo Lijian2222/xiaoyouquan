@@ -30,7 +30,6 @@ const _sfc_main = {
           "isDeleted": 0
         }
       });
-      common_vendor.index.__f__("log", "at pages/myFavorite/myFavorite.vue:28", res);
       res.data.data.forEach(
         store_post.postStore().handleTime
       );

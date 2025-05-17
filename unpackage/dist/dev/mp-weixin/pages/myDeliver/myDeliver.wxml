@@ -1,0 +1,1 @@
+<view class="myFavorite data-v-d8e48c1d"><view class="myFavoriteHead data-v-d8e48c1d"><view class="data-v-d8e48c1d">岗位</view></view><view class="myFavoriteBody data-v-d8e48c1d"><job-post wx:for="{{a}}" wx:for-item="item" wx:key="a" class="data-v-d8e48c1d" id="{{item.b}}" u-i="{{item.c}}" bind:__l="__l" u-p="{{item.d}}"></job-post></view></view>

@@ -2,6 +2,7 @@
 	import { onMounted, ref } from 'vue'
 	import { postStore } from '../../store/post'
 	import {onLoad} from "@dcloudio/uni-app"
+	import commentItem from '../../components/commentItem/commentItem.vue'
 	const options = ref({})
 	
 	//页面之间传参，可以再onLoad里面接受参数
@@ -66,6 +67,16 @@
 		}
 	}
 	
+	const commentList = ref([
+		{id:1,username:"米高扬",commentContent:"我不用努力，学校会努力的",publishTime:"2025-05-15 09:30"},
+		{id:2,username:"帅奥特曼",commentContent:"秋招过去了，春招也过去了",publishTime:"2025-05-15 10:28"},
+		{id:3,username:"鸭子给给",commentContent:"三天学完大数据开发",publishTime:"2025-05-15 11:02"},
+		{id:4,username:"冲冲冲",commentContent:"丸辣，鼠鼠毕不了业啦",publishTime:"2025-05-15 15:46"},
+	])
+	
+	function handleNotInteresting(id){ //不感兴趣后，推荐，校友圈，关注都将会看不见
+		commentList.value = commentList.value.filter(item=>item.id!=id)
+	}
 </script>
 
 <template>
@@ -103,7 +114,14 @@
 					<span>全部评论</span>
 				</view>
 				<view class="commentDetails">
-					
+					<commentItem
+					v-for="(item,index) in commentList" :key="item.id"
+					:id="item.id"
+					:username="item.username"
+					:commentContent="item.commentContent"
+					:publishTime="item.publishTime"
+					@notInteresting="handleNotInteresting"
+					></commentItem>
 				</view>
 				
 			</view>
@@ -143,7 +161,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100vw;
-		height: 100vh;
+		// height: 100vh;
 		background-color: @themeColor;
 		
 		// 用户头像，昵称，个性签名
@@ -206,11 +224,10 @@
 	
 		//帖子详情和评论区
 		.postContentBody{
-			
 			display: flex;
 			flex-direction: column;
 			width: 90vw;
-			height: 100vh;
+			// height: 100vh;
 			margin: 2vw auto;
 			
 			
@@ -242,8 +259,6 @@
 		
 			//评论区
 			.comment{
-				
-				
 				width: 90vw;
 				
 				// 蓝色竖线和“全部评论”标题
@@ -263,10 +278,11 @@
 				
 				.commentDetails{
 					width: 90vw;
-					height: 90vw;
+					// height: 90vw;
 					margin: 0 auto;
 					border-radius: 3vw;
 					background-color: #fff;
+					margin-bottom: 20vw;
 				}
 				
 			}

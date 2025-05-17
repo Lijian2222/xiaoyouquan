@@ -8,10 +8,6 @@
 	const alredyStar = "../../static/star3.png"
 	const starUrl = ref("../../static/star2.png")
 	
-	
-		
-	
-	
 	const props = defineProps({
 		id:Number,
 		userId:Number,
@@ -63,7 +59,6 @@
 	queryFavorite()
 
 	// console.log(props.campus)
-	
 	// 动态计算 当imageSrc.value,props.goodNums发生变化，重新计算urlParameter
 	// 因为url是静态解析的，一开始imageSrc=${imageSrc.value}}的值已经写死了,相当于imageSrc=xxx字符串
 	// 但是在页面内部修改这些来自仓库的数据，页面内部并不会实时更新，因为url传递数据是一次性的，没有绑定关系
@@ -73,23 +68,56 @@
 	
 	//用户点击收藏
 	function addStar(){
-		
 		if (starUrl.value==defaultStar){ //点击前是default表示未收藏，点击后改为已收藏
-			starUrl.value=alredyStar
+			starUrl.value=alredyStar  //本地改变
+			//先查询数据库里面有没有记录
 			uni.request({
-				// url:'http://localhost:8080/job/query',
-				url:currentUrl+'/favorite/insert',
-				// header: { 'content-type': 'application/x-www-form-urlencoded' },
+				url:currentUrl+'/favorite/query',
 				method:'post',
 				data:{
-					"isDeleted":0,
 					"concerned":props.id,
 					"status":1, //1是收藏岗位，0是关注用户
 					"userId":userStore().userId
+				},
+				success:(res) => {
+					// console.log(res)
+					if(res.data.data.length==0){//如果数据库里面没有记录，直接插入记录
+						uni.request({
+							// url:'http://localhost:8080/job/query',
+							url:currentUrl+'/favorite/insert',
+							// header: { 'content-type': 'application/x-www-form-urlencoded' },
+							method:'post',
+							data:{
+								"isDeleted":0,
+								"concerned":props.id,
+								"status":1, //1是收藏岗位，0是关注用户
+								"userId":userStore().userId
+							}
+						})
+						// resolve(true)
+					}else{ //如果数据库里面有记录,就修改记录
+						uni.request({
+							// url:'http://localhost:8080/job/query',
+							url:currentUrl+'/favorite/update',
+							// header: { 'content-type': 'application/x-www-form-urlencoded' },
+							method:'post',
+							data:{
+								"isDeleted":0,
+								"concerned":props.id,
+								"status":1, //1是收藏岗位，0是关注用户
+								"userId":userStore().userId
+							}
+						})
+						// resolve(false)
+					}
+				},
+				fail:(err) => {
+					reject(err)
 				}
 			})
-		}else{ //点击前是already表示已收藏，点击后改为未收藏
-			console.log("update")
+			
+		}else{ //点击前是already表示已收藏，点击后改为未收藏，其实就是将is_deleted改成1
+			// console.log("update")
 			starUrl.value=defaultStar
 			uni.request({
 				// url:'http://localhost:8080/job/query',
@@ -112,7 +140,6 @@
 <template>
 	<!-- 岗位的盒子模型 -->
 	<view class="jobPost">
-		
 		<!-- 头部，包括岗位名称，薪资 -->
 		<view class="jobPostHead">
 			<view class="jobName">{{props.jobName}}</view>
@@ -137,9 +164,11 @@
 		<view class="jobPostFoot">
 			<!-- 为了布局包装了一层left和right -->
 			<view class="jobPostFootLeft">
-				<view class="userHead">
-					<image src="../../static/userHeader1.png"></image>
-				</view>
+				<navigator :url="`/pages/personHome/personHome?username=${props.nickname}`">
+					<view class="userHead">
+						<image src="../../static/userHeader1.png"></image>
+					</view>
+				</navigator>
 				<view class="username">{{props.nickname}}</view>
 				<view class="academicPicture">
 					<image src="../../static/academic.png"></image>

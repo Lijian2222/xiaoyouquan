@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   width: 100vw;
-  height: 100vh;
   background-color: #f8f8f8;
 }
 .postContent .postContentHead.data-v-ea039cdc {
@@ -59,7 +58,6 @@
   display: flex;
   flex-direction: column;
   width: 90vw;
-  height: 100vh;
   margin: 2vw auto;
 }
 .postContent .postContentBody .content.data-v-ea039cdc {
@@ -100,10 +98,10 @@
 }
 .postContent .postContentBody .comment .commentDetails.data-v-ea039cdc {
   width: 90vw;
-  height: 90vw;
   margin: 0 auto;
   border-radius: 3vw;
   background-color: #fff;
+  margin-bottom: 20vw;
 }
 .postContent .postContentBodyFoot.data-v-ea039cdc {
   position: fixed;

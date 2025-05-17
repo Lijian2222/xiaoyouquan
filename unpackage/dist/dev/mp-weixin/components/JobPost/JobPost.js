@@ -30,7 +30,7 @@ const _sfc_main = {
     const starUrl = common_vendor.ref("../../static/star2.png");
     const props = __props;
     function queryFavorite() {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject2) => {
         common_vendor.index.request({
           url: currentUrl + "/favorite/query",
           //生产环境
@@ -52,7 +52,7 @@ const _sfc_main = {
             }
           },
           fail: (err) => {
-            reject(err);
+            reject2(err);
           }
         });
       });
@@ -65,20 +65,50 @@ const _sfc_main = {
       if (starUrl.value == defaultStar) {
         starUrl.value = alredyStar;
         common_vendor.index.request({
-          // url:'http://localhost:8080/job/query',
-          url: currentUrl + "/favorite/insert",
-          // header: { 'content-type': 'application/x-www-form-urlencoded' },
+          url: currentUrl + "/favorite/query",
           method: "post",
           data: {
-            "isDeleted": 0,
             "concerned": props.id,
             "status": 1,
             //1是收藏岗位，0是关注用户
             "userId": store_user.userStore().userId
+          },
+          success: (res) => {
+            if (res.data.data.length == 0) {
+              common_vendor.index.request({
+                // url:'http://localhost:8080/job/query',
+                url: currentUrl + "/favorite/insert",
+                // header: { 'content-type': 'application/x-www-form-urlencoded' },
+                method: "post",
+                data: {
+                  "isDeleted": 0,
+                  "concerned": props.id,
+                  "status": 1,
+                  //1是收藏岗位，0是关注用户
+                  "userId": store_user.userStore().userId
+                }
+              });
+            } else {
+              common_vendor.index.request({
+                // url:'http://localhost:8080/job/query',
+                url: currentUrl + "/favorite/update",
+                // header: { 'content-type': 'application/x-www-form-urlencoded' },
+                method: "post",
+                data: {
+                  "isDeleted": 0,
+                  "concerned": props.id,
+                  "status": 1,
+                  //1是收藏岗位，0是关注用户
+                  "userId": store_user.userStore().userId
+                }
+              });
+            }
+          },
+          fail: (err) => {
+            reject(err);
           }
         });
       } else {
-        common_vendor.index.__f__("log", "at components/JobPost/JobPost.vue:92", "update");
         starUrl.value = defaultStar;
         common_vendor.index.request({
           // url:'http://localhost:8080/job/query',
@@ -110,8 +140,9 @@ const _sfc_main = {
         k: common_vendor.t(props.jobBelonging),
         l: "/pages/jobContent/jobContent?" + urlParameter.value,
         m: common_assets._imports_0$1,
-        n: common_vendor.t(props.nickname),
-        o: common_assets._imports_1$3
+        n: `/pages/personHome/personHome?username=${props.nickname}`,
+        o: common_vendor.t(props.nickname),
+        p: common_assets._imports_1$3
       };
     };
   }

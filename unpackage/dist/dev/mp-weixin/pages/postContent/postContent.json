@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "帖子详情页",
-  "usingComponents": {}
+  "usingComponents": {
+    "comment-item": "../../components/commentItem/commentItem"
+  }
 }

@@ -1,7 +1,7 @@
 <script setup>
 	
 	
-	import { onMounted, ref } from 'vue'
+	import { onMounted, ref, watch } from 'vue'
 	import { postStore } from '../../store/post'
 	import { userStore } from '../../store/user.js'
 	import { onReachBottom } from '@dcloudio/uni-app'
@@ -11,12 +11,29 @@
 	const headTabNum = ref(1)
 	
 	//初始请求第一页
+	// let pageIndex1 = 1
+	// postStore().getList1(pageIndex1)
+	// let pageIndex2 = 1
+	// postStore().getList2(pageIndex2)
+	// let pageIndex3 = 1
+	// postStore().getList3(pageIndex3)
+	
+	// 只初始加载推荐列表
 	let pageIndex1 = 1
-	postStore().getList1(pageIndex1)
 	let pageIndex2 = 1
-	postStore().getList2(pageIndex2)
 	let pageIndex3 = 1
-	postStore().getList3(pageIndex3)
+	// 初始只加载默认标签页数据
+	onMounted(() => {
+	  postStore().getList1(pageIndex1)
+	})
+	// 监听标签切换，按需加载其他标签数据
+	watch(headTabNum, (newValue) => {
+	  if (newValue === 2 && postStore().list2.length === 0) {
+	    postStore().getList2(pageIndex2)
+	  } else if (newValue === 3 && postStore().list3.length === 0) {
+	    postStore().getList3(pageIndex3)
+	  }
+	})
 	
 	
 	//触底加载更多
@@ -81,7 +98,53 @@
 		
 		<!-- 首页里面的帖子 -->
 		<view class="homeBody">
+			<template v-if="headTabNum==1">
 			<homePost 
+			v-for="(item,index) in postStore().list1" :key="item.id"
+			:id="item.id"
+			:username="item.nickname"
+			:content="item.content"
+			:goodNums="item.goodNums"
+			:commentNums="item.commentNums"
+			:viewNums="item.viewNums"
+			:time="item.publishTime"
+			:retweet="item.retweet"
+			:signature="item.signature"
+			></homePost>
+			</template>
+			
+			<template v-else-if="headTabNum==2 && userStore().logInFlag">
+			    <homePost
+			      v-for="(item,index) in postStore().list2" :key="item.id"
+			      :id="item.id"
+			      :username="item.nickname"
+			      :content="item.content"
+			      :goodNums="item.goodNums"
+			      :commentNums="item.commentNums"
+			      :viewNums="item.viewNums"
+			      :time="item.publishTime"
+			      :retweet="item.retweet"
+			      :signature="item.signature"
+			    ></homePost>
+			</template>
+			
+			
+			<template v-else-if="headTabNum==3 && userStore().logInFlag">
+			    <homePost
+			      v-for="(item,index) in postStore().list3" :key="item.id"
+			      :id="item.id"
+			      :username="item.nickname"
+			      :content="item.content"
+			      :goodNums="item.goodNums"
+			      :commentNums="item.commentNums"
+			      :viewNums="item.viewNums"
+			      :time="item.publishTime"
+			      :retweet="item.retweet"
+			      :signature="item.signature"
+			    ></homePost>
+			</template>
+			
+			<!-- <homePost
 			v-for="(item,index) in postStore().list1" :key="item.id"
 			v-show="headTabNum==1"
 			:id="item.id"
@@ -93,9 +156,9 @@
 			:time="item.publishTime"
 			:retweet="item.retweet"
 			:signature="item.signature"
-			></homePost>
+			></homePost> -->
 			
-			<homePost
+			<!-- <homePost
 			v-for="(item,index) in postStore().list2" :key="item.id"
 			v-show="headTabNum==2 && userStore().logInFlag"
 			:id="item.id"
@@ -107,7 +170,7 @@
 			:time="item.publishTime"
 			:retweet="item.retweet"
 			:signature="item.signature"
-			></homePost>
+			></homePost> -->
 			
 			<homePost
 			v-for="(item,index) in postStore().list3" :key="item.id"
@@ -125,11 +188,11 @@
 			
 		</view>
 		<!-- 蓝色的加号 -->
-		<!-- <navigator url="/pages/publish/publish"> -->
+		<navigator url="/pages/publish/publish">
 			<view class="publish" @touchend="checkPublish">
 				<image src="../../static/add.png"></image>
 			</view>
-		<!-- </navigator> -->
+		</navigator>
 	</view>
 </template>
 

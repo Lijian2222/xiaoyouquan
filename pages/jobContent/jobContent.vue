@@ -2,6 +2,9 @@
 	import { onMounted, onUpdated, ref } from 'vue'
 	import {onLoad} from "@dcloudio/uni-app"
 	import { jobStore } from '../../store/job'
+	import { userStore } from '../../store/user'
+	import { environmentStore } from '../../store/environment'
+	const currentUrl = environmentStore().currentUrl
 	//新页面接收传过来的参数：
 	const options = ref({})
 	//解决salaryStary在onMounted前处于udnefine的报错
@@ -11,8 +14,78 @@
 	onLoad((e)=>{
 	    // console.log(e)
 	    options.value = e
+		if (options.value.campus=="null"){
+			options.value.campus="哈尔滨工业大学"
+		}
 	})//接收参数页面
 	
+	const favorite = ref("收 藏")
+	function addFavorite(){
+		if (favorite.value=="收 藏"){
+			favorite.value="已收藏"
+		}else{
+			favorite.value="收 藏"
+		}
+	}
+	
+	//用户点击投递
+	function deliver(){
+		uni.showToast({
+			title: '投递成功', // 提示内容
+			icon: 'success',  // 图标类型（success、loading、none）
+			duration: 2000,   // 显示时长（毫秒）
+			mask: true,       // 是否显示透明蒙层，防止触摸穿透
+			success: () => {
+				console.log('Toast 显示成功');
+			}
+		})
+		console.log("正在查询是否投递过")
+		console.log(options.id)
+		uni.request({
+			url:currentUrl+'/deliver/query',
+			method:'POST',
+			data:{
+				"userId":userStore().userId,
+				"jobId":options.id,
+				"isDeleted":0
+			},
+			success:(res) => {
+				// console.log(res)
+				if(res.data.data.length==0){//如果数据库里面没有记录，直接插入记录
+					console.log("没有投递过")
+					uni.request({
+						// url:'http://localhost:8080/job/query',
+						url:currentUrl+'/deliver/insert',
+						// header: { 'content-type': 'application/x-www-form-urlencoded' },
+						method:'post',
+						data:{
+							"isDeleted":0,
+							"jobId":options.value.id,
+							"userId":userStore().userId
+						}
+					})
+					// resolve(true)
+				}else{ //如果数据库里面有记录,就修改记录
+					console.log("投递过")
+					uni.request({
+						// url:'http://localhost:8080/job/query',
+						url:currentUrl+'/deliver/update',
+						// header: { 'content-type': 'application/x-www-form-urlencoded' },
+						method:'post',
+						data:{
+							"isDeleted":0,
+							"jobId":options.id,
+							"userId":userStore().userId
+						}
+					})
+					// resolve(false)
+				}
+			},
+			fail:(err) => {
+				reject(err)
+			}
+		})
+	}
 </script>
 
 
@@ -66,8 +139,8 @@
 		</view>
 		<!-- 收藏 投递 -->
 		<view class="jobContentFoot">
-			<button>收 藏</button>
-			<button>立即投递</button>
+			<button @touchend="addFavorite">{{favorite}}</button>
+			<button @touchend="deliver">立即投递</button>
 		</view>
 	</view>
 </template>
