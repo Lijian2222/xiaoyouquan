@@ -139,7 +139,7 @@ const _sfc_main = {
         j: common_vendor.t(props.experienceAcquired),
         k: common_vendor.t(props.jobBelonging),
         l: "/pages/jobContent/jobContent?" + urlParameter.value,
-        m: common_assets._imports_0$1,
+        m: common_assets._imports_0$2,
         n: `/pages/personHome/personHome?username=${props.nickname}`,
         o: common_vendor.t(props.nickname),
         p: common_assets._imports_1$3

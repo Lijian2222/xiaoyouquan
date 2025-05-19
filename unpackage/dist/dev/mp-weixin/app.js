@@ -15,6 +15,9 @@ if (!Math) {
   "./pages/myFavorite/myFavorite.js";
   "./pages/personHome/personHome.js";
   "./pages/myDeliver/myDeliver.js";
+  "./pages/messageContent/messageContent.js";
+  "./pages/mySkill/mySkill.js";
+  "./pages/myCampus/myCampus.js";
 }
 const _sfc_main = {
   onLaunch: function() {

@@ -3,6 +3,7 @@
 	import { postStore } from '../../store/post'
 	import {onLoad} from "@dcloudio/uni-app"
 	import commentItem from '../../components/commentItem/commentItem.vue'
+	
 	const options = ref({})
 	
 	//页面之间传参，可以再onLoad里面接受参数
@@ -66,17 +67,33 @@
 			options.value.goodNums--
 		}
 	}
-	
+	const inputText = ref("")
 	const commentList = ref([
-		{id:1,username:"米高扬",commentContent:"我不用努力，学校会努力的",publishTime:"2025-05-15 09:30"},
-		{id:2,username:"帅奥特曼",commentContent:"秋招过去了，春招也过去了",publishTime:"2025-05-15 10:28"},
-		{id:3,username:"鸭子给给",commentContent:"三天学完大数据开发",publishTime:"2025-05-15 11:02"},
-		{id:4,username:"冲冲冲",commentContent:"丸辣，鼠鼠毕不了业啦",publishTime:"2025-05-15 15:46"},
+		{username:"米高扬",commentContent:"我不用努力，学校会努力的",publishTime:"2025-05-15 09:30",dog:true},
+		{username:"帅奥特曼",commentContent:"秋招过去了，春招也过去了",publishTime:"2025-05-15 10:28",dog:false},
+		{username:"鸭子给给",commentContent:"三天学完大数据开发",publishTime:"2025-05-15 11:02",dog:false},
+		{username:"冲冲冲",commentContent:"丸辣，鼠鼠毕不了业啦",publishTime:"2025-05-15 15:46",dog:false},
 	])
-	
+	function push(){
+		commentList.value.push({username:"熊大爱睡觉",commentContent:`${inputText.value}`,publishTime:formatTimestamp(Date.now()),dog:false})
+	}
 	function handleNotInteresting(id){ //不感兴趣后，推荐，校友圈，关注都将会看不见
 		commentList.value = commentList.value.filter(item=>item.id!=id)
 	}
+	function formatTimestamp(timestamp) {
+	    const date = new Date(timestamp); // 将时间戳转换为Date对象
+	
+	    // 获取年、月、日、小时、分钟
+	    const year = date.getFullYear(); // 年
+	    const month = String(date.getMonth() + 1).padStart(2, '0'); // 月（从0开始，需要加1，并补零）
+	    const day = String(date.getDate()).padStart(2, '0'); // 日（补零）
+	    const hours = String(date.getHours()).padStart(2, '0'); // 小时（24小时制，补零）
+	    const minutes = String(date.getMinutes()).padStart(2, '0'); // 分钟（补零）
+	
+	    // 拼接成目标格式
+	    return `${year}-${month}-${day} ${hours}:${minutes}`;
+	}
+	
 </script>
 
 <template>
@@ -120,6 +137,7 @@
 					:username="item.username"
 					:commentContent="item.commentContent"
 					:publishTime="item.publishTime"
+					:dog="item.dog"
 					@notInteresting="handleNotInteresting"
 					></commentItem>
 				</view>
@@ -128,8 +146,11 @@
 		</view>
 		<!-- 参与评论和点赞收藏情况 -->
 		<view class="postContentBodyFoot">
-			<input type="text" placeholder="      参与一下~"/>
-			<view class="share">
+			<input type="text" placeholder="      参与一下~" v-model="inputText"/>
+			<view class="enter">
+				<button @touchend="push">发送</button>
+			</view>
+			<!-- <view class="share">
 				<image src="../../static/share.png"></image>
 				<span>{{ postStore().formatNumber(options.retweet) }}</span>
 			</view>
@@ -140,7 +161,7 @@
 			<view class="pageView">
 				<image src="../../static/pageView.png"></image>
 				<span>{{ postStore().formatNumber(options.viewNums) }}</span>
-			</view>
+			</view> -->
 		</view>
 	</view>
 	
@@ -300,13 +321,14 @@
 			border-radius: 0 0 5vw 5vw;
 			color: @fontColor1;
 			background-color: #fff;
-			
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 			
 			input{
-				width: 50vw;
+				width: 70vw;
 				height: 10vw;
 				margin: 3vw;
 				border-radius: 5vw;
+				padding-left: 2vw;
 				background-color: @themeColor;
 			}
 			
@@ -316,29 +338,42 @@
 				margin-top: 4vw;
 			}
 			
-			.share{
-				display: flex;
-				width: 15vw;
-				height: 15vw;
-				image{
-					width: 6vw;
-					height: 6vw;
-					margin-top: 5vw;
+			.enter{
+				width: 20vw;
+				height: 10vw;
+				margin: 3vw;
+				button{
+					width: 20vw;
+					height: 10vw;
+					color:#fff;
+					background-color: #0d99ff;
+					border-radius: 3vw;
 				}
+			}
+			
+			// .share{
+			// 	display: flex;
+			// 	width: 15vw;
+			// 	height: 15vw;
+			// 	image{
+			// 		width: 6vw;
+			// 		height: 6vw;
+			// 		margin-top: 5vw;
+			// 	}
 				
-			}
+			// }
 			
-			.good{
-				display: flex;
-				width: 15vw;
-				height: 15vw;
-			}
+			// .good{
+			// 	display: flex;
+			// 	width: 15vw;
+			// 	height: 15vw;
+			// }
 			
-			.pageView{
-				display: flex;
-				width: 15vw;
-				height: 15vw;
-			}
+			// .pageView{
+			// 	display: flex;
+			// 	width: 15vw;
+			// 	height: 15vw;
+			// }
 		}
 	
 	}

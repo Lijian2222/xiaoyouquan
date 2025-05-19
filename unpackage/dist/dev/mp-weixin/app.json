@@ -12,7 +12,10 @@
     "pages/myPublish/myPublish",
     "pages/myFavorite/myFavorite",
     "pages/personHome/personHome",
-    "pages/myDeliver/myDeliver"
+    "pages/myDeliver/myDeliver",
+    "pages/messageContent/messageContent",
+    "pages/mySkill/mySkill",
+    "pages/myCampus/myCampus"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -20,39 +20,137 @@
 	})//接收参数页面
 	
 	const favorite = ref("收 藏")
+	//点击收藏
 	function addFavorite(){
 		if (favorite.value=="收 藏"){
+			uni.showToast({
+				title: '收藏成功', // 提示内容
+				icon: 'success',  // 图标类型（success、loading、none）
+				duration: 2000,   // 显示时长（毫秒）
+				mask: true,       // 是否显示透明蒙层，防止触摸穿透
+				success: () => {
+					console.log('Toast 显示成功');
+				}
+			})
+			//发起网络请求
+			uni.request({
+				url:currentUrl+'/favorite/insert',
+				method:'POST',
+				data:{
+					"userId":userStore().userId,
+					"concerned":options.value.id,
+					"status":1,
+					"isDeleted":0
+				}
+			})
 			favorite.value="已收藏"
 		}else{
+			uni.showToast({
+				title: '取消收藏成功', // 提示内容
+				icon: 'success',  // 图标类型（success、loading、none）
+				duration: 2000,   // 显示时长（毫秒）
+				mask: true,       // 是否显示透明蒙层，防止触摸穿透
+				success: () => {
+					console.log('Toast 显示成功');
+				}
+			})
 			favorite.value="收 藏"
 		}
 	}
+	const deliverText = ref("立即投递")
 	
-	//用户点击投递
-	function deliver(){
-		uni.showToast({
-			title: '投递成功', // 提示内容
-			icon: 'success',  // 图标类型（success、loading、none）
-			duration: 2000,   // 显示时长（毫秒）
-			mask: true,       // 是否显示透明蒙层，防止触摸穿透
-			success: () => {
-				console.log('Toast 显示成功');
-			}
-		})
-		console.log("正在查询是否投递过")
-		console.log(options.id)
+	onMounted(()=>{
+		//查询是否投递过
 		uni.request({
 			url:currentUrl+'/deliver/query',
 			method:'POST',
 			data:{
 				"userId":userStore().userId,
-				"jobId":options.id,
+				"jobId":options.value.id,
+				"isDeleted":0
+			},
+			success:(res) => {
+				// console.log(res)
+				if(res.data.data.length==0){//如果数据库里面没有记录
+					// console.log("没有投递过")
+					deliverText.value="立即投递"
+					// resolve(true)
+				}else{ //如果数据库里面有记录
+					// console.log("投递过")
+					deliverText.value="已投递"
+					// resolve(false)
+				}
+			},
+			fail:(err) => {
+				reject(err)
+			},
+		})
+		//查询是否收藏过
+		uni.request({
+			url:currentUrl+'/favorite/query',
+			method:'POST',
+			data:{
+				"userId":userStore().userId,
+				"concerned":options.value.id,
+				"isDeleted":0
+			},
+			success:(res) => {
+				// console.log(res)
+				if(res.data.data.length==0){//如果数据库里面没有记录
+					// console.log("没有收藏过")
+					favorite.value="收 藏"
+					// resolve(true)
+				}else{ //如果数据库里面有记录
+					// console.log("投递过")
+					favorite.value="已收藏"
+					// resolve(false)
+				}
+			},
+			fail:(err) => {
+				reject(err)
+			},
+		})
+	})
+	//用户点击投递
+	function deliver(){
+		if (deliverText.value=="立即投递"){
+			uni.showToast({
+				title: '投递成功', // 提示内容
+				icon: 'success',  // 图标类型（success、loading、none）
+				duration: 2000,   // 显示时长（毫秒）
+				mask: true,       // 是否显示透明蒙层，防止触摸穿透
+				success: () => {
+					console.log('Toast 显示成功');
+				}
+			})
+			deliverText.value="已投递"
+		}else{
+			uni.showToast({
+				title: '请不要重复投递', // 提示内容
+				icon: 'error',  // 图标类型（success、loading、none）
+				duration: 2000,   // 显示时长（毫秒）
+				mask: true,       // 是否显示透明蒙层，防止触摸穿透
+				success: () => {
+					console.log('Toast 显示成功');
+				}
+			})
+			deliverText.value="立即投递"
+		}
+		
+		console.log("正在查询是否投递过")
+		console.log(options.value.id)
+		uni.request({
+			url:currentUrl+'/deliver/query',
+			method:'POST',
+			data:{
+				"userId":userStore().userId,
+				"jobId":options.value.id,
 				"isDeleted":0
 			},
 			success:(res) => {
 				// console.log(res)
 				if(res.data.data.length==0){//如果数据库里面没有记录，直接插入记录
-					console.log("没有投递过")
+					// console.log("没有投递过")
 					uni.request({
 						// url:'http://localhost:8080/job/query',
 						url:currentUrl+'/deliver/insert',
@@ -66,7 +164,7 @@
 					})
 					// resolve(true)
 				}else{ //如果数据库里面有记录,就修改记录
-					console.log("投递过")
+					// console.log("投递过")
 					uni.request({
 						// url:'http://localhost:8080/job/query',
 						url:currentUrl+'/deliver/update',
@@ -74,7 +172,7 @@
 						method:'post',
 						data:{
 							"isDeleted":0,
-							"jobId":options.id,
+							"jobId":options.value.id,
 							"userId":userStore().userId
 						}
 					})
@@ -140,7 +238,7 @@
 		<!-- 收藏 投递 -->
 		<view class="jobContentFoot">
 			<button @touchend="addFavorite">{{favorite}}</button>
-			<button @touchend="deliver">立即投递</button>
+			<button @touchend="deliver">{{deliverText}}</button>
 		</view>
 	</view>
 </template>

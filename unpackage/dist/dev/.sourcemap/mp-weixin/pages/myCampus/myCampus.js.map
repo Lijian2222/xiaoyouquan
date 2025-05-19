@@ -1,0 +1,1 @@
+{"version":3,"file":"myCampus.js","sources":["../../D/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXMvbXlDYW1wdXMvbXlDYW1wdXMudnVl"],"sourcesContent":["import MiniProgramPage from 'D:/F/xiaoyouquan/pages/myCampus/myCampus.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AACA,GAAG,WAAW,eAAe;"}

@@ -6,7 +6,6 @@ if (!Math) {
   commentItem();
 }
 const commentItem = () => "../../components/commentItem/commentItem.js";
-const defaultImage = "../../static/good.png";
 const alternateImage = "../../static/good2.png";
 const _sfc_main = {
   __name: "postContent",
@@ -21,51 +20,31 @@ const _sfc_main = {
         imageSrc.value = alternateImage;
       }
     });
-    function addGood() {
-      if (options.value.imageSrc == defaultImage) {
-        common_vendor.index.request({
-          url: "http://localhost:8080/postGood/insert",
-          method: "POST",
-          data: {
-            "postId": options.value.id,
-            "isDeleted": 0,
-            "userId": 1
-            //暂时写死
-          }
-        });
-        options.value.imageSrc = alternateImage;
-        common_vendor.index.$emit("goodImageSrc", alternateImage, options.value.id);
-        store_post.postStore().addGoodNums(options.value.id);
-        options.value.goodNums++;
-      } else {
-        common_vendor.index.request({
-          url: "http://localhost:8080/postGood/delete",
-          method: "POST",
-          data: {
-            "postId": options.value.id,
-            "isDeleted": 1,
-            "userId": 1
-            //暂时写死
-          }
-        });
-        options.value.imageSrc = defaultImage;
-        common_vendor.index.$emit("goodImageSrc", defaultImage, options.value.id);
-        store_post.postStore().subGoodNums(options.value.id);
-        options.value.goodNums--;
-      }
-    }
+    const inputText = common_vendor.ref("");
     const commentList = common_vendor.ref([
-      { id: 1, username: "米高扬", commentContent: "我不用努力，学校会努力的", publishTime: "2025-05-15 09:30" },
-      { id: 2, username: "帅奥特曼", commentContent: "秋招过去了，春招也过去了", publishTime: "2025-05-15 10:28" },
-      { id: 3, username: "鸭子给给", commentContent: "三天学完大数据开发", publishTime: "2025-05-15 11:02" },
-      { id: 4, username: "冲冲冲", commentContent: "丸辣，鼠鼠毕不了业啦", publishTime: "2025-05-15 15:46" }
+      { username: "米高扬", commentContent: "我不用努力，学校会努力的", publishTime: "2025-05-15 09:30", dog: true },
+      { username: "帅奥特曼", commentContent: "秋招过去了，春招也过去了", publishTime: "2025-05-15 10:28", dog: false },
+      { username: "鸭子给给", commentContent: "三天学完大数据开发", publishTime: "2025-05-15 11:02", dog: false },
+      { username: "冲冲冲", commentContent: "丸辣，鼠鼠毕不了业啦", publishTime: "2025-05-15 15:46", dog: false }
     ]);
+    function push() {
+      commentList.value.push({ username: "熊大爱睡觉", commentContent: `${inputText.value}`, publishTime: formatTimestamp(Date.now()), dog: false });
+    }
     function handleNotInteresting(id) {
       commentList.value = commentList.value.filter((item) => item.id != id);
     }
+    function formatTimestamp(timestamp) {
+      const date = new Date(timestamp);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      return `${year}-${month}-${day} ${hours}:${minutes}`;
+    }
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0$1,
+        a: common_assets._imports_0$2,
         b: common_vendor.t(options.value.username),
         c: common_assets._imports_1$1,
         d: common_vendor.t(options.value.signature),
@@ -82,17 +61,14 @@ const _sfc_main = {
               id: item.id,
               username: item.username,
               commentContent: item.commentContent,
-              publishTime: item.publishTime
+              publishTime: item.publishTime,
+              dog: item.dog
             })
           };
         }),
-        i: common_assets._imports_3$1,
-        j: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(options.value.retweet)),
-        k: options.value.imageSrc,
-        l: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(options.value.goodNums)),
-        m: common_vendor.o(addGood),
-        n: common_assets._imports_5,
-        o: common_vendor.t(common_vendor.unref(store_post.postStore)().formatNumber(options.value.viewNums))
+        i: inputText.value,
+        j: common_vendor.o(($event) => inputText.value = $event.detail.value),
+        k: common_vendor.o(push)
       };
     };
   }

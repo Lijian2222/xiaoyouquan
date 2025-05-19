@@ -1,25 +1,24 @@
 "use strict";
 const common_vendor = require("../../common/vendor.js");
+const common_assets = require("../../common/assets.js");
+require("../../store/job.js");
+const store_environment = require("../../store/environment.js");
 const store_user = require("../../store/user.js");
 const _sfc_main = {
   __name: "message",
   setup(__props) {
-    const messageList = [
-      { userPictureUrl: "../../static/notice.png", username: "系统通知", messageDetail: "人才直聘新版本即将上线" },
-      { userPictureUrl: "../../static/userHeader1.png", username: "张先生", messageDetail: "你好学长，我对此岗位。。。" }
-    ];
+    store_environment.environmentStore().currentUrl;
+    const urlParameter = common_vendor.computed(() => {
+      return "id=1&userId=1&jobName=量化金融开发工程师&jobDetail=负责金融市场产品的估值定价模型研发，并落地为可用于系统开发的文档和案例&position=杭州&academicAcquired=本科&experienceAcquired=不限&jobBelonging=互联网&nature=国企&nickname=张先生&publishTime=2025-03-19&salaryStart=20000&salaryEnd=30000&salaryNums=14&campus=哈尔滨工业大学&flag=true";
+    });
     return (_ctx, _cache) => {
       return {
         a: !common_vendor.unref(store_user.userStore)().logInFlag,
-        b: common_vendor.f(messageList, (item, index, i0) => {
-          return {
-            a: item.userPictureUrl,
-            b: common_vendor.t(item.username),
-            c: common_vendor.t(item.messageDetail),
-            d: item.userId
-          };
-        }),
-        c: common_vendor.unref(store_user.userStore)().logInFlag
+        b: common_assets._imports_0$1,
+        c: common_vendor.unref(store_user.userStore)().logInFlag,
+        d: common_assets._imports_0$2,
+        e: common_vendor.unref(store_user.userStore)().logInFlag,
+        f: "/pages/messageContent/messageContent?" + urlParameter.value
       };
     };
   }

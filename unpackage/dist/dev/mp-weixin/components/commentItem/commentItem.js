@@ -9,7 +9,8 @@ const _sfc_main = {
     id: Number,
     username: String,
     commentContent: String,
-    publishTime: String
+    publishTime: String,
+    dog: Boolean
   },
   emits: ["changeMoney"],
   setup(__props, { emit: __emit }) {
@@ -29,21 +30,22 @@ const _sfc_main = {
     }
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0$1,
+        a: common_assets._imports_0$2,
         b: common_vendor.t(props.username),
         c: imageSrc.value,
         d: common_vendor.o(addGood),
-        e: common_assets._imports_1$5,
+        e: common_assets._imports_1$6,
         f: moreVisbility.value,
         g: common_vendor.o(($event) => moreVisbility.value = false),
-        h: common_assets._imports_2$2,
+        h: common_assets._imports_2$3,
         i: common_vendor.o(notInteresting),
-        j: common_assets._imports_3$2,
+        j: common_assets._imports_3$1,
         k: common_vendor.o(($event) => moreVisbility.value = true),
         l: !moreVisbility.value,
         m: common_vendor.t(props.commentContent),
         n: common_assets._imports_4$2,
-        o: common_vendor.t(props.publishTime)
+        o: props.dog,
+        p: common_vendor.t(props.publishTime)
       };
     };
   }

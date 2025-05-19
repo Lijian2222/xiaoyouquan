@@ -1,0 +1,1 @@
+{"version":3,"file":"newPage.js","sources":["../../D/HBuilderX/plugins/uniapp-cli-vite/uniPage:/cGFnZXMvbmV3UGFnZS9uZXdQYWdlLnZ1ZQ"],"sourcesContent":["import MiniProgramPage from 'D:/F/xiaoyouquan/pages/newPage/newPage.vue'\nwx.createPage(MiniProgramPage)"],"names":[],"mappings":";;;;;;;;;;;AACA,GAAG,WAAW,eAAe;"}

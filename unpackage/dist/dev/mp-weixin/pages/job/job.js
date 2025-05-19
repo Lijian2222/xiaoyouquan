@@ -20,7 +20,7 @@ const _sfc_main = {
     const campusValue = common_vendor.ref("");
     const campusList = common_vendor.ref([]);
     const jobList = common_vendor.ref([]);
-    const list = common_vendor.ref([1, 2, 3]);
+    common_vendor.ref([1, 2, 3]);
     const PageIndex = common_vendor.ref(1);
     campusList.value = store_user.userStore().campus;
     function selectCampus(pageIndex) {
@@ -61,44 +61,12 @@ const _sfc_main = {
           placeholder: "请选择您的学校",
           modelValue: campusValue.value
         }),
-        d: common_vendor.o(($event) => campusValue.value = $event),
-        e: common_vendor.p({
-          localdata: list.value,
-          ["text-key"]: "text",
-          ["value-key"]: "value",
-          placeholder: "行业筛选",
-          modelValue: campusValue.value
-        }),
-        f: common_vendor.o(($event) => campusValue.value = $event),
-        g: common_vendor.p({
-          localdata: list.value,
-          ["text-key"]: "text",
-          ["value-key"]: "value",
-          placeholder: "职位筛选",
-          modelValue: campusValue.value
-        }),
-        h: common_vendor.o(($event) => campusValue.value = $event),
-        i: common_vendor.p({
-          localdata: list.value,
-          ["text-key"]: "text",
-          ["value-key"]: "value",
-          placeholder: "薪资范围",
-          modelValue: campusValue.value
-        }),
-        j: common_vendor.o(($event) => campusValue.value = $event),
-        k: common_vendor.p({
-          localdata: list.value,
-          ["text-key"]: "text",
-          ["value-key"]: "value",
-          placeholder: "经验要求",
-          modelValue: campusValue.value
-        }),
-        l: !common_vendor.unref(store_user.userStore)().logInFlag,
-        m: common_vendor.f(jobList.value, (item, index, i0) => {
+        d: !common_vendor.unref(store_user.userStore)().logInFlag,
+        e: common_vendor.f(jobList.value, (item, index, i0) => {
           return {
             a: item.id,
             b: item.id,
-            c: "824eb1e6-5-" + i0,
+            c: "824eb1e6-1-" + i0,
             d: common_vendor.p({
               id: item.id,
               userId: item.userId,

@@ -10,6 +10,7 @@ const _sfc_main = {
   __name: "homePost",
   props: {
     id: Number,
+    userId: Number,
     username: String,
     time: String,
     content: String,
@@ -17,12 +18,14 @@ const _sfc_main = {
     commentNums: Number,
     viewNums: Number,
     retweet: Number,
-    signature: String
+    signature: String,
+    profilePicture: String
   },
   setup(__props) {
     const currentUrl = store_environment.environmentStore().currentUrl;
     const moreVisbility = common_vendor.ref(true);
     const props = __props;
+    common_vendor.index.__f__("log", "at components/homePost/homePost.vue:27", props.profilePicture);
     const imageSrc = common_vendor.ref("../../static/good.png");
     store_post.postStore().requestGood(props.id).then((result) => {
       if (result) {
@@ -75,16 +78,16 @@ const _sfc_main = {
     });
     return (_ctx, _cache) => {
       return {
-        a: common_assets._imports_0$1,
-        b: `/pages/personHome/personHome?username=${props.username}`,
+        a: common_assets._imports_0$2,
+        b: `/pages/personHome/personHome?username=${props.username}&userId=${props.userId}`,
         c: common_vendor.t(__props.username),
         d: common_vendor.t(__props.time),
-        e: common_assets._imports_1$5,
+        e: common_assets._imports_1$6,
         f: moreVisbility.value,
         g: common_vendor.o(($event) => moreVisbility.value = false),
-        h: common_assets._imports_2$2,
+        h: common_assets._imports_2$3,
         i: common_vendor.o(($event) => common_vendor.unref(store_post.postStore)().notInteresting(props.id)),
-        j: common_assets._imports_3$2,
+        j: common_assets._imports_3$1,
         k: common_vendor.o(($event) => moreVisbility.value = true),
         l: !moreVisbility.value,
         m: common_vendor.t(__props.content),

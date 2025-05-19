@@ -1,18 +1,86 @@
 <script setup>
-import { ref } from 'vue';
-import { userStore } from '../../store/user.js';
-import {onLoad} from "@dcloudio/uni-app"
 
 
-//接收参数页面
+	import {onLoad} from "@dcloudio/uni-app"
+	import { onMounted, ref, watch } from 'vue'
+	import { postStore } from '../../store/post'
+	import { userStore } from '../../store/user.js'
+	import { onReachBottom } from '@dcloudio/uni-app'
+	import { environmentStore } from '../../store/environment'  
+	const currentUrl = environmentStore().currentUrl
+
+//接收参数页面,最好写在最上面
 const options = ref({})
+const userId = ref(1)
 onLoad((e)=>{
-    // console.log(e)
+    console.log(e)
     options.value=e
+	// console.log("options.value="+options.value)
+	// console.log("options.value.userId="+options.value.userId)
+	userId.value = Number(e.userId)
 })
+
+	// 我的发布 帖子
+	const myPublishList1 = ref([])
+	async function getMyPublishList1(pageIndex){
+		// console.log(pageIndex)
+		let res = await uni.request({
+			// url:'http://localhost:8080/post/query',
+			url:currentUrl+'/post/query',
+			// header: { 'content-type': 'application/x-www-form-urlencoded' },
+			method:'post',
+			data:{
+				"isDeleted":0,
+				"pageIndex":pageIndex,
+				"pageSize":5,
+				"userId":userId.value
+			}
+		})
+		// console.log(res)
+		res.data.data.forEach( 
+			postStore().handleTime
+		)
+		myPublishList1.value = [...myPublishList1.value,...res.data.data]
+		console.log(myPublishList1)
+	}
+	
+	// 我的发布 岗位
+	const myPublishList2 = ref([])
+	
+	async function getMyPublishList2(pageIndex){
+		// console.log(pageIndex)
+		let res = await uni.request({
+			// url:'http://localhost:8080/job/query',
+			url:currentUrl+'/job/query',
+			// header: { 'content-type': 'application/x-www-form-urlencoded' },
+			method:'post',
+			data:{
+				"isDeleted":0,
+				"pageIndex":pageIndex,
+				"pageSize":5,
+				"userId":userId.value
+			}
+		})
+		// console.log(res)
+		res.data.data.forEach( 
+			postStore().handleTime
+		)
+		myPublishList2.value = [...myPublishList2.value,...res.data.data]
+		console.log(myPublishList2)
+	}
+	
+	onMounted(()=>{
+		getMyPublishList1(1)
+		getMyPublishList2(1)
+	})
+	
+	
+	
+
 
 // 当前激活的标签页
 const activeTab = ref('position');
+const headTabNum = ref(1)
 
 // 模拟岗位数据
 const jobList = ref([
@@ -47,26 +115,54 @@ const applyJob = (jobId) => {
     duration: 2000
   });
 };
+
+function navigator(){
+	uni.navigateTo({
+	    url: `/pages/messageContent/messageContent?id=1&userId=${options.userId}&jobName=量化金融开发工程师&jobDetail=负责金融市场产品的估值定价模型研发，并落地为可用于系统开发的文档和案例&position=杭州&academicAcquired=本科&experienceAcquired=不限&jobBelonging=互联网&nature=国企&nickname=${options.value.username}&publishTime=2025-03-19&salaryStart=20000&salaryEnd=30000&salaryNums=14&campus=哈尔滨工业大学&flag=false`, // 目标页面路径及参数
+	    success: function () {
+	        console.log('跳转成功');
+	    },
+	    fail: function (err) {
+	        console.error('跳转失败', err);
+	    }
+	});
+}
+
+	const guanzhuText = ref("关 注")
+	function guanzhu(){
+		uni.showToast({
+			title: '关注成功', // 提示内容
+			icon: 'success',  // 图标类型（success、loading、none）
+			duration: 2000,   // 显示时长（毫秒）
+			mask: true,       // 是否显示透明蒙层，防止触摸穿透
+			success: () => {
+				console.log('Toast 显示成功');
+			}
+		})
+		guanzhuText.value="已关注"
+	}
 </script>
 
 <template>
   <view class="alumni-page">
     <!-- 顶部状态栏 -->
     <view class="status-bar">
-      <view class="back-icon">
+      <!-- <view class="back-icon">
         <text class="iconfont icon-back">&#xe60e;</text>
-      </view>
+      </view> -->
       <text class="page-title">校友主页</text>
-      <view class="action-buttons">
+      <!-- <view class="action-buttons">
         <text class="iconfont icon-more">&#xe61f;</text>
         <text class="iconfont icon-share">&#xe620;</text>
-      </view>
+      </view> -->
     </view>
     
     <!-- 个人信息卡片 -->
     <view class="user-card">
       <!-- 背景图 -->
-      <view class="banner-bg"></view>
+      <view class="banner-bg">
+		  <image src="/static/bgc.jpg" mode=""></image>
+	  </view>
       
       <!-- 用户信息 -->
       <view class="user-info">
@@ -89,18 +185,18 @@ const applyJob = (jobId) => {
         </view>
         
         <view class="bio">
-          <text class="bio-icon">&#xe614;</text>
+          <!-- <text class="bio-icon">&#xe614;</text> -->
           <text class="bio-text">这个人有点懒，什么也没留下...</text>
         </view>
         
         <!-- 基本信息 -->
         <view class="basic-info">
           <view class="info-item">
-            <text class="iconfont icon-gender">&#xe623;</text>
+            <!-- <text class="iconfont icon-gender">&#xe623;</text> -->
             <text class="info-text">23岁</text>
           </view>
           <view class="info-item">
-            <text class="iconfont icon-location">&#xe624;</text>
+            <!-- <text class="iconfont icon-location">&#xe624;</text> -->
             <text class="info-text">北京</text>
           </view>
           <view class="online-status">
@@ -139,28 +235,61 @@ const applyJob = (jobId) => {
         <text>帖子</text>
         <view class="active-line" v-if="activeTab === 'post'"></view>
       </view>
-      <view class="tab-item" :class="{ active: activeTab === 'skill' }" @tap="switchTab('skill')">
+      <!-- <view class="tab-item" :class="{ active: activeTab === 'skill' }" @tap="switchTab('skill')">
         <text>技能</text>
         <view class="active-line" v-if="activeTab === 'skill'"></view>
-      </view>
+      </view> -->
     </view>
     
     <!-- 岗位列表 -->
     <view class="job-list" v-if="activeTab === 'position'">
-      <view class="job-item" v-for="(job, index) in jobList" :key="index">
+		<JobPost
+		v-for="(item,index) in myPublishList2" :key="item.id"
+		:id="item.id"
+		:userId="item.userId"
+		:jobName="item.jobName"
+		:jobDetail="item.jobDetail"
+		:position="item.position"
+		:academicAcquired="item.academicAcquired"
+		:experienceAcquired="item.experienceAcquired"
+		:jobBelonging="item.jobBelonging"
+		:nature="item.nature"
+		:nickname="item.nickname"
+		:publishTime="item.publishTime"
+		:salaryStart="item.salaryStart"
+		:salaryEnd="item.salaryEnd"
+		:salaryNums="item.salaryNums"
+		:campus="item.campus"
+		></JobPost>
+      <!-- <view class="job-item" v-for="(job, index) in jobList" :key="index">
         <view class="job-title">{{job.title}}</view>
         <view class="job-detail">
           <view class="job-location">{{job.location}} | {{job.education}} | {{job.experience}}</view>
           <view class="job-salary">{{job.salary}}</view>
         </view>
         <view class="apply-btn" @tap="applyJob(job.id)">立即投递</view>
-      </view>
+      </view> -->
     </view>
-    
+	<!-- 我发布的帖子 -->
+	<view class="job-list" v-if="activeTab === 'post'">
+		<homePost
+		v-for="(item,index) in myPublishList1" :key="item.id"
+		:id="item.id"
+		:username="item.nickname"
+		:content="item.content"
+		:goodNums="item.goodNums"
+		:commentNums="item.commentNums"
+		:viewNums="item.viewNums"
+		:time="item.publishTime"
+		:retweet="item.retweet"
+		:signature="item.signature"
+		:profilePicture="item.profilePicture"
+		></homePost>
+    </view>
     <!-- 底部按钮 -->
     <view class="bottom-buttons">
-      <view class="follow-btn">关注</view>
-      <view class="message-btn">私信</view>
+      <view class="follow-btn" @touchend="guanzhu">{{guanzhuText}}</view>
+      <view class="message-btn" @touchend="navigator">私信</view>
     </view>
   </view>
 </template>
@@ -188,6 +317,7 @@ const applyJob = (jobId) => {
   }
   
   .page-title {
+	  margin: 0 auto;
     font-size: 36rpx;
     font-weight: bold;
   }
@@ -207,6 +337,10 @@ const applyJob = (jobId) => {
   .banner-bg {
     height: 300rpx;
     background: linear-gradient(to bottom, #59c1ff, #119efc);
+	image{
+		width: 100vw;
+		height: 300rpx;
+	}
   }
   
   .user-info {
@@ -388,7 +522,7 @@ const applyJob = (jobId) => {
 // 岗位列表
 .job-list {
   background-color: #fff;
-  padding: 30rpx;
+  // padding: 30rpx;
   
   .job-item {
     padding: 30rpx 0;

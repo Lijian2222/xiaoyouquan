@@ -83,10 +83,28 @@
 			{
 				"navigationBarTitleText" : "我的投递"
 			}
+		},
+		{
+			"path" : "pages/messageContent/messageContent",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/mySkill/mySkill",
+			"style" : 
+			{
+				"navigationBarTitleText" : "我的技能"
+			}
+		},
+		{
+			"path" : "pages/myCampus/myCampus",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
-		
-		
-		
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",//导航栏文字颜色

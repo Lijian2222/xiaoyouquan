@@ -17,6 +17,7 @@
   font-size: 40rpx;
 }
 .status-bar .page-title.data-v-12d85066 {
+  margin: 0 auto;
   font-size: 36rpx;
   font-weight: bold;
 }
@@ -32,6 +33,10 @@
 .user-card .banner-bg.data-v-12d85066 {
   height: 300rpx;
   background: linear-gradient(to bottom, #59c1ff, #119efc);
+}
+.user-card .banner-bg image.data-v-12d85066 {
+  width: 100vw;
+  height: 300rpx;
 }
 .user-card .user-info.data-v-12d85066 {
   position: relative;
@@ -180,7 +185,6 @@
 }
 .job-list.data-v-12d85066 {
   background-color: #fff;
-  padding: 30rpx;
 }
 .job-list .job-item.data-v-12d85066 {
   padding: 30rpx 0;

@@ -13,6 +13,7 @@
 	//所以此处需要借助于‘编译器宏’函数接收子组件传递的数据
 	const props = defineProps({
 		id:Number,
+		userId:Number,
 		username:String,
 		time:String,
 		content:String,
@@ -20,9 +21,10 @@
 		commentNums:Number,
 		viewNums:Number,
 		retweet:Number,
-		signature:String
+		signature:String,
+		profilePicture:String
 	})
-	
+	console.log(props.profilePicture)
 	//点赞图片相关 每个帖子都有一个独立的imageSrc 只要涉及到imageSrc就不能写到post.js仓库里面
 	const imageSrc = ref('../../static/good.png')
 	const defaultImage = '../../static/good.png'//未点赞图片
@@ -108,9 +110,9 @@
 		<!-- 存帖子的头部，包括头像，昵称，发布时间，更多 -->
 		<view class="homePostHead">
 			<!-- 用户头像，点击头像进主页 -->
-			<navigator :url="`/pages/personHome/personHome?username=${props.username}`">
+			<navigator :url="`/pages/personHome/personHome?username=${props.username}&userId=${props.userId}`">
 				<view class="userHeadPicture">
-					<image lazy-load src="../../static/userHeader1.png"></image>
+					<image lazy-load src="/static/userHeader1.png"></image>
 				</view>
 			</navigator>
 			

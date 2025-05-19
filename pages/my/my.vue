@@ -35,7 +35,7 @@
 					</view>
 					<view class="signature">
 						<image src="../../static/signature.png"></image>
-						<span>这个人有点懒，什么也没有留下</span>
+						<span>这里空空如也</span>
 					</view>
 				</view>
 			</view>
@@ -70,28 +70,34 @@
 			</navigator>
 			
 			<!-- 我的技能 -->
-			<view class="mySkill">
-				<view>
-					<image src="../../static/mySkill.png"></image>
+			<navigator url="/pages/mySkill/mySkill">
+				<view class="mySkill">
+					<view>
+						<image src="../../static/mySkill.png"></image>
+					</view>
+					<span>我的技能</span>
 				</view>
-				<span>我的技能</span>
-			</view>
+			</navigator>
+			
 			<!-- 我的学校 -->
-			<view class="myCampus">
-				<view>
-					<image src="../../static/academic.png"></image>
+			<navigator url="/pages/myCampus/myCampus">
+				<view class="myCampus">
+					<view>
+						<image src="../../static/academic.png"></image>
+					</view>
+					<span>我的学校</span>
 				</view>
-				<span>我的学校</span>
-			</view>
+			</navigator>
+			
 			<!-- 设置 -->
-			<navigator url="/pages/personHome/personHome">
+			<!-- <navigator url="/pages/test/test">
 				<view class="setting">
 					<view>
 						<image src="../../static/setting.png"></image>
 					</view>
 					<span>设置</span>
 				</view>
-			</navigator>
+			</navigator> -->
 		</view>
 		
 	</view>

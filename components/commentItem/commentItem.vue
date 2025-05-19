@@ -5,7 +5,8 @@
 		id:Number,
 		username:String,
 		commentContent:String,
-		publishTime:String
+		publishTime:String,
+		dog:Boolean
 	})
 	
 	const imageSrc = ref('../../static/good.png')
@@ -91,7 +92,7 @@
 			<view class="commentContent">
 				{{props.commentContent}}
 			</view>
-			<view class="emoji">
+			<view class="emoji" v-show="props.dog">
 				<image src="/static/dog.png" mode=""></image>
 			</view>
 		</view>

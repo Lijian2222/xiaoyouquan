@@ -24,6 +24,7 @@
 .editInfo .userHeadPicture .picture image.data-v-4130e2dc {
   width: 15vw;
   height: 15vw;
+  margin-left: -30vw;
 }
 .editInfo .username.data-v-4130e2dc {
   display: flex;
@@ -68,5 +69,20 @@
   font-size: 5vw;
 }
 .editInfo .born .selectBorn.data-v-4130e2dc {
+  color: #848484;
+}
+.editInfo .signature.data-v-4130e2dc {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 15vw;
+  padding: 3vw;
+  border-bottom: 2px solid #f8f8f8;
+  background-color: #fff;
+  font-size: 5vw;
+}
+.editInfo .signature .createSignature.data-v-4130e2dc {
   color: #848484;
 }

@@ -102,6 +102,7 @@
 			<homePost 
 			v-for="(item,index) in postStore().list1" :key="item.id"
 			:id="item.id"
+			:userId="item.userId"
 			:username="item.nickname"
 			:content="item.content"
 			:goodNums="item.goodNums"
@@ -110,6 +111,7 @@
 			:time="item.publishTime"
 			:retweet="item.retweet"
 			:signature="item.signature"
+			:profilePicture="item.profilePicture"
 			></homePost>
 			</template>
 			
@@ -117,6 +119,7 @@
 			    <homePost
 			      v-for="(item,index) in postStore().list2" :key="item.id"
 			      :id="item.id"
+				  :userId="item.userId"
 			      :username="item.nickname"
 			      :content="item.content"
 			      :goodNums="item.goodNums"
@@ -133,6 +136,7 @@
 			    <homePost
 			      v-for="(item,index) in postStore().list3" :key="item.id"
 			      :id="item.id"
+				  :userId="item.userId"
 			      :username="item.nickname"
 			      :content="item.content"
 			      :goodNums="item.goodNums"
@@ -172,7 +176,7 @@
 			:signature="item.signature"
 			></homePost> -->
 			
-			<homePost
+			<!-- <homePost
 			v-for="(item,index) in postStore().list3" :key="item.id"
 			v-show="headTabNum==3 && userStore().logInFlag"
 			:id="item.id"
@@ -184,7 +188,7 @@
 			:time="item.publishTime"
 			:retweet="item.retweet"
 			:signature="item.signature"
-			></homePost>
+			></homePost> -->
 			
 		</view>
 		<!-- 蓝色的加号 -->

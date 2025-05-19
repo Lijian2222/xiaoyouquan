@@ -18,8 +18,7 @@ const _sfc_main = {
         h: common_assets._imports_3,
         i: common_assets._imports_4,
         j: common_assets._imports_1$3,
-        k: common_assets._imports_6,
-        l: common_vendor.unref(store_user.userStore)().logInFlag
+        k: common_vendor.unref(store_user.userStore)().logInFlag
       };
     };
   }

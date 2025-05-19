@@ -7051,7 +7051,7 @@ function initOnError() {
 function initRuntimeSocketService() {
   const hosts = "192.168.32.1,192.168.78.1,192.168.124.138,127.0.0.1";
   const port = "8090";
-  const id = "mp-weixin_RgFQTb";
+  const id = "mp-weixin_Lc-PV3";
   const lazy = typeof swan !== "undefined";
   let restoreError = lazy ? () => {
   } : initOnError();
@@ -8666,6 +8666,24 @@ const pages = [
     path: "pages/myDeliver/myDeliver",
     style: {
       navigationBarTitleText: "我的投递"
+    }
+  },
+  {
+    path: "pages/messageContent/messageContent",
+    style: {
+      navigationBarTitleText: ""
+    }
+  },
+  {
+    path: "pages/mySkill/mySkill",
+    style: {
+      navigationBarTitleText: "我的技能"
+    }
+  },
+  {
+    path: "pages/myCampus/myCampus",
+    style: {
+      navigationBarTitleText: ""
     }
   }
 ];

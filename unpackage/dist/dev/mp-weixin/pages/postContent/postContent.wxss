@@ -112,12 +112,14 @@
   border-radius: 0 0 5vw 5vw;
   color: #848484;
   background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 .postContent .postContentBodyFoot input.data-v-ea039cdc {
-  width: 50vw;
+  width: 70vw;
   height: 10vw;
   margin: 3vw;
   border-radius: 5vw;
+  padding-left: 2vw;
   background-color: #f8f8f8;
 }
 .postContent .postContentBodyFoot image.data-v-ea039cdc {
@@ -125,23 +127,15 @@
   height: 7vw;
   margin-top: 4vw;
 }
-.postContent .postContentBodyFoot .share.data-v-ea039cdc {
-  display: flex;
-  width: 15vw;
-  height: 15vw;
+.postContent .postContentBodyFoot .enter.data-v-ea039cdc {
+  width: 20vw;
+  height: 10vw;
+  margin: 3vw;
 }
-.postContent .postContentBodyFoot .share image.data-v-ea039cdc {
-  width: 6vw;
-  height: 6vw;
-  margin-top: 5vw;
-}
-.postContent .postContentBodyFoot .good.data-v-ea039cdc {
-  display: flex;
-  width: 15vw;
-  height: 15vw;
-}
-.postContent .postContentBodyFoot .pageView.data-v-ea039cdc {
-  display: flex;
-  width: 15vw;
-  height: 15vw;
+.postContent .postContentBodyFoot .enter button.data-v-ea039cdc {
+  width: 20vw;
+  height: 10vw;
+  color: #fff;
+  background-color: #0d99ff;
+  border-radius: 3vw;
 }

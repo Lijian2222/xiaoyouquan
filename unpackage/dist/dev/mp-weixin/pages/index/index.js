@@ -76,6 +76,7 @@ const _sfc_main = {
             c: "1cf27b2a-0-" + i0,
             d: common_vendor.p({
               id: item.id,
+              userId: item.userId,
               username: item.nickname,
               content: item.content,
               goodNums: item.goodNums,
@@ -83,7 +84,8 @@ const _sfc_main = {
               viewNums: item.viewNums,
               time: item.publishTime,
               retweet: item.retweet,
-              signature: item.signature
+              signature: item.signature,
+              profilePicture: item.profilePicture
             })
           };
         })
@@ -95,6 +97,7 @@ const _sfc_main = {
             c: "1cf27b2a-1-" + i0,
             d: common_vendor.p({
               id: item.id,
+              userId: item.userId,
               username: item.nickname,
               content: item.content,
               goodNums: item.goodNums,
@@ -114,6 +117,7 @@ const _sfc_main = {
             c: "1cf27b2a-2-" + i0,
             d: common_vendor.p({
               id: item.id,
+              userId: item.userId,
               username: item.nickname,
               content: item.content,
               goodNums: item.goodNums,
@@ -128,27 +132,8 @@ const _sfc_main = {
       } : {}, {
         m: headTabNum.value == 2 && common_vendor.unref(store_user.userStore)().logInFlag,
         o: headTabNum.value == 3 && common_vendor.unref(store_user.userStore)().logInFlag,
-        q: common_vendor.f(common_vendor.unref(store_post.postStore)().list3, (item, index, i0) => {
-          return {
-            a: item.id,
-            b: item.id,
-            c: "1cf27b2a-3-" + i0,
-            d: common_vendor.p({
-              id: item.id,
-              username: item.nickname,
-              content: item.content,
-              goodNums: item.goodNums,
-              commentNums: item.commentNums,
-              viewNums: item.viewNums,
-              time: item.publishTime,
-              retweet: item.retweet,
-              signature: item.signature
-            })
-          };
-        }),
-        r: headTabNum.value == 3 && common_vendor.unref(store_user.userStore)().logInFlag,
-        s: common_assets._imports_1,
-        t: common_vendor.o(checkPublish)
+        q: common_assets._imports_1,
+        r: common_vendor.o(checkPublish)
       });
     };
   }

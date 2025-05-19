@@ -1,22 +1,47 @@
-.phoneNumber.data-v-bac4a35d {
-  height: 10vw;
-  margin-top: 50vw;
+.register.data-v-bac4a35d {
+  width: 100vw;
+  height: 100vh;
+  background-color: #fff;
+  margin-top: 30vw;
 }
-.phoneNumber input.data-v-bac4a35d {
-  height: 10vw;
-  background-color: #ededed;
+.register .Head.data-v-bac4a35d {
+  width: 100vw;
+  height: 25vw;
+  padding-left: 10vw;
+}
+.register .Head .title.data-v-bac4a35d {
+  font-size: 9vw;
+  margin-bottom: 3vw;
+}
+.register .Head .tips.data-v-bac4a35d {
+  color: rgba(0, 0, 0, 0.5);
   font-size: 5vw;
 }
-.password.data-v-bac4a35d {
+.register .phoneNumber.data-v-bac4a35d {
   height: 10vw;
   margin-top: 5vw;
+  padding-left: 10vw;
 }
-.password input.data-v-bac4a35d {
+.register .phoneNumber input.data-v-bac4a35d {
   height: 10vw;
+  width: 80vw;
   background-color: #ededed;
   font-size: 5vw;
+  border-radius: 2vw;
 }
-button.data-v-bac4a35d {
+.register .password.data-v-bac4a35d {
+  height: 10vw;
+  margin-top: 5vw;
+  padding-left: 10vw;
+}
+.register .password input.data-v-bac4a35d {
+  height: 10vw;
+  width: 80vw;
+  background-color: #ededed;
+  font-size: 5vw;
+  border-radius: 2vw;
+}
+.register button.data-v-bac4a35d {
   width: 30vw;
   height: 10vw;
   margin: 10vw auto;

@@ -70,7 +70,7 @@
 			<view class="campusSelect">
 				<uni-data-select v-model="campusValue" :localdata='campusList' placeholder="请选择您的学校" @change="selectCampus(1)"></uni-data-select>
 			</view>
-			<view class="otherSelect">
+			<!-- <view class="otherSelect">
 				<view class="industrySelect">
 					<uni-data-select v-model="campusValue" :localdata='list' text-key='text' value-key='value' placeholder="行业筛选"></uni-data-select>
 				</view>
@@ -83,7 +83,7 @@
 				<view class="experienceSelect">
 					<uni-data-select v-model="campusValue" :localdata='list' text-key='text' value-key='value' placeholder="经验要求"></uni-data-select>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		
 		<!-- 岗位首页刚进来的时候提示 -->
@@ -133,7 +133,7 @@
 			display: flex;
 			flex-direction: column;
 			width: 100vw;
-			height: 20vw;
+			height: 10vw;
 			text-align: center;
 			
 			
@@ -148,8 +148,6 @@
 					padding: 0;
 					border: none !important;
 				}
-				
-				
 			}
 			
 			.otherSelect{
