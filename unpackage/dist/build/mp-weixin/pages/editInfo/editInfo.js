@@ -1,1 +1,1 @@
-"use strict";const e=require("../../common/assets.js"),r={};const s=require("../../common/vendor.js")._export_sfc(r,[["render",function(r,s){return{a:e._imports_0$3}}],["__scopeId","data-v-cebd777a"]]);wx.createPage(s);
+"use strict";const e=require("../../common/vendor.js"),r=require("../../store/user.js"),s={__name:"editInfo",setup:s=>(s,t)=>({a:e.unref(r.userStore)().userHeadPicture})},t=e._export_sfc(s,[["__scopeId","data-v-69c914fe"]]);wx.createPage(t);

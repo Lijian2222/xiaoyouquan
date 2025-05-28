@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "job-post": "../../components/JobPost/JobPost",
+    "home-post": "../../components/homePost/homePost"
+  }
+}
